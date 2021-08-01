@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/homeFragment"
+        android:title=""
+        android:icon="@drawable/ic_vector_hom"/>
+
+    <item
+        android:title=""
+        android:icon="@drawable/ic_vector_search"/>
+
+    <item
+        android:title=""
+        android:icon="@drawable/ic_vector_add"/>
+
+    <item
+        android:title=""
+        android:icon="@drawable/ic_vector_favorite_border"/>
+
+    <item
+        android:title=""
+        android:icon="@drawable/ic_vector_person"/>
+</menu>
