@@ -1,4 +1,4 @@
-package com.example.instagram.homefragment
+package com.example.instagram.searchfragment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,15 +7,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.example.instagram.R
-import com.example.instagram.databinding.FragmentHomeBinding
+import com.example.instagram.databinding.FragmentSearchBinding
 
-class HomeFragment : Fragment() {
+class SearchFragment : Fragment() {
 
-    lateinit var binding        : FragmentHomeBinding
-    private val homeViewModel   : HomeViewModel by viewModels()
+    lateinit var binding : FragmentSearchBinding
+    private val searchViewModel : SearchViewModel by viewModels()
     override fun onCreateView( inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
         // Inflate the layout for this fragment
-        binding = FragmentHomeBinding.inflate(inflater)
+        binding = FragmentSearchBinding.inflate(inflater)
         return binding.root
     }
 
@@ -23,7 +23,7 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // connect with view model.
-        binding.lifecycleOwner  = this
-        binding.homeFragment    = homeViewModel
+        binding.lifecycleOwner = this
+        binding.searchFragment = searchViewModel
     }
 }
