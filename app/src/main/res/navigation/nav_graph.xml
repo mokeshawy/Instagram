@@ -36,5 +36,16 @@
         android:id="@+id/profileFragment"
         android:name="com.example.instagram.profilefragment.ProfileFragment"
         android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profileFragment_to_accountSettingFragment"
+            app:destination="@id/accountSettingFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:popUpTo="@id/profileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/accountSettingFragment"
+        android:name="com.example.instagram.accountsettingfragemnt.AccountSettingFragment"
+        android:label="fragment_account_setting"
+        tools:layout="@layout/fragment_account_setting" />
 </navigation>

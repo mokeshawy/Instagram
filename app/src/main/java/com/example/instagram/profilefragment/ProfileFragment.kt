@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.example.instagram.R
 import com.example.instagram.databinding.FragmentProfileBinding
 
@@ -25,5 +26,10 @@ class ProfileFragment : Fragment() {
         // connect with view model
         binding.lifecycleOwner = this
         binding.profileFragment = profileViewModel
+
+        // go to account setting.
+        binding.tvEditProfile.setOnClickListener {
+            findNavController().navigate(R.id.action_profileFragment_to_accountSettingFragment)
+        }
     }
 }
