@@ -43,7 +43,10 @@ class MainActivity : AppCompatActivity() {
         // operation bottom navigation show and hide on fragment.
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when(destination.id){
-                R.id.homeFragment ->  binding.bottomNavigation.visibility = View.VISIBLE
+                R.id.homeFragment           ->  binding.bottomNavigation.visibility = View.VISIBLE
+                R.id.searchFragment         ->  binding.bottomNavigation.visibility = View.VISIBLE
+                R.id.notificationsFragment  ->  binding.bottomNavigation.visibility = View.VISIBLE
+                R.id.profileFragment        ->  binding.bottomNavigation.visibility = View.VISIBLE
                 else -> binding.bottomNavigation.visibility = View.GONE
             }
         }

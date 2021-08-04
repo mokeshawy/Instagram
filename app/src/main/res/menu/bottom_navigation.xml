@@ -7,6 +7,7 @@
         android:icon="@drawable/ic_vector_hom"/>
 
     <item
+        android:id="@+id/searchFragment"
         android:title=""
         android:icon="@drawable/ic_vector_search"/>
 
@@ -15,10 +16,12 @@
         android:icon="@drawable/ic_vector_add"/>
 
     <item
+        android:id="@+id/notificationsFragment"
         android:title=""
         android:icon="@drawable/ic_vector_favorite_border"/>
 
     <item
+        android:id="@+id/profileFragment"
         android:title=""
         android:icon="@drawable/ic_vector_person"/>
 </menu>
