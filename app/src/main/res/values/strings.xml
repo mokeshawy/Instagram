@@ -2,4 +2,16 @@
     <string name="app_name">Instagram</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="err_enter_full_name">Please enter full name</string>
+    <string name="err_enter_user_name">Please enter user name</string>
+    <string name="err_enter_your_emaill">Please enter your email</string>
+    <string name="err_enter_your_password">Please enter your password</string>
+    <string name="et_email_string">Email...</string>
+    <string name="et_password_string">Password...</string>
+    <string name="et_full_name_string">Full Name...</string>
+    <string name="et_user_name_string">User Name...</string>
+
+    <string name="message_for_bio">Hey im using instagram...</string>
+    <string name="btn_sign_up_string">Sign Up</string>
 </resources>

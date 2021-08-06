@@ -5,7 +5,7 @@
 
     <data>
         <variable
-            name="signUpFragemnt"
+            name="signUpFragment"
             type="com.example.instagram.ui.signupfragment.SignUpViewModel" />
     </data>
 
@@ -45,10 +45,10 @@
                     android:id="@+id/et_full_name"
                     android:layout_width="350dp"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/logo"
                     android:background="@drawable/inputs_background"
-                    android:hint="FullName..."
+                    android:hint="@string/et_full_name_string"
                     android:inputType="textEmailAddress"
+                    android:text="@={signUpFragment.etFullName}"
                     android:padding="10dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -62,8 +62,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/inputs_background"
-                    android:hint="UserName..."
+                    android:hint="@string/et_user_name_string"
                     android:inputType="textEmailAddress"
+                    android:text="@={signUpFragment.etUserName}"
                     android:padding="10dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
@@ -77,8 +78,9 @@
                     android:layout_below="@+id/et_user_name"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/inputs_background"
-                    android:hint="Email..."
+                    android:hint="@string/et_email_string"
                     android:inputType="textEmailAddress"
+                    android:text="@={signUpFragment.etEmail}"
                     android:padding="10dp"
                     app:layout_constraintEnd_toEndOf="@+id/et_user_name"
                     app:layout_constraintStart_toStartOf="@+id/et_user_name"
@@ -91,8 +93,9 @@
                     android:layout_below="@+id/et_email"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/inputs_background"
-                    android:hint="Password..."
+                    android:hint="@string/et_password_string"
                     android:inputType="textPassword"
+                    android:text="@={signUpFragment.etPassword}"
                     android:padding="10dp"
                     app:layout_constraintEnd_toEndOf="@+id/et_email"
                     app:layout_constraintStart_toStartOf="@+id/et_email"
@@ -106,7 +109,7 @@
                     android:layout_below="@+id/et_password"
                     android:layout_marginTop="40dp"
                     android:background="@drawable/button_background"
-                    android:text="Register"
+                    android:text="@string/btn_sign_up_string"
                     android:textAllCaps="false"
                     android:textSize="15sp"
                     app:layout_constraintEnd_toEndOf="@+id/et_password"

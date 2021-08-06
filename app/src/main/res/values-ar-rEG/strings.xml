@@ -1,4 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Instagram</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="err_enter_full_name">من فضلك ادخل الاسم كاملا</string>
+    <string name="err_enter_user_name">من فضلك ادخل اسم المستخدم</string>
+    <string name="err_enter_your_emaill">من فضلك ادخل الايميل الخاص بك</string>
+    <string name="err_enter_your_password">من فضلك ادخل الرقم السري</string>
+
+    <string name="et_email_string">الايميل</string>
+    <string name="et_password_string">الرقم السري</string>
+    <string name="et_full_name_string">الاسم كاملا</string>
+    <string name="et_user_name_string">اسم المستخدم</string>
+
+    <string name="message_for_bio">مرحبا انا استخدم انستغرام</string>
+
+    <string name="btn_sign_up_string">سجل</string>
+
 </resources>

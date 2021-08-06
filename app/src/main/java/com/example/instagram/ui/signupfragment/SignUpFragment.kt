@@ -25,12 +25,17 @@ class SignUpFragment : Fragment() {
 
         // connect with viewModel
         binding.lifecycleOwner = this
-        binding.signUpFragemnt = signUpViewModel
+        binding.signUpFragment = signUpViewModel
 
 
         // go to signIn
         binding.tvGoToSignIn.setOnClickListener {
             findNavController().navigate(R.id.action_signUpFragment_to_signInFragment)
+        }
+
+        //create new account.
+        binding.btnSignUp.setOnClickListener {
+            signUpViewModel.signUp(requireActivity(),view)
         }
     }
 }
