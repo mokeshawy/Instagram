@@ -1,4 +1,4 @@
-package com.example.instagram.homefragment
+package com.example.instagram.ui.homefragment
 
 import androidx.lifecycle.ViewModel
 

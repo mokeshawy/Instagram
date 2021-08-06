@@ -1,4 +1,4 @@
-package com.example.instagram.activits
+package com.example.instagram.ui.activits
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -7,8 +7,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
 import com.example.instagram.R
 import com.example.instagram.databinding.ActivityMainBinding
 
@@ -30,15 +28,15 @@ class MainActivity : AppCompatActivity() {
 
         // show title for action bar on fragment.
         appBarConfiguration = AppBarConfiguration(setOf(R.id.homeFragment))
-        setupActionBarWithNavController(navController,appBarConfiguration)
+        //setupActionBarWithNavController(navController,appBarConfiguration)
 
         // operation work hide and show action bar for fragment.
-        navController.addOnDestinationChangedListener { _, destination, _ ->
-            when(destination.id){
-
-                else -> supportActionBar!!.hide()
-            }
-        }
+//        navController.addOnDestinationChangedListener { _, destination, _ ->
+//            when(destination.id){
+//
+//                else -> supportActionBar!!.hide()
+//            }
+//        }
 
         // operation bottom navigation show and hide on fragment.
         navController.addOnDestinationChangedListener { _, destination, _ ->

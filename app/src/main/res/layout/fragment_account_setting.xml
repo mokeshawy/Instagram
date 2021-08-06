@@ -5,13 +5,13 @@
     <data>
         <variable
             name="accountSettingFragment"
-            type="com.example.instagram.accountsettingfragemnt.AccountSettingViewModel" />
+            type="com.example.instagram.ui.accountsettingfragemnt.AccountSettingViewModel" />
     </data>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".accountsettingfragemnt.AccountSettingFragment">
+        tools:context=".ui.accountsettingfragemnt.AccountSettingFragment">
 
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"

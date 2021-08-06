@@ -1,4 +1,4 @@
-package com.example.instagram.splashscreenfragment
+package com.example.instagram.ui.splashscreenfragment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

@@ -1,4 +1,4 @@
-package com.example.instagram.searchfragment
+package com.example.instagram.ui.searchfragment
 
 import androidx.lifecycle.ViewModel
 

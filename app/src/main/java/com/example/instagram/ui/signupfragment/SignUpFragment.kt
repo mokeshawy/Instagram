@@ -1,4 +1,4 @@
-package com.example.instagram
+package com.example.instagram.ui.signupfragment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -6,8 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import com.example.instagram.R
 import com.example.instagram.databinding.FragmentSignUpBinding
-import com.example.instagram.signupfragment.SignUpViewModel
 
 class SignUpFragment : Fragment() {
 
@@ -27,5 +28,9 @@ class SignUpFragment : Fragment() {
         binding.signUpFragemnt = signUpViewModel
 
 
+        // go to signIn
+        binding.tvGoToSignIn.setOnClickListener {
+            findNavController().navigate(R.id.action_signUpFragment_to_signInFragment)
+        }
     }
 }

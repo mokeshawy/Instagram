@@ -1,4 +1,4 @@
-package com.example.instagram.searchfragment
+package com.example.instagram.ui.accountsettingfragemnt
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,23 +7,22 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.example.instagram.R
-import com.example.instagram.databinding.FragmentSearchBinding
+import com.example.instagram.databinding.FragmentAccountSettingBinding
 
-class SearchFragment : Fragment() {
+class AccountSettingFragment : Fragment() {
 
-    lateinit var binding : FragmentSearchBinding
-    private val searchViewModel : SearchViewModel by viewModels()
+    lateinit var binding : FragmentAccountSettingBinding
+    private val accountSettingViewModel : AccountSettingViewModel by viewModels()
     override fun onCreateView( inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
         // Inflate the layout for this fragment
-        binding = FragmentSearchBinding.inflate(inflater)
-        return binding.root
+        return inflater.inflate(R.layout.fragment_account_setting, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // connect with view model.
+        // connect with view model
         binding.lifecycleOwner = this
-        binding.searchFragment = searchViewModel
+        binding.accountSettingFragment = accountSettingViewModel
     }
 }

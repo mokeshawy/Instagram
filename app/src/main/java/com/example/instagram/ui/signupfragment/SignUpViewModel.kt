@@ -1,4 +1,4 @@
-package com.example.instagram.signupfragment
+package com.example.instagram.ui.signupfragment
 
 import androidx.lifecycle.ViewModel
 

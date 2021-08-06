@@ -1,4 +1,4 @@
-package com.example.instagram.profilefragment
+package com.example.instagram.ui.profilefragment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

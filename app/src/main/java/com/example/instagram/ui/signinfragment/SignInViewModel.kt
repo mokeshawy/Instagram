@@ -1,4 +1,4 @@
-package com.example.instagram.signinfragment
+package com.example.instagram.ui.signinfragment
 
 import androidx.lifecycle.ViewModel
 

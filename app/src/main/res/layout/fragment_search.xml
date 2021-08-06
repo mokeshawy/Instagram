@@ -5,13 +5,13 @@
     <data>
         <variable
             name="searchFragment"
-            type="com.example.instagram.searchfragment.SearchViewModel" />
+            type="com.example.instagram.ui.searchfragment.SearchViewModel" />
     </data>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".searchfragment.SearchFragment">
+        tools:context=".ui.searchfragment.SearchFragment">
 
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"

@@ -5,13 +5,13 @@
     <data>
         <variable
             name="profileFragment"
-            type="com.example.instagram.profilefragment.ProfileViewModel" />
+            type="com.example.instagram.ui.profilefragment.ProfileViewModel" />
     </data>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".profilefragment.ProfileFragment">
+        tools:context=".ui.profilefragment.ProfileFragment">
 
 
         <com.google.android.material.appbar.AppBarLayout

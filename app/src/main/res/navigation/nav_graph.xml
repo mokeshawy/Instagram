@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/splashScreenFragment"
-        android:name="com.example.instagram.splashscreenfragment.SplashScreenFragment"
+        android:name="com.example.instagram.ui.splashscreenfragment.SplashScreenFragment"
         android:label="fragment_splash_screen"
         tools:layout="@layout/fragment_splash_screen" >
         <action
@@ -19,22 +19,22 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.instagram.homefragment.HomeFragment"
+        android:name="com.example.instagram.ui.homefragment.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/searchFragment"
-        android:name="com.example.instagram.searchfragment.SearchFragment"
+        android:name="com.example.instagram.ui.searchfragment.SearchFragment"
         android:label="fragment_search"
         tools:layout="@layout/fragment_search" />
     <fragment
         android:id="@+id/notificationsFragment"
-        android:name="com.example.instagram.notificationsfragment.NotificationsFragment"
+        android:name="com.example.instagram.ui.notificationsfragment.NotificationsFragment"
         android:label="fragment_notifications"
         tools:layout="@layout/fragment_notifications" />
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.example.instagram.profilefragment.ProfileFragment"
+        android:name="com.example.instagram.ui.profilefragment.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" >
         <action
@@ -45,17 +45,29 @@
     </fragment>
     <fragment
         android:id="@+id/accountSettingFragment"
-        android:name="com.example.instagram.accountsettingfragemnt.AccountSettingFragment"
+        android:name="com.example.instagram.ui.accountsettingfragemnt.AccountSettingFragment"
         android:label="fragment_account_setting"
         tools:layout="@layout/fragment_account_setting" />
     <fragment
         android:id="@+id/signInFragment"
-        android:name="com.example.instagram.signinfragment.SignInFragment"
+        android:name="com.example.instagram.ui.signinfragment.SignInFragment"
         android:label="fragment_signin"
-        tools:layout="@layout/fragment_signin" />
+        tools:layout="@layout/fragment_signin" >
+        <action
+            android:id="@+id/action_signInFragment_to_signUpFragment"
+            app:destination="@id/signUpFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:popUpTo="@id/nav_graph" />
+    </fragment>
     <fragment
         android:id="@+id/signUpFragment"
-        android:name="com.example.instagram.SignUpFragment"
+        android:name="com.example.instagram.ui.signupfragment.SignUpFragment"
         android:label="fragment_sign_up"
-        tools:layout="@layout/fragment_sign_up" />
+        tools:layout="@layout/fragment_sign_up" >
+        <action
+            android:id="@+id/action_signUpFragment_to_signInFragment"
+            app:destination="@id/signInFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:popUpTo="@id/nav_graph" />
+    </fragment>
 </navigation>
