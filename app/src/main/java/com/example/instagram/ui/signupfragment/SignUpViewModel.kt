@@ -17,6 +17,7 @@ class SignUpViewModel : ViewModel() {
     var etUserName    = MutableLiveData<String>("")
     var etEmail       = MutableLiveData<String>("")
     var etPassword    = MutableLiveData<String>("")
+    var etConfirmPassword   = MutableLiveData<String>("")
 
     // firebase instance.
     var firebaseAuth        = FirebaseAuth.getInstance()
@@ -31,9 +32,15 @@ class SignUpViewModel : ViewModel() {
         }else if(etUserName.value!!.trim().isEmpty()){
             Snackbar.make(view,context.resources.getString(R.string.err_enter_user_name),Snackbar.LENGTH_SHORT).show()
         }else if( etEmail.value!!.trim().isEmpty()){
-            Snackbar.make(view,context.resources.getString(R.string.err_enter_your_emaill),Snackbar.LENGTH_SHORT).show()
+            Snackbar.make(view,context.resources.getString(R.string.err_enter_your_email),Snackbar.LENGTH_SHORT).show()
         }else if(etPassword.value!!.trim().isEmpty()){
             Snackbar.make(view,context.resources.getString(R.string.err_enter_your_password),Snackbar.LENGTH_SHORT).show()
+        }else if(etPassword.value!!.length < 6){
+            Snackbar.make(view,context.resources.getString(R.string.err_msg_the_password_is_not_less_than),Snackbar.LENGTH_SHORT).show()
+        }else if (etConfirmPassword.value!!.trim().isEmpty() ) {
+            Snackbar.make(view,context.resources.getString(R.string.err_enter_your_password),Snackbar.LENGTH_SHORT).show()
+        }else if(etPassword.value!! != etConfirmPassword.value!!){
+            Snackbar.make(view,context.resources.getString(R.string.err_enter_mismatch_password),Snackbar.LENGTH_SHORT).show()
         }else{
             // operation for firebase Authentication.
             firebaseAuth.createUserWithEmailAndPassword(etEmail.value!! , etPassword.value!!).addOnCompleteListener {

@@ -110,30 +110,30 @@
             android:hint="Bio" />
 
         <Button
-            android:id="@+id/logout_btn"
+            android:id="@+id/btn_logout"
             android:layout_width="250dp"
             android:layout_height="40dp"
             android:layout_marginLeft="80dp"
             android:layout_marginRight="20dp"
             android:layout_marginBottom="6dp"
-            android:background="@drawable/button_black_background"
-            android:layout_above="@+id/delete_account_btn"
-            android:text="Logout"
+            android:background="@drawable/button_background"
+            android:layout_above="@+id/btn_delete_account"
+            android:text="@string/btn_log_out"
             android:textColor="@color/white"
             android:textSize="16dp"
             android:textAllCaps="false" />
 
         <Button
-            android:id="@+id/delete_account_btn"
+            android:id="@+id/btn_delete_account"
             android:layout_width="250dp"
             android:layout_height="40dp"
             android:layout_marginLeft="80dp"
             android:layout_marginRight="20dp"
             android:layout_marginBottom="6dp"
-            android:text="Delete Account"
+            android:text="@string/btn_delete_account"
             android:textAllCaps="false"
             android:layout_alignParentBottom="true"
-            android:background="@color/white"
+            android:background="@drawable/button_background"
             android:textColor="@android:color/white"
             android:textSize="16dp" />
 

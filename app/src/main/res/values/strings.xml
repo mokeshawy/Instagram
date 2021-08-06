@@ -5,8 +5,13 @@
 
     <string name="err_enter_full_name">Please enter full name</string>
     <string name="err_enter_user_name">Please enter user name</string>
-    <string name="err_enter_your_emaill">Please enter your email</string>
+    <string name="err_enter_your_email">Please enter your email</string>
     <string name="err_enter_your_password">Please enter your password</string>
+    <string name="err_enter_confirm_password">Please enter your Confirm password</string>
+    <string name="err_msg_the_password_is_not_less_than">the password is not less than 6 number</string>
+    <string name="err_enter_mismatch_password">Password and confirm password not mismatch</string>
+    <string name="err_msg_the_password_not_less_than">the password is not less than</string>
+    <string name="err_msg_confirm_email">Please confirm your email</string>
     <string name="et_email_string">Email...</string>
     <string name="et_password_string">Password...</string>
     <string name="et_full_name_string">Full Name...</string>
@@ -14,4 +19,7 @@
 
     <string name="message_for_bio">Hey im using instagram...</string>
     <string name="btn_sign_up_string">Sign Up</string>
+    <string name="et_confirm_password_string">Confirm Password</string>
+    <string name="btn_delete_account">Delete Account</string>
+    <string name="btn_log_out">Logout</string>
 </resources>

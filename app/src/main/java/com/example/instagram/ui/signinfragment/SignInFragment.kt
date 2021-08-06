@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.instagram.R
 import com.example.instagram.databinding.FragmentSigninBinding
+import com.google.firebase.auth.FirebaseAuth
 
 class SignInFragment : Fragment() {
 
@@ -32,5 +33,17 @@ class SignInFragment : Fragment() {
             findNavController().navigate(R.id.action_signInFragment_to_signUpFragment)
         }
 
+        // signIn.
+        binding.btnLogin.setOnClickListener {
+            signInVieModel.login(requireActivity(),view)
+        }
+
     }
+
+//    override fun onStart() {
+//        super.onStart()
+//        if(FirebaseAuth.getInstance().currentUser != null){
+//            findNavController().navigate(R.id.action_signInFragment_to_homeFragment)
+//        }
+//    }
 }

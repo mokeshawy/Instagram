@@ -47,7 +47,13 @@
         android:id="@+id/accountSettingFragment"
         android:name="com.example.instagram.ui.accountsettingfragemnt.AccountSettingFragment"
         android:label="fragment_account_setting"
-        tools:layout="@layout/fragment_account_setting" />
+        tools:layout="@layout/fragment_account_setting" >
+        <action
+            android:id="@+id/action_accountSettingFragment_to_signInFragment"
+            app:destination="@id/signInFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:popUpTo="@id/nav_graph" />
+    </fragment>
     <fragment
         android:id="@+id/signInFragment"
         android:name="com.example.instagram.ui.signinfragment.SignInFragment"
@@ -56,6 +62,11 @@
         <action
             android:id="@+id/action_signInFragment_to_signUpFragment"
             app:destination="@id/signUpFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:popUpTo="@id/nav_graph" />
+        <action
+            android:id="@+id/action_signInFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
             app:enterAnim="@android:anim/fade_in"
             app:popUpTo="@id/nav_graph" />
     </fragment>

@@ -6,7 +6,7 @@
 
     <string name="err_enter_full_name">من فضلك ادخل الاسم كاملا</string>
     <string name="err_enter_user_name">من فضلك ادخل اسم المستخدم</string>
-    <string name="err_enter_your_emaill">من فضلك ادخل الايميل الخاص بك</string>
+    <string name="err_enter_your_email">من فضلك ادخل الايميل الخاص بك</string>
     <string name="err_enter_your_password">من فضلك ادخل الرقم السري</string>
 
     <string name="et_email_string">الايميل</string>

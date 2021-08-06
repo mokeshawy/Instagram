@@ -38,11 +38,12 @@
 
                 <EditText
                     android:id="@+id/et_email"
-                    android:layout_width="300dp"
+                    android:layout_width="350dp"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/logo"
                     android:background="@drawable/inputs_background"
                     android:hint="@string/et_email_string"
+                    android:text="@={signInFragment.etEmail}"
                     android:inputType="textEmailAddress"
                     android:padding="10dp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -52,13 +53,14 @@
 
                 <EditText
                     android:id="@+id/et_password"
-                    android:layout_width="300dp"
+                    android:layout_width="350dp"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/et_email"
                     android:layout_marginTop="16dp"
                     android:background="@drawable/inputs_background"
                     android:hint="@string/et_password_string"
                     android:inputType="textPassword"
+                    android:text="@={signInFragment.etPassword}"
                     android:padding="10dp"
                     app:layout_constraintEnd_toEndOf="@+id/et_email"
                     app:layout_constraintStart_toStartOf="@+id/et_email"
