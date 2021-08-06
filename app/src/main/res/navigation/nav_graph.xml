@@ -11,8 +11,8 @@
         android:label="fragment_splash_screen"
         tools:layout="@layout/fragment_splash_screen" >
         <action
-            android:id="@+id/action_splashScreenFragment_to_homeFragment"
-            app:destination="@id/homeFragment"
+            android:id="@+id/action_splashScreenFragment_to_signInFragment"
+            app:destination="@id/signInFragment"
             app:enterAnim="@android:anim/fade_in"
             app:popUpTo="@id/nav_graph" />
     </fragment>
@@ -48,4 +48,14 @@
         android:name="com.example.instagram.accountsettingfragemnt.AccountSettingFragment"
         android:label="fragment_account_setting"
         tools:layout="@layout/fragment_account_setting" />
+    <fragment
+        android:id="@+id/signInFragment"
+        android:name="com.example.instagram.signinfragment.SignInFragment"
+        android:label="fragment_signin"
+        tools:layout="@layout/fragment_signin" />
+    <fragment
+        android:id="@+id/signUpFragment"
+        android:name="com.example.instagram.SignUpFragment"
+        android:label="fragment_sign_up"
+        tools:layout="@layout/fragment_sign_up" />
 </navigation>

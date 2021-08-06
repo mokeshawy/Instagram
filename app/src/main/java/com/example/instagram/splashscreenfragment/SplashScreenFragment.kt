@@ -28,7 +28,7 @@ class SplashScreenFragment : Fragment() {
         // go to home fragment after tow second.
         CoroutineScope(Dispatchers.Main).launch {
             delay(2500)
-            findNavController().navigate(R.id.action_splashScreenFragment_to_homeFragment)
+            findNavController().navigate(R.id.action_splashScreenFragment_to_signInFragment)
         }
     }
 }
