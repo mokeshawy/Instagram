@@ -40,10 +40,10 @@ class SignInFragment : Fragment() {
 
     }
 
-//    override fun onStart() {
-//        super.onStart()
-//        if(FirebaseAuth.getInstance().currentUser != null){
-//            findNavController().navigate(R.id.action_signInFragment_to_homeFragment)
-//        }
-//    }
+    override fun onStart() {
+        super.onStart()
+        if(FirebaseAuth.getInstance().currentUser != null){
+            findNavController().navigate(R.id.action_signInFragment_to_homeFragment)
+        }
+    }
 }
