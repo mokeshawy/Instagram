@@ -15,6 +15,7 @@ class ProfileFragment : Fragment() {
     lateinit var binding : FragmentProfileBinding
     private val profileViewModel : ProfileViewModel by viewModels()
     override fun onCreateView( inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
+
         // Inflate the layout for this fragment
         binding = FragmentProfileBinding.inflate(inflater)
         return binding.root

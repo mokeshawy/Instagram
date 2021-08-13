@@ -1,6 +1,7 @@
 package com.example.instagram.ui.searchfragment
 
 import android.content.Context
+import android.widget.Button
 import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -22,6 +23,7 @@ class SearchViewModel : ViewModel() {
     // firebase instance.
     private var firebaseDatabase = FirebaseDatabase.getInstance()
     private var userReference = firebaseDatabase.getReference(Const.USER_REFERENCE)
+    private var followingReference = firebaseDatabase.getReference(Const.FOLLOW_REFERENCE)
 
     // fun for search user.
     fun searchUser( context: Context , input : String ){
@@ -60,6 +62,24 @@ class SearchViewModel : ViewModel() {
             override fun onCancelled(error: DatabaseError) {
                 Toast.makeText(context, error.message , Toast.LENGTH_SHORT).show()
             }
+        })
+    }
+
+    // check following status.
+    fun checkFollowingStatus( uid : String , followingButton : Button){
+        followingReference.child(Const.getCurrentUser()).child(Const.CHILD_FOLLOWING).addValueEventListener( object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if( snapshot.child(uid).exists()){
+                    followingButton.text = "Following"
+                }else{
+                    followingButton.text = "Follow"
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+
         })
     }
 }

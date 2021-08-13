@@ -4,18 +4,19 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.instagram.`interface`.OnClick
 import com.example.instagram.databinding.UserItemLayoutBinding
 import com.example.instagram.model.UserModel
 import com.squareup.picasso.Picasso
 
-class UserAdapter (var mContext : Context , var mUsers: ArrayList<UserModel> , var isFragment : Boolean = false ) : RecyclerView.Adapter<UserAdapter.ViewHolder>() {
+class UserAdapter (var mContext : Context , var mUsers: ArrayList<UserModel> , var isFragment : Boolean = false , var onClick: OnClick) : RecyclerView.Adapter<UserAdapter.ViewHolder>() {
 
     class ViewHolder(var binding : UserItemLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
 
         // initialize onClickUsersAdapter from interface
-//        fun initialize(viewHolder: ViewHolder, dataSet: UsersModel, action : OnClickUsersAdapter, isChecked : Boolean){
-//            action.onClickUsersAdapter(viewHolder , dataSet , adapterPosition , isChecked)
-//        }
+        fun initialize(viewHolder: ViewHolder, dataSet: UserModel, action : OnClick){
+            action.onClick(viewHolder , dataSet , adapterPosition )
+        }
 
     }
     // Create new views (invoked by the layout manager)
@@ -34,7 +35,7 @@ class UserAdapter (var mContext : Context , var mUsers: ArrayList<UserModel> , v
         viewHolder.binding.userFullNameSearch.text  = users.fullName
         Picasso.get().load(users.image).into(viewHolder.binding.userProfileImageSearch)
 
-        //viewHolder.initialize( viewHolder , mUsers[position] , onClickAdapter , true)
+        viewHolder.initialize( viewHolder , mUsers[position] , onClick)
 
     }
 

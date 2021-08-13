@@ -7,26 +7,21 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import com.example.instagram.`interface`.OnClick
 import com.example.instagram.adapter.UserAdapter
 import com.example.instagram.databinding.FragmentSearchBinding
 import com.example.instagram.model.UserModel
 import com.example.instagram.utils.Const
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
 import java.util.*
-import kotlin.collections.ArrayList
 
-class SearchFragment : Fragment() {
+
+class SearchFragment : Fragment() , OnClick{
 
     lateinit var binding : FragmentSearchBinding
     private val searchViewModel : SearchViewModel by viewModels()
-    private var mUser : MutableList<UserModel>? = null
-    private var userAdapter : UserAdapter? = null
 
     override fun onCreateView( inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
         // Inflate the layout for this fragment
@@ -43,7 +38,7 @@ class SearchFragment : Fragment() {
 
 
         searchViewModel.mUser.observe(viewLifecycleOwner, Observer {
-            binding.recyclerViewSearch.adapter = UserAdapter(requireActivity() , it ,true)
+            binding.recyclerViewSearch.adapter = UserAdapter(requireActivity() , it ,true,this)
         })
 
         binding.searchEditText.addTextChangedListener(object : TextWatcher{
@@ -62,5 +57,34 @@ class SearchFragment : Fragment() {
             override fun afterTextChanged(s: Editable?) {
             }
         })
+    }
+
+    override fun onClick(viewHolder: UserAdapter.ViewHolder, userModel: UserModel, position: Int) {
+
+        // call fun for check following status.
+        searchViewModel.checkFollowingStatus(userModel.uid, viewHolder.binding.followBtnSearch)
+
+        // firebase instance.
+        val firebaseDatabase = FirebaseDatabase.getInstance()
+        val followReference = firebaseDatabase.getReference(Const.FOLLOW_REFERENCE)
+
+        viewHolder.binding.followBtnSearch.setOnClickListener {
+            if( viewHolder.binding.followBtnSearch.text.toString() == Const.BTN_FOLLOW){
+                followReference.child(Const.getCurrentUser())
+                    .child(Const.CHILD_FOLLOWING).child(userModel.uid).setValue(true).addOnCompleteListener { task ->
+                    if(task.isSuccessful){
+                        followReference.child(Const.CHILD_FOLLOWERS).child(userModel.uid).child(Const.getCurrentUser()).setValue(true)
+                    }
+                }
+            }else{
+                followReference.child(Const.getCurrentUser())
+                    .child(Const.CHILD_FOLLOWING).child(userModel.uid).removeValue().addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            followReference.child(Const.CHILD_FOLLOWERS).child(userModel.uid)
+                                .child(Const.getCurrentUser()).removeValue()
+                        }
+                    }
+            }
+        }
     }
 }
