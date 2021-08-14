@@ -21,8 +21,8 @@ class SearchViewModel : ViewModel() {
     val userAdapter : UserAdapter? = null
 
     // firebase instance.
-    private var firebaseDatabase = FirebaseDatabase.getInstance()
-    private var userReference = firebaseDatabase.getReference(Const.USER_REFERENCE)
+    private var firebaseDatabase    = FirebaseDatabase.getInstance()
+    private var userReference       = firebaseDatabase.getReference(Const.USER_REFERENCE)
     private var followingReference = firebaseDatabase.getReference(Const.FOLLOW_REFERENCE)
 
     // fun for search user.
@@ -81,5 +81,25 @@ class SearchViewModel : ViewModel() {
             }
 
         })
+    }
+
+    fun followAndUnFollow(followButton : Button , userModel : UserModel){
+
+        if( followButton.text.toString() == Const.BTN_FOLLOW){
+            followingReference.child(Const.getCurrentUser())
+                .child(Const.CHILD_FOLLOWING).child(userModel.uid).setValue(true).addOnCompleteListener { task ->
+                    if(task.isSuccessful){
+                        followingReference.child(Const.CHILD_FOLLOWERS).child(userModel.uid).child(Const.getCurrentUser()).setValue(true)
+                    }
+                }
+        }else{
+            followingReference.child(Const.getCurrentUser())
+                .child(Const.CHILD_FOLLOWING).child(userModel.uid).removeValue().addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        followingReference.child(Const.CHILD_FOLLOWERS).child(userModel.uid)
+                            .child(Const.getCurrentUser()).removeValue()
+                    }
+                }
+        }
     }
 }

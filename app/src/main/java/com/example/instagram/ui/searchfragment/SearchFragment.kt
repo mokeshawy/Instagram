@@ -65,27 +65,14 @@ class SearchFragment : Fragment() , OnClick{
         // call fun for check following status.
         searchViewModel.checkFollowingStatus(userModel.uid, viewHolder.binding.followBtnSearch)
 
-        // firebase instance.
-        val firebaseDatabase = FirebaseDatabase.getInstance()
-        val followReference = firebaseDatabase.getReference(Const.FOLLOW_REFERENCE)
-
+        // click follow and unFollow.
         viewHolder.binding.followBtnSearch.setOnClickListener {
-            if( viewHolder.binding.followBtnSearch.text.toString() == Const.BTN_FOLLOW){
-                followReference.child(Const.getCurrentUser())
-                    .child(Const.CHILD_FOLLOWING).child(userModel.uid).setValue(true).addOnCompleteListener { task ->
-                    if(task.isSuccessful){
-                        followReference.child(Const.CHILD_FOLLOWERS).child(userModel.uid).child(Const.getCurrentUser()).setValue(true)
-                    }
-                }
-            }else{
-                followReference.child(Const.getCurrentUser())
-                    .child(Const.CHILD_FOLLOWING).child(userModel.uid).removeValue().addOnCompleteListener { task ->
-                        if (task.isSuccessful) {
-                            followReference.child(Const.CHILD_FOLLOWERS).child(userModel.uid)
-                                .child(Const.getCurrentUser()).removeValue()
-                        }
-                    }
-            }
+            // call fun follow and unFollow
+            searchViewModel.followAndUnFollow(viewHolder.binding.followBtnSearch,userModel)
+        }
+
+        viewHolder.itemView.setOnClickListener {
+
         }
     }
 }
