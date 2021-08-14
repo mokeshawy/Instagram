@@ -5,6 +5,7 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.instagram.R
 import com.example.instagram.adapter.UserAdapter
 import com.example.instagram.model.UserModel
 import com.example.instagram.utils.Const
@@ -66,13 +67,13 @@ class SearchViewModel : ViewModel() {
     }
 
     // check following status.
-    fun checkFollowingStatus( uid : String , followingButton : Button){
+    fun checkFollowingStatus( context: Context , uid : String , followingButton : Button){
         followingReference.child(Const.getCurrentUser()).child(Const.CHILD_FOLLOWING).addValueEventListener( object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 if( snapshot.child(uid).exists()){
-                    followingButton.text = "Remove"
+                    followingButton.text = context.resources.getString(R.string.text_remove)
                 }else{
-                    followingButton.text = "Follow"
+                    followingButton.text = context.resources.getString(R.string.text_follow)
                 }
             }
 

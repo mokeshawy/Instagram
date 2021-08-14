@@ -53,13 +53,8 @@
                         android:layout_centerVertical="true"/>
 
                 </RelativeLayout>
-
             </androidx.appcompat.widget.Toolbar>
-
         </com.google.android.material.appbar.AppBarLayout>
-
-
-
 
         <ScrollView
             android:id="@+id/scroll_view"
@@ -177,10 +172,10 @@
                         </LinearLayout>
 
                         <TextView
-                            android:id="@+id/tv_edit_profile"
+                            android:id="@+id/tv_account_setting"
                             android:layout_width="match_parent"
                             android:layout_height="30dp"
-                            android:text="Edit Profile"
+                            android:text="@={profileFragment.tvAccountSetting}"
                             android:gravity="center"
                             android:textAllCaps="false"
                             android:layout_marginTop="2dp"
@@ -221,7 +216,6 @@
                     android:layout_height="40dp"
                     android:orientation="horizontal"
                     android:background="@drawable/button_black_background"
-                    android:layout_marginTop="10dp"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp">
 
@@ -236,9 +230,9 @@
                     <ImageButton
                         android:id="@+id/iv_btn_save_image"
                         android:layout_width="1dp"
-                        android:layout_height="45dp"
+                        android:layout_height="40dp"
                         android:scaleType="fitCenter"
-                        android:src="@drawable/save_large_icon"
+                        android:src="@drawable/save_unfilled_large_icon"
                         android:layout_weight="1"
                         style="?android:attr/buttonBarButtonStyle"/>
 
@@ -247,6 +241,5 @@
             </LinearLayout>
 
         </ScrollView>
-
     </RelativeLayout>
 </layout>

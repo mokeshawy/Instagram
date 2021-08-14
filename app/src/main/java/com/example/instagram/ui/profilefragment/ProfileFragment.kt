@@ -5,15 +5,22 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.instagram.R
 import com.example.instagram.databinding.FragmentProfileBinding
+import com.example.instagram.model.UserModel
+import com.example.instagram.utils.Const
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 
 class ProfileFragment : Fragment() {
 
     lateinit var binding : FragmentProfileBinding
     private val profileViewModel : ProfileViewModel by viewModels()
+    private var mUserModel : UserModel?= null
+
     override fun onCreateView( inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
 
         // Inflate the layout for this fragment
@@ -28,9 +35,41 @@ class ProfileFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.profileFragment = profileViewModel
 
-        // go to account setting.
-        binding.tvEditProfile.setOnClickListener {
-            findNavController().navigate(R.id.action_profileFragment_to_accountSettingFragment)
+
+        // get user model object by bundle.
+        if( arguments?.containsKey(Const.BUNDLE_USER_MODEL) == true){
+
+            mUserModel = arguments?.getSerializable(Const.BUNDLE_USER_MODEL) as UserModel
+
+            if( mUserModel!!.uid == Const.getCurrentUser()){
+
+                // show edit profile
+                profileViewModel.tvAccountSetting.value = resources.getString(R.string.text_edit_profile)
+
+            }else if(mUserModel!!.uid != Const.getCurrentUser()){
+                profileViewModel.checkFollowAndFollowingButtonsStatus(requireActivity(),mUserModel!!)
+            }
+        }else{
+            // show edit profile
+            profileViewModel.tvAccountSetting.value = resources.getString(R.string.text_edit_profile)
+
+            // go to account setting.
+            binding.tvAccountSetting.setOnClickListener {
+                findNavController().navigate(R.id.action_profileFragment_to_accountSettingFragment)
+            }
+        }
+
+
+        binding.tvAccountSetting.setOnClickListener {
+            // when text view show edit text will go setting page
+            if( profileViewModel.tvAccountSetting.value == resources.getString(R.string.text_edit_profile) ){
+                findNavController().navigate(R.id.action_profileFragment_to_accountSettingFragment)
+            }else if(profileViewModel.tvAccountSetting.value == resources.getString(R.string.text_follow)){ // when text view show follow will go follow user
+                profileViewModel.follow(mUserModel!!)
+            }else if(profileViewModel.tvAccountSetting.value == resources.getString(R.string.text_remove)){ // when text view show remove will go remove user
+                profileViewModel.unFollow(mUserModel!!)
+            }
         }
     }
+
 }

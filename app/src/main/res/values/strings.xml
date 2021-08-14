@@ -24,4 +24,7 @@
     <string name="btn_log_out">Logout</string>
     <string name="text_already_have_account">Already have an account?</string>
     <string name="text_sign_in">Sign in</string>
+    <string name="text_edit_profile">Edit Profile</string>
+    <string name="text_follow">Follow</string>
+    <string name="text_remove">Remove</string>
 </resources>

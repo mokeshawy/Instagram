@@ -9,6 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
+import com.example.instagram.R
 import com.example.instagram.`interface`.OnClick
 import com.example.instagram.adapter.UserAdapter
 import com.example.instagram.databinding.FragmentSearchBinding
@@ -63,7 +65,7 @@ class SearchFragment : Fragment() , OnClick{
     override fun onClick(viewHolder: UserAdapter.ViewHolder, userModel: UserModel, position: Int) {
 
         // call fun for check following status.
-        searchViewModel.checkFollowingStatus(userModel.uid, viewHolder.binding.followBtnSearch)
+        searchViewModel.checkFollowingStatus(requireActivity(),userModel.uid,viewHolder.binding.followBtnSearch)
 
         // click follow and unFollow.
         viewHolder.binding.followBtnSearch.setOnClickListener {
@@ -72,7 +74,9 @@ class SearchFragment : Fragment() , OnClick{
         }
 
         viewHolder.itemView.setOnClickListener {
-
+            val bundle = Bundle()
+            bundle.putSerializable(Const.BUNDLE_USER_MODEL , userModel)
+            findNavController().navigate(R.id.action_searchFragment_to_profileFragment,bundle)
         }
     }
 }

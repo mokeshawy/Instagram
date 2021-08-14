@@ -11,7 +11,6 @@ object Const {
     const val FOLLOW_REFERENCE = "Follow"
 
     // child for follow reference.
-    const val CHILD_FOLLOW = "Follow"
     const val CHILD_FOLLOWING = "Following"
     const val CHILD_FOLLOWERS = "Followers"
 
@@ -19,6 +18,8 @@ object Const {
     const val BTN_FOLLOW = "Follow"
     const val BTN_FOLLOWING = "Following"
 
+    // bundle key
+    const val BUNDLE_USER_MODEL = "userModelKey"
     // default image profile
     const val DEFAULT_IMAGE_PROFILE = "https://firebasestorage.googleapis.com/v0/b/instagram-1bd4b.appspot.com/o/Photo%2Fic_profile_image.png?alt=media&token=a33b0a81-c0a7-40e6-a1c8-9c5b5e2c555b"
 
