@@ -70,7 +70,7 @@ class SearchViewModel : ViewModel() {
         followingReference.child(Const.getCurrentUser()).child(Const.CHILD_FOLLOWING).addValueEventListener( object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 if( snapshot.child(uid).exists()){
-                    followingButton.text = "Following"
+                    followingButton.text = "Remove"
                 }else{
                     followingButton.text = "Follow"
                 }

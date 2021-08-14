@@ -39,7 +39,7 @@
                 <EditText
                     android:id="@+id/et_email"
                     android:layout_width="350dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="55dp"
                     android:layout_below="@+id/logo"
                     android:background="@drawable/inputs_background"
                     android:hint="@string/et_email_string"
@@ -54,7 +54,7 @@
                 <EditText
                     android:id="@+id/et_password"
                     android:layout_width="350dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="55dp"
                     android:layout_below="@+id/et_email"
                     android:layout_marginTop="16dp"
                     android:background="@drawable/inputs_background"
@@ -81,7 +81,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Need New Account?"
-                        android:textColor="@color/black"
                         android:textSize="15sp" />
 
                     <TextView
@@ -97,17 +96,20 @@
 
                 <Button
                     android:id="@+id/btn_login"
-                    android:layout_width="250dp"
-                    android:layout_height="40dp"
+                    android:layout_width="@dimen/btn_width"
+                    android:layout_height="@dimen/btn_height"
                     android:layout_below="@+id/et_password"
-                    android:background="@drawable/button_background"
+                    android:backgroundTint="@color/colorButton"
+                    android:clickable="true"
                     android:text="Login"
                     android:textAllCaps="false"
                     android:textSize="15sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@+id/linearLayout"
+                    app:layout_constraintHorizontal_bias="0.513"
                     app:layout_constraintStart_toStartOf="@+id/linearLayout"
-                    app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+                    app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+                    app:layout_constraintVertical_bias="0.09" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>

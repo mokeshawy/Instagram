@@ -28,6 +28,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
+
                 <ImageView
                     android:id="@+id/logo"
                     android:layout_width="160dp"
@@ -39,13 +40,12 @@
                     app:layout_constraintHorizontal_bias="0.498"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.826" />
-
+                    app:layout_constraintVertical_bias="1.0" />
 
                 <EditText
                     android:id="@+id/et_full_name"
-                    android:layout_width="350dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/input_width"
+                    android:layout_height="@dimen/input_height"
                     android:background="@drawable/inputs_background"
                     android:hint="@string/et_full_name_string"
                     android:inputType="textEmailAddress"
@@ -56,12 +56,12 @@
                     app:layout_constraintHorizontal_bias="0.491"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.439" />
+                    app:layout_constraintVertical_bias="0.362" />
 
                 <EditText
                     android:id="@+id/et_user_name"
-                    android:layout_width="350dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/input_width"
+                    android:layout_height="@dimen/input_height"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/inputs_background"
                     android:hint="@string/et_user_name_string"
@@ -75,8 +75,8 @@
 
                 <EditText
                     android:id="@+id/et_email"
-                    android:layout_width="350dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/input_width"
+                    android:layout_height="@dimen/input_height"
                     android:layout_below="@+id/et_user_name"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/inputs_background"
@@ -90,8 +90,8 @@
 
                 <EditText
                     android:id="@+id/et_password"
-                    android:layout_width="350dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/input_width"
+                    android:layout_height="@dimen/input_height"
                     android:layout_below="@+id/et_email"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/inputs_background"
@@ -105,8 +105,8 @@
 
                 <EditText
                     android:id="@+id/et_confirm_password"
-                    android:layout_width="350dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/input_width"
+                    android:layout_height="@dimen/input_height"
                     android:layout_below="@+id/et_email"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/inputs_background"
@@ -121,16 +121,16 @@
 
                 <Button
                     android:id="@+id/btn_sign_up"
-                    android:layout_width="250dp"
-                    android:layout_height="40dp"
+                    android:layout_width="@dimen/btn_width"
+                    android:layout_height="@dimen/btn_height"
                     android:layout_below="@+id/et_password"
-                    android:layout_marginTop="40dp"
-                    android:background="@drawable/button_background"
+                    android:layout_marginTop="20dp"
+                    android:backgroundTint="@color/colorButton"
+                    android:clickable="true"
                     android:text="@string/btn_sign_up_string"
                     android:textAllCaps="false"
                     android:textSize="15sp"
                     app:layout_constraintEnd_toEndOf="@+id/et_confirm_password"
-                    app:layout_constraintHorizontal_bias="0.49"
                     app:layout_constraintStart_toStartOf="@+id/et_confirm_password"
                     app:layout_constraintTop_toBottomOf="@+id/et_confirm_password" />
 
@@ -147,17 +147,17 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Already have an Account?"
-                        android:textColor="@color/black"
+                        android:text="@string/text_already_have_account"
                         android:textSize="15sp" />
 
                     <TextView
                         android:id="@+id/tv_go_to_sign_in"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Sign in"
+                        android:text="@string/text_sign_in"
                         android:textColor="@android:color/holo_blue_dark"
-                        android:textSize="16sp" />
+                        android:textSize="16sp"
+                        android:layout_marginLeft="3dp"/>
 
                 </LinearLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>

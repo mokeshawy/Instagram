@@ -59,6 +59,7 @@ class SearchFragment : Fragment() , OnClick{
         })
     }
 
+    // implement for fun from interface onClick on item userAdapter.
     override fun onClick(viewHolder: UserAdapter.ViewHolder, userModel: UserModel, position: Int) {
 
         // call fun for check following status.

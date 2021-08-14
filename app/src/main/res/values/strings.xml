@@ -22,4 +22,6 @@
     <string name="et_confirm_password_string">Confirm Password</string>
     <string name="btn_delete_account">Delete Account</string>
     <string name="btn_log_out">Logout</string>
+    <string name="text_already_have_account">Already have an account?</string>
+    <string name="text_sign_in">Sign in</string>
 </resources>
