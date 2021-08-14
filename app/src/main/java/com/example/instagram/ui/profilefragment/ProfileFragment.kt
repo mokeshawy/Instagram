@@ -36,7 +36,7 @@ class ProfileFragment : Fragment() {
         binding.profileFragment = profileViewModel
 
 
-        // get user model object by bundle.
+        // get user model object by bundle when user entry from search page.
         if( arguments?.containsKey(Const.BUNDLE_USER_MODEL) == true){
 
             mUserModel = arguments?.getSerializable(Const.BUNDLE_USER_MODEL) as UserModel
@@ -49,7 +49,8 @@ class ProfileFragment : Fragment() {
             }else if(mUserModel!!.uid != Const.getCurrentUser()){
                 profileViewModel.checkFollowAndFollowingButtonsStatus(requireActivity(),mUserModel!!)
             }
-        }else{
+        }else{ // when user entry from profile page.
+
             // show edit profile
             profileViewModel.tvAccountSetting.value = resources.getString(R.string.text_edit_profile)
 
@@ -59,10 +60,8 @@ class ProfileFragment : Fragment() {
             }
         }
 
-
         binding.tvAccountSetting.setOnClickListener {
-            // when text view show edit text will go setting page
-            if( profileViewModel.tvAccountSetting.value == resources.getString(R.string.text_edit_profile) ){
+            if( profileViewModel.tvAccountSetting.value == resources.getString(R.string.text_edit_profile) ){// when text view show edit text will go setting page
                 findNavController().navigate(R.id.action_profileFragment_to_accountSettingFragment)
             }else if(profileViewModel.tvAccountSetting.value == resources.getString(R.string.text_follow)){ // when text view show follow will go follow user
                 profileViewModel.follow(mUserModel!!)
