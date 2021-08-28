@@ -1,4 +1,4 @@
-package com.example.instagram.ui.notificationsfragment
+package com.example.instagram.ui.fragment.notificationsfragment
 
 import androidx.lifecycle.ViewModel
 

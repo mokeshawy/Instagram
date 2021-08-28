@@ -6,13 +6,13 @@
     <data>
         <variable
             name="signInFragment"
-            type="com.example.instagram.ui.signinfragment.SignInViewModel" />
+            type="com.example.instagram.ui.fragment.signinfragment.SignInViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.signinfragment.SignInFragment">
+        tools:context=".ui.fragment.signinfragment.SignInFragment">
 
         <ScrollView
             android:layout_width="match_parent"

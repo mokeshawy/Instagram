@@ -1,4 +1,4 @@
-package com.example.instagram.ui.profilefragment
+package com.example.instagram.ui.fragment.profilefragment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -47,7 +47,7 @@ class ProfileFragment : Fragment() {
                 profileViewModel.tvAccountSetting.value = resources.getString(R.string.text_edit_profile)
 
             }else if(mUserModel!!.uid != Const.getCurrentUser()){
-                profileViewModel.checkFollowAndFollowingButtonsStatus(requireActivity(),mUserModel!!)
+                profileViewModel.checkFollowAndFollowingButtonsStatus(mUserModel!!)
             }
         }else{ // when user entry from profile page.
 
@@ -61,12 +61,16 @@ class ProfileFragment : Fragment() {
         }
 
         binding.tvAccountSetting.setOnClickListener {
-            if( profileViewModel.tvAccountSetting.value == resources.getString(R.string.text_edit_profile) ){// when text view show edit text will go setting page
-                findNavController().navigate(R.id.action_profileFragment_to_accountSettingFragment)
-            }else if(profileViewModel.tvAccountSetting.value == resources.getString(R.string.text_follow)){ // when text view show follow will go follow user
-                profileViewModel.follow(mUserModel!!)
-            }else if(profileViewModel.tvAccountSetting.value == resources.getString(R.string.text_remove)){ // when text view show remove will go remove user
-                profileViewModel.unFollow(mUserModel!!)
+            when (profileViewModel.tvAccountSetting.value) {
+                resources.getString(R.string.text_edit_profile) -> {// when text view show edit text will go setting page
+                    findNavController().navigate(R.id.action_profileFragment_to_accountSettingFragment)
+                }
+                resources.getString(R.string.text_follow) -> { // when text view show follow will go follow user
+                    profileViewModel.follow(mUserModel!!)
+                }
+                resources.getString(R.string.text_remove) -> { // when text view show remove will go remove user
+                    profileViewModel.unFollow(mUserModel!!)
+                }
             }
         }
     }

@@ -5,13 +5,13 @@
     <data>
         <variable
             name="homeFragment"
-            type="com.example.instagram.ui.homefragment.HomeViewModel" />
+            type="com.example.instagram.ui.fragment.homefragment.HomeViewModel" />
     </data>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.homefragment.HomeFragment">
+        tools:context=".ui.fragment.homefragment.HomeFragment">
 
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"

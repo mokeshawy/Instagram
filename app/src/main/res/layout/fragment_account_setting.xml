@@ -6,13 +6,13 @@
     <data>
         <variable
             name="accountSettingFragment"
-            type="com.example.instagram.ui.accountsettingfragemnt.AccountSettingViewModel" />
+            type="com.example.instagram.ui.fragment.accountsettingfragemnt.AccountSettingViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.accountsettingfragemnt.AccountSettingFragment">
+        tools:context=".ui.fragment.accountsettingfragemnt.AccountSettingFragment">
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/app_bar_layout_profile"

@@ -6,13 +6,13 @@
     <data>
         <variable
             name="signUpFragment"
-            type="com.example.instagram.ui.signupfragment.SignUpViewModel" />
+            type="com.example.instagram.ui.fragment.signupfragment.SignUpViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.signupfragment.SignUpFragment">
+        tools:context=".ui.fragment.signupfragment.SignUpFragment">
 
 
         <ScrollView

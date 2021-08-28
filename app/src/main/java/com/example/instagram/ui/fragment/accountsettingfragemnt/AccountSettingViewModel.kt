@@ -1,4 +1,4 @@
-package com.example.instagram.ui.accountsettingfragemnt
+package com.example.instagram.ui.fragment.accountsettingfragemnt
 
 import androidx.lifecycle.ViewModel
 

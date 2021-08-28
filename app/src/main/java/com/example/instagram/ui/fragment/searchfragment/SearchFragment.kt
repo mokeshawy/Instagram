@@ -1,5 +1,6 @@
-package com.example.instagram.ui.searchfragment
+package com.example.instagram.ui.fragment.searchfragment
 
+import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -52,8 +53,8 @@ class SearchFragment : Fragment() , OnClick{
 
                 }else{
                     binding.recyclerViewSearch.visibility = View.VISIBLE
-                    searchViewModel.retrieveUser(requireActivity())
-                    searchViewModel.searchUser(requireActivity(),s.toString().lowercase(Locale.getDefault()))
+                    searchViewModel.retrieveUser()
+                    searchViewModel.searchUser(s.toString().lowercase(Locale.getDefault()))
                 }
             }
             override fun afterTextChanged(s: Editable?) {
@@ -65,7 +66,7 @@ class SearchFragment : Fragment() , OnClick{
     override fun onClick(viewHolder: UserAdapter.ViewHolder, userModel: UserModel, position: Int) {
 
         // call fun for check following status.
-        searchViewModel.checkFollowingStatus(requireActivity(),userModel.uid,viewHolder.binding.followBtnSearch)
+        searchViewModel.checkFollowingStatus(userModel.uid,viewHolder.binding.followBtnSearch)
 
         // click follow and unFollow.
         viewHolder.binding.followBtnSearch.setOnClickListener {
@@ -78,5 +79,8 @@ class SearchFragment : Fragment() , OnClick{
             bundle.putSerializable(Const.BUNDLE_USER_MODEL , userModel)
             findNavController().navigate(R.id.action_searchFragment_to_profileFragment,bundle)
         }
+
+
+
     }
 }

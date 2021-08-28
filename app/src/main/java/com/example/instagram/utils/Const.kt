@@ -1,5 +1,7 @@
 package com.example.instagram.utils
 
+import android.content.Context
+import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 
 object Const {
@@ -22,6 +24,16 @@ object Const {
     const val BUNDLE_USER_MODEL = "userModelKey"
     // default image profile
     const val DEFAULT_IMAGE_PROFILE = "https://firebasestorage.googleapis.com/v0/b/instagram-1bd4b.appspot.com/o/Photo%2Fic_profile_image.png?alt=media&token=a33b0a81-c0a7-40e6-a1c8-9c5b5e2c555b"
+
+    // shared preference key.
+    const val SHARED_PREF_KEY = "preference"
+    const val PUT_SHARE_PREF = "profileId"
+
+
+    // constance toast.
+    fun constToast( context: Context , str : String){
+        Toast.makeText(context , str , Toast.LENGTH_SHORT).show()
+    }
 
     // fun get id for user login
     fun getCurrentUser() : String{

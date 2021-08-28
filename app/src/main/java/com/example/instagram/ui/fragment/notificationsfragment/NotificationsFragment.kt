@@ -1,4 +1,4 @@
-package com.example.instagram.ui.homefragment
+package com.example.instagram.ui.fragment.notificationsfragment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -6,15 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import com.example.instagram.databinding.FragmentHomeBinding
+import com.example.instagram.databinding.FragmentNotificationsBinding
 
-class HomeFragment : Fragment() {
+class NotificationsFragment : Fragment() {
 
-    lateinit var binding        : FragmentHomeBinding
-    private val homeViewModel   : HomeViewModel by viewModels()
+    lateinit var binding : FragmentNotificationsBinding
+    private val notificationsViewModel : NotificationsViewModel by viewModels()
     override fun onCreateView( inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
         // Inflate the layout for this fragment
-        binding = FragmentHomeBinding.inflate(inflater)
+        binding = FragmentNotificationsBinding.inflate(inflater)
         return binding.root
     }
 
@@ -22,7 +22,8 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // connect with view model.
-        binding.lifecycleOwner  = this
-        binding.homeFragment    = homeViewModel
+        binding.lifecycleOwner = this
+        binding.notificationsFragment = notificationsViewModel
+
     }
 }

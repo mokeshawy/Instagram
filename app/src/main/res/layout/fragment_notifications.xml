@@ -5,13 +5,13 @@
     <data>
         <variable
             name="notificationsFragment"
-            type="com.example.instagram.ui.notificationsfragment.NotificationsViewModel" />
+            type="com.example.instagram.ui.fragment.notificationsfragment.NotificationsViewModel" />
     </data>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.notificationsfragment.NotificationsFragment">
+        tools:context=".ui.fragment.notificationsfragment.NotificationsFragment">
 
 
         <com.google.android.material.appbar.AppBarLayout

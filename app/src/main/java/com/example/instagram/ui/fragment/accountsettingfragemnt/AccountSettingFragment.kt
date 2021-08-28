@@ -1,4 +1,4 @@
-package com.example.instagram.ui.accountsettingfragemnt
+package com.example.instagram.ui.fragment.accountsettingfragemnt
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

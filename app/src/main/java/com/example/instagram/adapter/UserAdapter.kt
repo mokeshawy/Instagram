@@ -9,7 +9,9 @@ import com.example.instagram.databinding.UserItemLayoutBinding
 import com.example.instagram.model.UserModel
 import com.squareup.picasso.Picasso
 
-class UserAdapter (var mContext : Context , var mUsers: ArrayList<UserModel> , var isFragment : Boolean = false , var onClick: OnClick) : RecyclerView.Adapter<UserAdapter.ViewHolder>() {
+class UserAdapter (var mContext : Context , var mUsers: ArrayList<UserModel> ,
+                   var isFragment : Boolean = false ,
+                   var onClick: OnClick) : RecyclerView.Adapter<UserAdapter.ViewHolder>() {
 
     class ViewHolder(var binding : UserItemLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
 

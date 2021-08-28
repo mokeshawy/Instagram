@@ -1,8 +1,10 @@
-package com.example.instagram.ui.searchfragment
+package com.example.instagram.ui.fragment.searchfragment
 
+import android.app.Application
 import android.content.Context
 import android.widget.Button
 import android.widget.Toast
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.instagram.R
@@ -14,7 +16,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
-class SearchViewModel : ViewModel() {
+class SearchViewModel(application: Application) : AndroidViewModel(application) {
 
     var mUser = MutableLiveData<ArrayList<UserModel>>()
     var user  = ArrayList<UserModel>()
@@ -26,8 +28,11 @@ class SearchViewModel : ViewModel() {
     private var userReference       = firebaseDatabase.getReference(Const.USER_REFERENCE)
     private var followingReference = firebaseDatabase.getReference(Const.FOLLOW_REFERENCE)
 
+    // get context
+    val context = application.applicationContext as Application
+
     // fun for search user.
-    fun searchUser( context: Context , input : String ){
+    fun searchUser(input : String ){
         userReference.orderByChild("fullName").startAt(input).endAt(input+"\uf8ff")
             .addValueEventListener(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -47,7 +52,7 @@ class SearchViewModel : ViewModel() {
     }
 
     // fun for show all data
-    fun retrieveUser(context: Context){
+    fun retrieveUser(){
         userReference.addValueEventListener( object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 if(etSearchText.value!!.toString() == ""){
@@ -67,7 +72,7 @@ class SearchViewModel : ViewModel() {
     }
 
     // check following status.
-    fun checkFollowingStatus( context: Context , uid : String , followingButton : Button){
+    fun checkFollowingStatus(uid : String , followingButton : Button){
         followingReference.child(Const.getCurrentUser()).child(Const.CHILD_FOLLOWING).addValueEventListener( object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 if( snapshot.child(uid).exists()){
