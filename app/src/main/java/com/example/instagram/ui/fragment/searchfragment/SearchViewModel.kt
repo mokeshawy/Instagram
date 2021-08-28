@@ -95,18 +95,15 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
     fun followAndUnFollow(followButton : Button , userModel : UserModel){
 
         if( followButton.text.toString() == Const.BTN_FOLLOW){
-            followingReference.child(Const.getCurrentUser())
-                .child(Const.CHILD_FOLLOWING).child(userModel.uid).setValue(true).addOnCompleteListener { task ->
+            followingReference.child(Const.getCurrentUser()).child(Const.CHILD_FOLLOWING).child(userModel.uid).setValue(true).addOnCompleteListener { task ->
                     if(task.isSuccessful){
-                        followingReference.child(Const.CHILD_FOLLOWERS).child(userModel.uid).child(Const.getCurrentUser()).setValue(true)
+                        followingReference.child(userModel.uid).child(Const.CHILD_FOLLOWERS).child(Const.getCurrentUser()).setValue(true)
                     }
                 }
         }else{
-            followingReference.child(Const.getCurrentUser())
-                .child(Const.CHILD_FOLLOWING).child(userModel.uid).removeValue().addOnCompleteListener { task ->
+            followingReference.child(Const.getCurrentUser()).child(Const.CHILD_FOLLOWING).child(userModel.uid).removeValue().addOnCompleteListener { task ->
                     if (task.isSuccessful) {
-                        followingReference.child(Const.CHILD_FOLLOWERS).child(userModel.uid)
-                            .child(Const.getCurrentUser()).removeValue()
+                        followingReference.child(userModel.uid).child(Const.CHILD_FOLLOWERS).child(Const.getCurrentUser()).removeValue()
                     }
                 }
         }

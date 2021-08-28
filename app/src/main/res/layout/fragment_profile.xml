@@ -131,10 +131,10 @@
                                     android:id="@+id/tv_total_followers"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="0"
+                                    android:text="@={profileFragment.tvTotalFollowers}"
+                                    android:textColor="@color/black"
                                     android:textSize="14sp"
-                                    android:textStyle="bold"
-                                    android:textColor="@color/black"/>
+                                    android:textStyle="bold" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
@@ -155,7 +155,7 @@
                                     android:id="@+id/tv_total_following"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="0"
+                                    android:text="@={profileFragment.tvTotalFollowing}"
                                     android:textSize="14sp"
                                     android:textStyle="bold"
                                     android:textColor="@color/black"/>

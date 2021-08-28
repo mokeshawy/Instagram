@@ -26,8 +26,12 @@ object Const {
     const val DEFAULT_IMAGE_PROFILE = "https://firebasestorage.googleapis.com/v0/b/instagram-1bd4b.appspot.com/o/Photo%2Fic_profile_image.png?alt=media&token=a33b0a81-c0a7-40e6-a1c8-9c5b5e2c555b"
 
     // shared preference key.
-    const val SHARED_PREF_KEY = "preference"
-    const val PUT_SHARE_PREF = "profileId"
+    const val SHARED_PREF_KEY       = "preference"
+    const val PUT_UID_PREF          = "uid"
+    const val PUT_USER_NAME_PREF    = "userName"
+    const val PUT_FULL_NAME_PREF    = "fullName"
+    const val PUT_BIO_PREF          = "bio"
+    const val PUT_IMAGE_PREF        = "image"
 
 
     // constance toast.

@@ -23,7 +23,8 @@ class ProfileViewModel(application: Application) : AndroidViewModel(application)
     var tvShowUserName      = MutableLiveData<String>("")
     var tvShowFullName      = MutableLiveData<String>("")
     var tvShowBio           = MutableLiveData<String>("")
-    var ivUserImage         = MutableLiveData<ImageView>()
+    var tvTotalFollowing    = MutableLiveData<String>("0")
+    var tvTotalFollowers    = MutableLiveData<String>("0")
 
     var firebaseDatabase        = FirebaseDatabase.getInstance()
     var followingReference      = firebaseDatabase.getReference(Const.FOLLOW_REFERENCE)
@@ -42,7 +43,7 @@ class ProfileViewModel(application: Application) : AndroidViewModel(application)
                     }
                 }
                 override fun onCancelled(error: DatabaseError) {
-                    Toast.makeText(context , error.message ,Toast.LENGTH_SHORT).show()
+                    Const.constToast(context,error.message)
                 }
             })
         }
@@ -50,27 +51,53 @@ class ProfileViewModel(application: Application) : AndroidViewModel(application)
 
     // fun follow from search page after entry profile for user.
     fun follow( userModel: UserModel){
-        followingReference.child(Const.getCurrentUser())
-            .child(Const.CHILD_FOLLOWING).child(userModel.uid).setValue(true).addOnCompleteListener { task ->
-                if(task.isSuccessful){
-                    followingReference.child(Const.CHILD_FOLLOWERS).child(userModel.uid).child(Const.getCurrentUser()).setValue(true)
-                }
+        followingReference.child(Const.getCurrentUser()).child(Const.CHILD_FOLLOWING).child(userModel.uid).setValue(true).addOnCompleteListener { task ->
+            if(task.isSuccessful){
+                followingReference.child(userModel.uid).child(Const.CHILD_FOLLOWERS).child(Const.getCurrentUser()).setValue(true)
             }
+        }
     }
 
     // fun remove from search page after entry profile for user.
     fun unFollow(userModel: UserModel){
-        followingReference.child(Const.getCurrentUser())
-            .child(Const.CHILD_FOLLOWING).child(userModel.uid).removeValue().addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    followingReference.child(Const.CHILD_FOLLOWERS).child(userModel.uid)
-                        .child(Const.getCurrentUser()).removeValue()
-                }
+        followingReference.child(Const.getCurrentUser()).child(Const.CHILD_FOLLOWING).child(userModel.uid).removeValue().addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                followingReference.child(userModel.uid).child(Const.CHILD_FOLLOWERS).child(Const.getCurrentUser()).removeValue()
             }
+        }
     }
 
-    // fun user info.
-    fun userInfo( userModel: UserModel ){
-        Picasso.get().load(userModel.image).into(ivUserImage.value)
+    // fun get followers.
+    fun getFollowers(uid : String){
+        followingReference.child(uid)
+            .child(Const.CHILD_FOLLOWERS)
+            .addValueEventListener(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if(snapshot.exists()){
+                    tvTotalFollowers.value = snapshot.childrenCount.toString()
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Const.constToast(context,error.message)
+            }
+
+        })
+    }
+    // fun get followings.
+    fun getFollowings(uid : String){
+        followingReference.child(uid)
+            .child(Const.CHILD_FOLLOWING)
+            .addValueEventListener( object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if(snapshot.exists()){
+                    tvTotalFollowing.value = snapshot.childrenCount.toString()
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+               Const.constToast(context,error.message)
+            }
+        })
     }
 }
