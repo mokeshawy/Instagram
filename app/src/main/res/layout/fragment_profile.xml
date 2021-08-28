@@ -37,12 +37,12 @@
                         android:id="@+id/profile_fragment_username"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="username"
-                        android:textSize="18dp"
+                        android:layout_centerVertical="true"
                         android:maxLines="1"
-                        android:textStyle="bold"
+                        android:text="@={profileFragment.tvShowUserName}"
                         android:textColor="@android:color/black"
-                        android:layout_centerVertical="true"/>
+                        android:textSize="18dp"
+                        android:textStyle="bold" />
 
                     <ImageView
                         android:id="@+id/options_view"
@@ -197,7 +197,7 @@
                         android:id="@+id/tv_user_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Full name"
+                        android:text="@={profileFragment.tvShowFullName}"
                         android:textSize="13dp"
                         android:textColor="@color/black"
                         android:textStyle="bold"/>
@@ -206,7 +206,7 @@
                         android:id="@+id/tv_bio_profile"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Bio"
+                        android:text="@={profileFragment.tvShowBio}"
                         android:textSize="13dp"/>
 
                 </LinearLayout>

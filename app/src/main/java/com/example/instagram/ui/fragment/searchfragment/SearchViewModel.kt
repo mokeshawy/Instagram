@@ -1,5 +1,6 @@
 package com.example.instagram.ui.fragment.searchfragment
 
+import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
 import android.widget.Button
@@ -26,7 +27,7 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
     // firebase instance.
     private var firebaseDatabase    = FirebaseDatabase.getInstance()
     private var userReference       = firebaseDatabase.getReference(Const.USER_REFERENCE)
-    private var followingReference = firebaseDatabase.getReference(Const.FOLLOW_REFERENCE)
+    private var followingReference  = firebaseDatabase.getReference(Const.FOLLOW_REFERENCE)
 
     // get context
     val context = application.applicationContext as Application
@@ -35,6 +36,7 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
     fun searchUser(input : String ){
         userReference.orderByChild("fullName").startAt(input).endAt(input+"\uf8ff")
             .addValueEventListener(object : ValueEventListener{
+            @SuppressLint("NotifyDataSetChanged")
             override fun onDataChange(snapshot: DataSnapshot) {
                user.clear()
                 for (ds in snapshot.children){
@@ -54,6 +56,7 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
     // fun for show all data
     fun retrieveUser(){
         userReference.addValueEventListener( object : ValueEventListener{
+            @SuppressLint("NotifyDataSetChanged")
             override fun onDataChange(snapshot: DataSnapshot) {
                 if(etSearchText.value!!.toString() == ""){
                     user.clear()

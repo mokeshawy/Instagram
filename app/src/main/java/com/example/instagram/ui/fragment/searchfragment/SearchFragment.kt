@@ -17,6 +17,7 @@ import com.example.instagram.adapter.UserAdapter
 import com.example.instagram.databinding.FragmentSearchBinding
 import com.example.instagram.model.UserModel
 import com.example.instagram.utils.Const
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import java.util.*
 
@@ -54,7 +55,7 @@ class SearchFragment : Fragment() , OnClick{
                 }else{
                     binding.recyclerViewSearch.visibility = View.VISIBLE
                     searchViewModel.retrieveUser()
-                    searchViewModel.searchUser(s.toString().lowercase(Locale.getDefault()))
+                    searchViewModel.searchUser(s.toString())
                 }
             }
             override fun afterTextChanged(s: Editable?) {
@@ -65,6 +66,11 @@ class SearchFragment : Fragment() , OnClick{
     // implement for fun from interface onClick on item userAdapter.
     override fun onClick(viewHolder: UserAdapter.ViewHolder, userModel: UserModel, position: Int) {
 
+        if(FirebaseAuth.getInstance().currentUser!!.uid == userModel.uid){
+            viewHolder.binding.followBtnSearch.visibility = View.GONE
+        }else{
+            viewHolder.binding.followBtnSearch.visibility = View.VISIBLE
+        }
         // call fun for check following status.
         searchViewModel.checkFollowingStatus(userModel.uid,viewHolder.binding.followBtnSearch)
 

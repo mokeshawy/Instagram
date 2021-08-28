@@ -49,6 +49,9 @@ class ProfileFragment : Fragment() {
             }else if(mUserModel!!.uid != Const.getCurrentUser()){
                 profileViewModel.checkFollowAndFollowingButtonsStatus(mUserModel!!)
             }
+            profileViewModel.tvShowFullName.value   = mUserModel!!.fullName
+            profileViewModel.tvShowUserName.value   = mUserModel!!.userName
+            profileViewModel.tvShowBio.value        = mUserModel!!.bio
         }else{ // when user entry from profile page.
 
             // show edit profile

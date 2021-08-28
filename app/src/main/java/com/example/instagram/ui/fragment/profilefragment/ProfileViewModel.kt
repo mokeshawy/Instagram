@@ -20,6 +20,9 @@ import com.squareup.picasso.Picasso
 class ProfileViewModel(application: Application) : AndroidViewModel(application) {
 
     var tvAccountSetting    = MutableLiveData<String>("")
+    var tvShowUserName      = MutableLiveData<String>("")
+    var tvShowFullName      = MutableLiveData<String>("")
+    var tvShowBio           = MutableLiveData<String>("")
     var ivUserImage         = MutableLiveData<ImageView>()
 
     var firebaseDatabase        = FirebaseDatabase.getInstance()
