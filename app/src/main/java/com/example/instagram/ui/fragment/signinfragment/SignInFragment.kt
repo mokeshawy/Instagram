@@ -11,7 +11,6 @@ import androidx.navigation.fragment.findNavController
 import com.example.instagram.R
 import com.example.instagram.databinding.FragmentSigninBinding
 import com.example.instagram.utils.Const
-import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 
 class SignInFragment : Fragment() {
