@@ -1,6 +1,5 @@
 package com.example.instagram.ui.fragment.searchfragment
 
-import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -10,19 +9,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.navigation.fragment.findNavController
-import com.example.instagram.R
-import com.example.instagram.`interface`.OnClick
 import com.example.instagram.adapter.UserAdapter
 import com.example.instagram.databinding.FragmentSearchBinding
-import com.example.instagram.model.UserModel
 import com.example.instagram.utils.Const
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.FirebaseDatabase
-import java.util.*
 
 
-class SearchFragment : Fragment() , OnClick{
+class SearchFragment : Fragment() {
 
     lateinit var binding : FragmentSearchBinding
     private val searchViewModel : SearchViewModel by viewModels()
@@ -41,8 +33,9 @@ class SearchFragment : Fragment() , OnClick{
         binding.searchFragment = searchViewModel
 
 
+
         searchViewModel.mUser.observe(viewLifecycleOwner, Observer {
-            binding.recyclerViewSearch.adapter = UserAdapter(requireActivity() , it ,true,this)
+            binding.recyclerViewSearch.adapter = UserAdapter(it,true, searchViewModel,this)
         })
 
         binding.searchEditText.addTextChangedListener(object : TextWatcher{
@@ -55,7 +48,7 @@ class SearchFragment : Fragment() , OnClick{
                 }else{
                     binding.recyclerViewSearch.visibility = View.VISIBLE
                     searchViewModel.retrieveUser()
-                    searchViewModel.searchUser(s.toString())
+                    searchViewModel.searchUser(s.toString().toLowerCase())
                 }
             }
             override fun afterTextChanged(s: Editable?) {
@@ -64,29 +57,26 @@ class SearchFragment : Fragment() , OnClick{
     }
 
     // implement for fun from interface onClick on item userAdapter.
-    override fun onClick(viewHolder: UserAdapter.ViewHolder, userModel: UserModel, position: Int) {
-
-        if(FirebaseAuth.getInstance().currentUser!!.uid == userModel.uid){
-            viewHolder.binding.followBtnSearch.visibility = View.GONE
-        }else{
-            viewHolder.binding.followBtnSearch.visibility = View.VISIBLE
-        }
-        // call fun for check following status.
-        searchViewModel.checkFollowingStatus(userModel.uid,viewHolder.binding.followBtnSearch)
-
-        // click follow and unFollow.
-        viewHolder.binding.followBtnSearch.setOnClickListener {
-            // call fun follow and unFollow
-            searchViewModel.followAndUnFollow(viewHolder.binding.followBtnSearch,userModel)
-        }
-
-        viewHolder.itemView.setOnClickListener {
-            val bundle = Bundle()
-            bundle.putSerializable(Const.BUNDLE_USER_MODEL , userModel)
-            findNavController().navigate(R.id.action_searchFragment_to_profileFragment,bundle)
-        }
-
-
-
-    }
+//    override fun onClick(viewHolder: UserAdapter.ViewHolder, userModel: UserModel, position: Int) {
+//
+//        if(FirebaseAuth.getInstance().currentUser!!.uid == userModel.uid){
+//            viewHolder.binding.followBtnSearch.visibility = View.GONE
+//        }else{
+//            viewHolder.binding.followBtnSearch.visibility = View.VISIBLE
+//        }
+//        // call fun for check following status.
+//        searchViewModel.checkFollowingStatus(userModel.uid,viewHolder.binding.followBtnSearch)
+//
+//        // click follow and unFollow.
+//        viewHolder.binding.followBtnSearch.setOnClickListener {
+//            // call fun follow and unFollow
+//            searchViewModel.followAndUnFollow(viewHolder.binding.followBtnSearch,userModel)
+//        }
+//
+//        viewHolder.itemView.setOnClickListener {
+//            val bundle = Bundle()
+//            bundle.putSerializable(Const.BUNDLE_USER_MODEL , userModel)
+//            findNavController().navigate(R.id.action_searchFragment_to_profileFragment,bundle)
+//        }
+//    }
 }

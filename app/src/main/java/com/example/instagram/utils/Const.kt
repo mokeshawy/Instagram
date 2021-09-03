@@ -9,6 +9,13 @@ object Const {
     // user reference.
     const val USER_REFERENCE = "user"
 
+    // child of user reference.
+    const val CHILD_USER_NAME = "userName"
+    const val CHILD_FULL_NAME = "fullName"
+    const val CHILD_EMAIL     = "email"
+    const val CHILD_BIO       = "bio"
+    const val CHILD_IMAGE     = "image"
+
     // follow reference.
     const val FOLLOW_REFERENCE = "Follow"
 
@@ -26,13 +33,18 @@ object Const {
     const val DEFAULT_IMAGE_PROFILE = "https://firebasestorage.googleapis.com/v0/b/instagram-1bd4b.appspot.com/o/Photo%2Fic_profile_image.png?alt=media&token=a33b0a81-c0a7-40e6-a1c8-9c5b5e2c555b"
 
     // shared preference key.
-    const val SHARED_PREF_KEY       = "preference"
-    const val PUT_UID_PREF          = "uid"
-    const val PUT_USER_NAME_PREF    = "userName"
-    const val PUT_FULL_NAME_PREF    = "fullName"
-    const val PUT_BIO_PREF          = "bio"
-    const val PUT_IMAGE_PREF        = "image"
+    const val SHARED_PREFERENCE_NAME   = "sharedPref"
+    const val DATA_STORE_NAME = "dataStore"
+    const val USER_NAME_KEY     = "userNameKey"
+    const val FULL_NAME_KEY     = "fullNameKey"
 
+    const val BIO_KEY           = "bioKey"
+    const val IMAGE_KEY         = "imageKey"
+
+    // shared preference for cash emil and password.
+    const val SHARED_CASH_PREF_NAME = "cashPref"
+    const val EMAIL_KEY             = "email"
+    const val PASSWORD_KEY          = "password"
 
     // constance toast.
     fun constToast( context: Context , str : String){

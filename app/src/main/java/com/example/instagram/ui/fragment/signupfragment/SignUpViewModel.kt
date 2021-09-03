@@ -55,7 +55,7 @@ class SignUpViewModel(application: Application) : AndroidViewModel(application) 
 
                     firebaseAuth.currentUser?.sendEmailVerification()
                     val uid = firebaseAuth.currentUser?.uid.toString()
-                    val userModel = UserModel(uid,etUserName.value!!,etFullName.value!!,context.getString(R.string.message_for_bio),Const.DEFAULT_IMAGE_PROFILE)
+                    val userModel = UserModel(uid,etUserName.value!!.toLowerCase(),etFullName.value!!.toLowerCase(),etEmail.value!!,context.getString(R.string.message_for_bio),Const.DEFAULT_IMAGE_PROFILE)
 
                     userReference.child(firebaseAuth.currentUser?.uid.toString()).setValue(userModel)
                     state.value = true

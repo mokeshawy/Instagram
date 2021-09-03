@@ -1,24 +1,31 @@
 package com.example.instagram.adapter
 
 import android.content.Context
+import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.NavHostFragment.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.example.instagram.`interface`.OnClick
+import com.example.instagram.R
 import com.example.instagram.databinding.UserItemLayoutBinding
 import com.example.instagram.model.UserModel
+import com.example.instagram.ui.fragment.searchfragment.SearchFragment
+import com.example.instagram.ui.fragment.searchfragment.SearchViewModel
+import com.example.instagram.utils.Const
+import com.google.firebase.auth.FirebaseAuth
 import com.squareup.picasso.Picasso
 
-class UserAdapter (var mContext : Context , var mUsers: ArrayList<UserModel> ,
+
+class UserAdapter( var mUsers: ArrayList<UserModel> ,
                    var isFragment : Boolean = false ,
-                   var onClick: OnClick) : RecyclerView.Adapter<UserAdapter.ViewHolder>() {
+                   var searchViewModel: SearchViewModel ,
+                   var searchFragment: SearchFragment) : RecyclerView.Adapter<UserAdapter.ViewHolder>() {
+
 
     class ViewHolder(var binding : UserItemLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
-
-        // initialize onClickUsersAdapter from interface
-        fun initialize(viewHolder: ViewHolder, dataSet: UserModel, action : OnClick){
-            action.onClick(viewHolder , dataSet , adapterPosition )
-        }
 
     }
     // Create new views (invoked by the layout manager)
@@ -37,11 +44,30 @@ class UserAdapter (var mContext : Context , var mUsers: ArrayList<UserModel> ,
         viewHolder.binding.userFullNameSearch.text  = users.fullName
         Picasso.get().load(users.image).into(viewHolder.binding.userProfileImageSearch)
 
-        viewHolder.initialize( viewHolder , mUsers[position] , onClick)
+        // all operation form search viewModel.
+        if(FirebaseAuth.getInstance().currentUser!!.uid == users.uid){
+                viewHolder.binding.followBtnSearch.visibility = View.GONE
+            }else{
+                viewHolder.binding.followBtnSearch.visibility = View.VISIBLE
+        }
+        // call fun for check following status.
+        searchViewModel.checkFollowingStatus(users.uid,viewHolder.binding.followBtnSearch)
 
+        // click follow and unFollow.
+        viewHolder.binding.followBtnSearch.setOnClickListener {
+            // call fun follow and unFollow
+            searchViewModel.followAndUnFollow(viewHolder.binding.followBtnSearch,users)
+        }
+
+        viewHolder.itemView.setOnClickListener {
+            val bundle = Bundle()
+            bundle.putSerializable(Const.BUNDLE_USER_MODEL , users)
+            searchFragment.findNavController().navigate(R.id.action_searchFragment_to_profileFragment,bundle)
+        }
     }
 
 
     // Return the size of your dataset (invoked by the layout manager)
     override fun getItemCount() = mUsers.size
+
 }
