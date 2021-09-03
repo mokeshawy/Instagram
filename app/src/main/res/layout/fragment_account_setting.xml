@@ -7,6 +7,10 @@
         <variable
             name="accountSettingFragment"
             type="com.example.instagram.ui.fragment.accountsettingfragemnt.AccountSettingViewModel" />
+
+        <variable
+            name="signInFragemnt"
+            type="com.example.instagram.ui.fragment.signinfragment.SignInViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -49,6 +53,7 @@
                         android:layout_height="30dp"
                         android:layout_alignParentEnd="true"
                         android:layout_marginRight="15dp"
+                        android:clickable="true"
                         android:src="@drawable/ic_vector_done" />
 
                 </RelativeLayout>
@@ -81,7 +86,7 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/profile_image_view_profile_frag"
+                        android:id="@+id/iv_profile"
                         android:layout_width="130dp"
                         android:layout_height="130dp"
                         android:layout_centerHorizontal="true"
@@ -111,7 +116,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
 
                     <EditText
-                        android:id="@+id/full_name_profile_frag"
+                        android:id="@+id/et_full_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/change_image_text_btn"
@@ -119,10 +124,11 @@
                         android:layout_marginTop="16dp"
                         android:layout_marginRight="20dp"
                         android:hint="Full Name"
+                        android:text="@={accountSettingFragment.etFullName}"
                         android:inputType="text" />
 
                     <EditText
-                        android:id="@+id/username_profile_frag"
+                        android:id="@+id/et_user_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/full_name_profile_frag"
@@ -130,10 +136,11 @@
                         android:layout_marginTop="16dp"
                         android:layout_marginRight="20dp"
                         android:hint="UserName"
+                        android:text="@={accountSettingFragment.etUserName}"
                         android:inputType="text" />
 
                     <EditText
-                        android:id="@+id/bio_profile_frag"
+                        android:id="@+id/et_bio"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/username_profile_frag"
@@ -141,6 +148,7 @@
                         android:layout_marginTop="16dp"
                         android:layout_marginRight="20dp"
                         android:hint="Bio"
+                        android:text="@={accountSettingFragment.etBio}"
                         android:inputType="text" />
 
                 </LinearLayout>

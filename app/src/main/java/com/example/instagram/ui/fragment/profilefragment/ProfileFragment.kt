@@ -1,27 +1,23 @@
 package com.example.instagram.ui.fragment.profilefragment
 
-import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.instagram.R
 import com.example.instagram.databinding.FragmentProfileBinding
 import com.example.instagram.model.UserModel
 import com.example.instagram.utils.Const
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
 import com.squareup.picasso.Picasso
 
 class ProfileFragment : Fragment() {
 
-    lateinit var binding : FragmentProfileBinding
-    private val profileViewModel : ProfileViewModel by viewModels()
-    private var mUserModel : UserModel?= null
+    lateinit var binding            : FragmentProfileBinding
+    private val profileViewModel    : ProfileViewModel by viewModels()
+    private var mUserModel          : UserModel?= null
 
     override fun onCreateView( inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
 
@@ -36,18 +32,6 @@ class ProfileFragment : Fragment() {
         // connect with view model
         binding.lifecycleOwner = this
         binding.profileFragment = profileViewModel
-
-        // get shared preference data.
-        val pref        = requireActivity().getSharedPreferences(Const.SHARED_PREF_KEY,Context.MODE_PRIVATE)
-        val uid         = pref.getString(Const.PUT_UID_PREF,"")
-        val userName    = pref.getString(Const.PUT_USER_NAME_PREF,"")
-        val fullName    = pref.getString(Const.PUT_FULL_NAME_PREF,"")
-        val bio         = pref.getString(Const.PUT_BIO_PREF,"")
-        val image       = pref.getString(Const.PUT_IMAGE_PREF,"")
-
-
-
-
 
 
         // get user model object by bundle when user entry from search page.
@@ -77,11 +61,6 @@ class ProfileFragment : Fragment() {
 
         }else{ // when user entry from profile page.
 
-            // show info for user
-            profileViewModel.tvShowFullName.value   = fullName
-            profileViewModel.tvShowUserName.value   = userName
-            profileViewModel.tvShowBio.value        = bio
-            Picasso.get().load(image).into(binding.ivUserProfile)
 
             // show edit profile
             profileViewModel.tvAccountSetting.value = resources.getString(R.string.text_edit_profile)

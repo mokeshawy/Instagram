@@ -12,6 +12,7 @@
     <string name="err_enter_mismatch_password">Password and confirm password not mismatch</string>
     <string name="err_msg_the_password_not_less_than">the password is not less than</string>
     <string name="err_msg_confirm_email">Please confirm your email</string>
+    <string name="err_message_for_bio">Please write your bio first</string>
     <string name="et_email_string">Email...</string>
     <string name="et_password_string">Password...</string>
     <string name="et_full_name_string">Full Name...</string>
