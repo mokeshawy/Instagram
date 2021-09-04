@@ -5,20 +5,24 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.instagram.R
 import com.example.instagram.databinding.FragmentProfileBinding
 import com.example.instagram.model.UserModel
+import com.example.instagram.ui.fragment.signinfragment.SignInViewModel
 import com.example.instagram.utils.Const
 import com.squareup.picasso.Picasso
+import kotlinx.coroutines.flow.collect
 
 class ProfileFragment : Fragment() {
 
     lateinit var binding            : FragmentProfileBinding
     private val profileViewModel    : ProfileViewModel by viewModels()
     private var mUserModel          : UserModel?= null
-
+    private val signInViewModel     : SignInViewModel by activityViewModels()
     override fun onCreateView( inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
 
         // Inflate the layout for this fragment
@@ -61,6 +65,8 @@ class ProfileFragment : Fragment() {
 
         }else{ // when user entry from profile page.
 
+            // call function show user info in profile page.
+            showUserInfo()
 
             // show edit profile
             profileViewModel.tvAccountSetting.value = resources.getString(R.string.text_edit_profile)
@@ -88,6 +94,35 @@ class ProfileFragment : Fragment() {
                 resources.getString(R.string.text_remove) -> { // when text view show remove will go remove user
                     profileViewModel.unFollow(mUserModel!!)
                 }
+            }
+        }
+    }
+
+    // fun show user info from dataStore.
+    private fun showUserInfo(){
+
+        // show data for user from dataStore.
+        lifecycleScope.launchWhenCreated {
+            signInViewModel.userName.collect {
+                profileViewModel.tvShowUserName.value = it
+            }
+        }
+
+        lifecycleScope.launchWhenCreated {
+            signInViewModel.fullName.collect {
+                profileViewModel.tvShowFullName.value = it
+            }
+        }
+
+        lifecycleScope.launchWhenCreated {
+            signInViewModel.bio.collect {
+               profileViewModel.tvShowBio.value = it
+            }
+        }
+
+        lifecycleScope.launchWhenCreated {
+            signInViewModel.image.collect {
+                Picasso.get().load(it).into(binding.ivUserProfile)
             }
         }
     }

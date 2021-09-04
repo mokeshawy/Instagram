@@ -54,38 +54,8 @@ class AccountSettingFragment : Fragment() {
         // default url for image.
         profileUri = Const.DEFAULT_IMAGE_PROFILE.toUri()
 
-        // call fun show user info.
-        //accountSettingViewModel.showUserInfo()
-
-        // show data for user from dataStore.
-        lifecycleScope.launchWhenCreated {
-            signInViewModel.userName.collect {
-                accountSettingViewModel.etUserName.value = it
-            }
-        }
-
-        lifecycleScope.launchWhenCreated {
-            signInViewModel.fullName.collect {
-                accountSettingViewModel.etFullName.value = it
-            }
-        }
-
-        lifecycleScope.launchWhenCreated {
-            signInViewModel.bio.collect {
-                accountSettingViewModel.etBio.value = it
-            }
-        }
-
-        lifecycleScope.launchWhenCreated {
-            signInViewModel.image.collect {
-                Picasso.get().load(it).into(binding.ivProfile)
-            }
-        }
-
-        // show image on imageView using live data.
-        accountSettingViewModel.image.observe(viewLifecycleOwner, Observer {
-            //Picasso.get().load(it).into(binding.ivProfile)
-        })
+        // call function show user info in input account setting.
+        showUserInfo()
 
         // make log out from app.
         binding.btnLogout.setOnClickListener {
@@ -126,6 +96,35 @@ class AccountSettingFragment : Fragment() {
         if( requestCode == 1 && resultCode == AppCompatActivity.RESULT_OK){
             profileUri = data?.data!!
             binding.ivProfile.setImageURI(profileUri)
+        }
+    }
+
+    // fun show user info from dataStore.
+    private fun showUserInfo(){
+
+        // show data for user from dataStore.
+        lifecycleScope.launchWhenCreated {
+            signInViewModel.userName.collect {
+                accountSettingViewModel.etUserName.value = it
+            }
+        }
+
+        lifecycleScope.launchWhenCreated {
+            signInViewModel.fullName.collect {
+                accountSettingViewModel.etFullName.value = it
+            }
+        }
+
+        lifecycleScope.launchWhenCreated {
+            signInViewModel.bio.collect {
+                accountSettingViewModel.etBio.value = it
+            }
+        }
+
+        lifecycleScope.launchWhenCreated {
+            signInViewModel.image.collect {
+                Picasso.get().load(it).into(binding.ivProfile)
+            }
         }
     }
 }

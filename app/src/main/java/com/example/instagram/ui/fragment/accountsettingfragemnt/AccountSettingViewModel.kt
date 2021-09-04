@@ -17,7 +17,6 @@ class AccountSettingViewModel(application: Application) : AndroidViewModel(appli
     var etUserName = MutableLiveData<String>("")
     var etFullName = MutableLiveData<String>("")
     var etBio      = MutableLiveData<String>("")
-    var image      = MutableLiveData<String>("")
 
     // get context.
     val context = application.applicationContext as Application
@@ -54,14 +53,5 @@ class AccountSettingViewModel(application: Application) : AndroidViewModel(appli
                 }
             }
         }
-    }
-
-    fun showUserInfo(){
-        val pref = context.getSharedPreferences(Const.SHARED_PREFERENCE_NAME,Context.MODE_PRIVATE)
-        etUserName.value = pref.getString(Const.USER_NAME_KEY,"")
-        etFullName.value = pref.getString(Const.FULL_NAME_KEY,"")
-        etBio.value      = pref.getString(Const.BIO_KEY,"")
-        image.value      = pref.getString(Const.IMAGE_KEY,"")
-
     }
 }
