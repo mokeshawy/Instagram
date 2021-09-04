@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.instagram.R
 import com.example.instagram.databinding.FragmentSigninBinding
@@ -18,6 +19,7 @@ import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class SignInFragment : Fragment() {
@@ -47,9 +49,18 @@ class SignInFragment : Fragment() {
             // call fun login from view model.
             signInVieModel.login()
 
+            // clear user email and password from input after 60 min.
+            CoroutineScope(Dispatchers.Main).launch {
+                delay(600000)
+                signInVieModel.clearCashEmailAndPassword()
+            }
+
             // call fun observer.
             observe()
         }
+
+        // call function show email and password in input login.
+        showUserEmailAndPassword()
 
         // save email and password in input log in and clear it after 1 minute.
 //        val pref = requireActivity().getSharedPreferences(Const.SHARED_CASH_PREF_NAME, Context.MODE_PRIVATE)
@@ -59,6 +70,7 @@ class SignInFragment : Fragment() {
 //        }else{
 //            pref.edit().clear().apply()
 //        }
+
 
     }
 
@@ -86,5 +98,19 @@ class SignInFragment : Fragment() {
                 Const.constToast(requireActivity(), resources.getString(R.string.err_msg_confirm_email))
             }
         })
+    }
+
+    // show user email and password from dataStore.
+    private fun showUserEmailAndPassword(){
+        lifecycleScope.launchWhenCreated {
+            signInVieModel.readEmail.collect {
+                signInVieModel.etEmail.value = it
+            }
+        }
+        lifecycleScope.launchWhenCreated {
+            signInVieModel.readPassword.collect {
+                signInVieModel.etPassword.value = it
+            }
+        }
     }
 }

@@ -1,6 +1,7 @@
 package com.example.instagram.datastore
 
 import android.content.Context
+import androidx.datastore.preferences.core.doublePreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.core.stringPreferencesKey
@@ -75,4 +76,46 @@ constructor(@ApplicationContext private val context: Context) {
             val image = it[PreferenceKey.image] ?:""
             image
         }
+
+
+    // dataStore for cash data some time.
+    object PreferenceCashKey{
+        val email       = stringPreferencesKey(Const.EMAIL_KEY)
+        val password    = stringPreferencesKey(Const.PASSWORD_KEY)
+    }
+
+    private val Context.dataStoreCash by preferencesDataStore(Const.DATA_STORE_CASH_NAME)
+
+    suspend fun insertCashData( email : String , password : String){
+        context.dataStoreCash.edit { cashPreference ->
+            cashPreference[PreferenceCashKey.email] = email
+            cashPreference[PreferenceCashKey.password] = password
+        }
+    }
+
+    val readEmail : Flow<String> = context.dataStoreCash.data
+        .catch {
+            if(this is Exception){
+                emit(emptyPreferences())
+            }
+        }.map {
+            val email = it[PreferenceCashKey.email] ?:""
+            email
+        }
+
+    val readPassword : Flow<String> = context.dataStoreCash.data
+        .catch {
+            if(this is Exception){
+                emit(emptyPreferences())
+            }
+        }.map {
+            val password = it[PreferenceCashKey.password] ?:""
+            password
+        }
+
+    suspend fun clearCashData(){
+        context.dataStoreCash.edit {
+            it.clear()
+        }
+    }
 }

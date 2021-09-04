@@ -68,18 +68,8 @@ constructor( private val dataStoreRepository: DataStoreRepository ,application: 
 
                             insertUserInfoInLocale(userName, fullName, bio, image)
 
-//                            val pref = context.getSharedPreferences(Const.SHARED_PREFERENCE_NAME,Context.MODE_PRIVATE).edit()
-//                            pref.putString(Const.USER_NAME_KEY,userName)
-//                            pref.putString(Const.FULL_NAME_KEY,fullName)
-//                            pref.putString(Const.BIO_KEY,bio)
-//                            pref.putString(Const.IMAGE_KEY,image)
-//                            pref.apply()
+                            insertEmailAndPassword(etEmail.value!! , etPassword.value!!)
 
-//                            val prefCash = context.getSharedPreferences(Const.SHARED_CASH_PREF_NAME,Context.MODE_PRIVATE).edit()
-//                            prefCash.putString(Const.EMAIL_KEY,etEmail.value!!)
-//                            prefCash.putString(Const.PASSWORD_KEY,etPassword.value!!)
-//                            prefCash.putLong("Time",System.currentTimeMillis()+TimeUnit.MINUTES.toMillis(1))
-//                            prefCash.apply()
                         }
                         override fun onCancelled(error: DatabaseError) {
                             TODO("Not yet implemented")
@@ -105,4 +95,19 @@ constructor( private val dataStoreRepository: DataStoreRepository ,application: 
     val fullName    = dataStoreRepository.readFullName
     val bio         = dataStoreRepository.readBio
     val image       = dataStoreRepository.readImage
+
+
+
+    // insert email and password to data store
+    fun insertEmailAndPassword( email : String , password : String) = viewModelScope.launch {
+        dataStoreRepository.insertCashData(email,password)
+    }
+    // read email and password from dataStore
+    val readEmail       = dataStoreRepository.readEmail
+    val readPassword    = dataStoreRepository.readPassword
+
+    // clear cash data.
+    fun clearCashEmailAndPassword() = viewModelScope.launch {
+        dataStoreRepository.clearCashData()
+    }
 }
