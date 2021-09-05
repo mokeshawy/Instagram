@@ -2,36 +2,28 @@ package com.example.instagram.ui.fragment.signinfragment
 
 import android.app.Application
 import android.content.Context
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.core.edit
-import androidx.datastore.preferences.core.stringPreferencesKey
-import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.instagram.R
+import com.example.instagram.baseapp.BaseApp
 import com.example.instagram.datastore.DataStoreRepository
 import com.example.instagram.utils.Const
+import com.example.instagram.utils.CustomProgressDialog
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Dispatchers.IO
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
-import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 @HiltViewModel
 class SignInViewModel
 @Inject
-constructor( private val dataStoreRepository: DataStoreRepository ,application: Application) : AndroidViewModel(application) {
+constructor( private val dataStoreRepository: DataStoreRepository ) : ViewModel() {
 
     var etEmail     = MutableLiveData<String>("")
     var etPassword  = MutableLiveData<String>("")
@@ -42,17 +34,15 @@ constructor( private val dataStoreRepository: DataStoreRepository ,application: 
     var firebaseDatabase    = FirebaseDatabase.getInstance()
     var userReference       = firebaseDatabase.getReference(Const.USER_REFERENCE)
 
-    // get context
-    val context = application.applicationContext as Application
 
 
     fun login(){
         if(etEmail.value!!.trim().isEmpty()){
-            Const.constToast(context,context.resources.getString(R.string.err_enter_your_email))
+            Const.constToast(BaseApp.appContext,BaseApp.appContext.resources.getString(R.string.err_enter_your_email))
         }else if(etPassword.value!!.trim().isEmpty()){
-            Const.constToast(context,context.resources.getString(R.string.err_enter_your_password))
+            Const.constToast(BaseApp.appContext,BaseApp.appContext.resources.getString(R.string.err_enter_your_password))
         }else if(etPassword.value!!.length < 6){
-            Const.constToast(context,context.resources.getString(R.string.err_msg_the_password_not_less_than))
+            Const.constToast(BaseApp.appContext,BaseApp.appContext.resources.getString(R.string.err_msg_the_password_not_less_than))
         }else{
             firebaseAuth.signInWithEmailAndPassword(etEmail.value!! , etPassword.value!!).addOnCompleteListener {
                 if(it.isSuccessful){
@@ -69,14 +59,15 @@ constructor( private val dataStoreRepository: DataStoreRepository ,application: 
                             insertUserInfoInLocale(userName, fullName, bio, image)
 
                             insertEmailAndPassword(etEmail.value!! , etPassword.value!!)
-
+                            CustomProgressDialog.hideProgressDialog()
                         }
                         override fun onCancelled(error: DatabaseError) {
-                            TODO("Not yet implemented")
+                            Const.constToast(BaseApp.appContext,error.message)
+                            CustomProgressDialog.hideProgressDialog()
                         }
                     })
                 }else{
-                    Const.constToast(context,it.exception!!.message.toString())
+                    CustomProgressDialog.hideProgressDialog()
                 }
             }
         }

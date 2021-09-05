@@ -23,6 +23,7 @@ import com.example.instagram.databinding.FragmentAccountSettingBinding
 import com.example.instagram.datastore.DataStoreRepository
 import com.example.instagram.ui.fragment.signinfragment.SignInViewModel
 import com.example.instagram.utils.Const
+import com.example.instagram.utils.CustomProgressDialog
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.squareup.picasso.Picasso
@@ -75,6 +76,7 @@ class AccountSettingFragment : Fragment() {
 
         // confirm update info for user.
         binding.ivBtnSaveInfoProfile.setOnClickListener {
+            CustomProgressDialog.show(requireActivity(),"Please waite")
             accountSettingViewModel.updateProfile(profileUri)
         }
     }

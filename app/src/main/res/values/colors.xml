@@ -9,4 +9,7 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="colorButton">#2196f3</color>
+
+    <color name="colorPrimary">#2196f3</color>
+    <color name="dialogBackground">#60000000</color>
 </resources>

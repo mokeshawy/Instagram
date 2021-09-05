@@ -10,6 +10,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.instagram.R
 import com.example.instagram.adapter.UserAdapter
+import com.example.instagram.baseapp.BaseApp
 import com.example.instagram.model.UserModel
 import com.example.instagram.utils.Const
 import com.google.firebase.database.DataSnapshot
@@ -18,7 +19,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import dagger.hilt.android.lifecycle.HiltViewModel
 
-class SearchViewModel(application: Application) : AndroidViewModel(application) {
+class SearchViewModel : ViewModel() {
 
     var mUser = MutableLiveData<ArrayList<UserModel>>()
     var user  = ArrayList<UserModel>()
@@ -30,8 +31,7 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
     private var userReference       = firebaseDatabase.getReference(Const.USER_REFERENCE)
     private var followingReference  = firebaseDatabase.getReference(Const.FOLLOW_REFERENCE)
 
-    // get context
-    val context = application.applicationContext as Application
+
 
     // fun for search user.
     fun searchUser(input : String ){
@@ -48,7 +48,7 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
                 userAdapter?.notifyDataSetChanged()
             }
             override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(context, error.message , Toast.LENGTH_SHORT).show()
+                Toast.makeText(BaseApp.appContext, error.message , Toast.LENGTH_SHORT).show()
             }
 
         })
@@ -70,7 +70,7 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
                 }
             }
             override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(context, error.message , Toast.LENGTH_SHORT).show()
+                Toast.makeText(BaseApp.appContext, error.message , Toast.LENGTH_SHORT).show()
             }
         })
     }
@@ -80,9 +80,9 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
         followingReference.child(Const.getCurrentUser()).child(Const.CHILD_FOLLOWING).addValueEventListener( object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 if( snapshot.child(uid).exists()){
-                    followingButton.text = context.resources.getString(R.string.text_remove)
+                    followingButton.text = BaseApp.appContext.resources.getString(R.string.text_remove)
                 }else{
-                    followingButton.text = context.resources.getString(R.string.text_follow)
+                    followingButton.text = BaseApp.appContext.resources.getString(R.string.text_follow)
                 }
             }
 

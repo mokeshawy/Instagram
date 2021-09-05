@@ -1,7 +1,10 @@
 package com.example.instagram.utils
 
+import android.app.Dialog
 import android.content.Context
+import android.widget.TextView
 import android.widget.Toast
+import com.example.instagram.R
 import com.google.firebase.auth.FirebaseAuth
 
 object Const {
@@ -58,5 +61,4 @@ object Const {
         }
         return currentUser
     }
-
 }

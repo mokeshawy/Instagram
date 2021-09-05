@@ -1,29 +1,27 @@
 package com.example.instagram.ui.fragment.accountsettingfragemnt
 
 
-import android.app.Application
-import android.content.Context
 import android.net.Uri
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.example.instagram.R
+import com.example.instagram.baseapp.BaseApp
 import com.example.instagram.utils.Const
+import com.example.instagram.utils.CustomProgressDialog
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 
-class AccountSettingViewModel(application: Application) : AndroidViewModel(application){
+class AccountSettingViewModel : ViewModel(){
 
     var etUserName = MutableLiveData<String>("")
     var etFullName = MutableLiveData<String>("")
     var etBio      = MutableLiveData<String>("")
 
-    // get context.
-    val context = application.applicationContext as Application
 
     // get firebase instance.
     var firebaseDatabase    = FirebaseDatabase.getInstance()
-    var firebaseStorage = FirebaseStorage.getInstance().reference
+    var firebaseStorage     = FirebaseStorage.getInstance().reference
     var userReference       = firebaseDatabase.getReference(Const.USER_REFERENCE)
 
 
@@ -31,11 +29,11 @@ class AccountSettingViewModel(application: Application) : AndroidViewModel(appli
     fun updateProfile( imageUrl : Uri){
         // validate input.
         if(etFullName.value!!.trim().isEmpty()){
-            Const.constToast(context,context.resources.getString(R.string.err_enter_full_name))
+            Const.constToast(BaseApp.appContext, BaseApp.appContext.resources.getString(R.string.err_enter_full_name))
         }else if(etUserName.value!!.trim().isEmpty()){
-            Const.constToast(context,context.resources.getString(R.string.err_enter_user_name))
+            Const.constToast(BaseApp.appContext,BaseApp.appContext.resources.getString(R.string.err_enter_user_name))
         }else if(etBio.value!!.trim().isEmpty()){
-            Const.constToast(context,context.resources.getString(R.string.err_message_for_bio))
+            Const.constToast(BaseApp.appContext,BaseApp.appContext.resources.getString(R.string.err_message_for_bio))
         }else{
             var profileStorage : StorageReference = firebaseStorage.child("Photo/"+System.currentTimeMillis())
             profileStorage.putFile(imageUrl).addOnCompleteListener { imageUri ->
@@ -49,7 +47,10 @@ class AccountSettingViewModel(application: Application) : AndroidViewModel(appli
                         map[Const.CHILD_IMAGE]      = uri.toString()
 
                         userReference.child(Const.getCurrentUser()).updateChildren(map)
+                        CustomProgressDialog.hideProgressDialog()
                     }
+                }else{
+                    Const.constToast(BaseApp.appContext,imageUri.exception!!.message.toString())
                 }
             }
         }
