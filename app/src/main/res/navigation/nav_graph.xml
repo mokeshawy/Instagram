@@ -87,4 +87,9 @@
             app:enterAnim="@android:anim/fade_in"
             app:popUpTo="@id/nav_graph" />
     </fragment>
+    <fragment
+        android:id="@+id/addPostFragment"
+        android:name="com.example.instagram.ui.fragment.addpostfragment.AddPostFragment"
+        android:label="fragment_add_post"
+        tools:layout="@layout/fragment_add_post" />
 </navigation>

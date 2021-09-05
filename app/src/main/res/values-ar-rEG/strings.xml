@@ -18,4 +18,21 @@
 
     <string name="btn_sign_up_string">سجل</string>
 
+    <string name="err_enter_confirm_password">اعد كتابة الرقم السرى</string>
+    <string name="err_enter_mismatch_password">الرقم السرى غير متطابق</string>
+    <string name="err_msg_the_password_not_less_than">الرقم السرى غير صالح</string>
+    <string name="err_msg_confirm_email">اعد كتابة الايميل</string>
+    <string name="err_message_for_bio">Please write your bio first</string>
+
+    <string name="et_confirm_password_string">تأكيد الرقم السرى</string>
+    <string name="btn_delete_account">احذف الحساب</string>
+    <string name="btn_log_out">خروج</string>
+    <string name="text_already_have_account">هل لديك حساب؟</string>
+    <string name="text_sign_in">تسجيل الدخول</string>
+    <string name="text_edit_profile">تعديل الملف الشخصي</string>
+    <string name="text_follow">متابعة</string>
+    <string name="text_remove">حذف</string>
+
+    <string name="tv_change_image">اختر الصورة</string>
+
 </resources>

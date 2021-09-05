@@ -76,7 +76,7 @@ class AccountSettingFragment : Fragment() {
 
         // confirm update info for user.
         binding.ivBtnSaveInfoProfile.setOnClickListener {
-            CustomProgressDialog.show(requireActivity(),"Please waite")
+            CustomProgressDialog.show(requireActivity(),resources.getString(R.string.msg_please_waite))
             accountSettingViewModel.updateProfile(profileUri)
         }
     }

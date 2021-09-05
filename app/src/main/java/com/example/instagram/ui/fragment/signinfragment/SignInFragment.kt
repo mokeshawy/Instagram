@@ -46,7 +46,7 @@ class SignInFragment : Fragment() {
         binding.btnLogin.setOnClickListener {
 
             // show progress bar.
-            CustomProgressDialog.show(requireActivity(),"Please waite")
+            CustomProgressDialog.show(requireActivity(),resources.getString(R.string.msg_please_waite))
 
             // call fun login from view model.
             signInVieModel.login()

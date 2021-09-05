@@ -8,9 +8,8 @@
     <string name="err_enter_your_email">Please enter your email</string>
     <string name="err_enter_your_password">Please enter your password</string>
     <string name="err_enter_confirm_password">Please enter your Confirm password</string>
-    <string name="err_msg_the_password_is_not_less_than">the password is not less than 6 number</string>
     <string name="err_enter_mismatch_password">Password and confirm password not mismatch</string>
-    <string name="err_msg_the_password_not_less_than">the password is not less than</string>
+    <string name="err_msg_the_password_not_less_than">the password is not correct</string>
     <string name="err_msg_confirm_email">Please confirm your email</string>
     <string name="err_message_for_bio">Please write your bio first</string>
     <string name="et_email_string">Email...</string>
@@ -28,4 +27,10 @@
     <string name="text_edit_profile">Edit Profile</string>
     <string name="text_follow">Follow</string>
     <string name="text_remove">Remove</string>
+
+    <string name="tv_change_image">Change Image</string>
+
+    <string name="et_description_post">say something about your post...</string>
+
+    <string name="msg_please_waite">Please waite...</string>
 </resources>

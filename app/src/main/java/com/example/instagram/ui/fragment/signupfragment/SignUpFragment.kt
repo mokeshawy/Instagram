@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.example.instagram.R
 import com.example.instagram.databinding.FragmentSignUpBinding
+import com.example.instagram.utils.CustomProgressDialog
 
 class SignUpFragment : Fragment() {
 
@@ -36,6 +37,7 @@ class SignUpFragment : Fragment() {
 
         //create new account.
         binding.btnSignUp.setOnClickListener {
+            CustomProgressDialog.show(requireActivity(),resources.getString(R.string.msg_please_waite))
             signUpViewModel.signUp()
 
             // call observer fun.

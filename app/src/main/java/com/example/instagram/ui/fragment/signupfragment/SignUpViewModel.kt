@@ -10,6 +10,7 @@ import com.example.instagram.R
 import com.example.instagram.baseapp.BaseApp
 import com.example.instagram.model.UserModel
 import com.example.instagram.utils.Const
+import com.example.instagram.utils.CustomProgressDialog
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
@@ -41,7 +42,7 @@ class SignUpViewModel() : ViewModel() {
         }else if(etPassword.value!!.trim().isEmpty()){
             Const.constToast(BaseApp.appContext,BaseApp.appContext.resources.getString(R.string.err_enter_your_password))
         }else if(etPassword.value!!.length < 6){
-            Const.constToast(BaseApp.appContext,BaseApp.appContext.resources.getString(R.string.err_msg_the_password_is_not_less_than))
+            Const.constToast(BaseApp.appContext,BaseApp.appContext.resources.getString(R.string.err_msg_the_password_not_less_than))
         }else if (etConfirmPassword.value!!.trim().isEmpty() ) {
             Const.constToast(BaseApp.appContext,BaseApp.appContext.resources.getString(R.string.err_enter_your_password))
         }else if(etPassword.value!! != etConfirmPassword.value!!){
@@ -57,10 +58,11 @@ class SignUpViewModel() : ViewModel() {
 
                     userReference.child(firebaseAuth.currentUser?.uid.toString()).setValue(userModel)
                     state.value = true
-
+                    CustomProgressDialog.hideProgressDialog()
                 }else{
                     state.value = false
                     Const.constToast(BaseApp.appContext, it.exception!!.message.toString())
+                    CustomProgressDialog.hideProgressDialog()
                 }
             }
         }
