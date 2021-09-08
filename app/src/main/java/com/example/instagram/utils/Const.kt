@@ -1,10 +1,11 @@
 package com.example.instagram.utils
 
-import android.app.Dialog
 import android.content.Context
-import android.widget.TextView
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
+import android.os.Build
 import android.widget.Toast
-import com.example.instagram.R
+import androidx.annotation.RequiresApi
 import com.google.firebase.auth.FirebaseAuth
 
 object Const {
@@ -27,7 +28,7 @@ object Const {
     const val CHILD_FOLLOWERS = "Followers"
 
     // add post reference.
-    const val ADD_POST_REFERENCE = "addPostReference"
+    const val ADD_POST_REFERENCE = "addPost"
 
     // child add post.
     const val CHILD_PUBLISHRE_ADD_POST      = "publishre"
@@ -70,5 +71,23 @@ object Const {
             currentUser = firebaseAuth!!.uid
         }
         return currentUser
+    }
+
+    //This function is used check if the device is connected to the Internet or not.
+    @RequiresApi(Build.VERSION_CODES.M)
+    fun isNetworkAvailable(context: Context) : Boolean{
+        val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val network = connectivityManager.activeNetwork ?: return false
+        val activeNetwork = connectivityManager.getNetworkCapabilities(network) ?: return false
+
+        return when{
+            activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
+            activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
+
+            //for other device how are able to connect with Ethernet
+            activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> true
+
+            else -> false
+        }
     }
 }

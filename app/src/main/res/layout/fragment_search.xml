@@ -23,11 +23,11 @@
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/search_toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="40dp"
                 android:layout_marginTop="4dp"
                 android:layout_marginLeft="6dp"
                 android:layout_marginRight="6dp"
-                android:background="@drawable/button_black_background">
+                android:background="@drawable/borders_background">
 
                 <RelativeLayout
                     android:layout_width="match_parent"

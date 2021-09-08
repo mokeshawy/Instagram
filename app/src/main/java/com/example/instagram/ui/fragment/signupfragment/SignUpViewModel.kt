@@ -29,24 +29,32 @@ class SignUpViewModel() : ViewModel() {
     var firebaseAuth        = FirebaseAuth.getInstance()
     var firebaseDatabase    = FirebaseDatabase.getInstance()
     var userReference       = firebaseDatabase.getReference(Const.USER_REFERENCE)
+    var followingReference  = firebaseDatabase.getReference(Const.FOLLOW_REFERENCE)
 
     // create new account by fun signUp.
     fun signUp(){
         // validate input.
         if(etFullName.value!!.trim().isEmpty()){
             Const.constToast(BaseApp.appContext, BaseApp.appContext.resources.getString(R.string.err_enter_full_name))
+            CustomProgressDialog.hideProgressDialog()
         }else if(etUserName.value!!.trim().isEmpty()){
             Const.constToast(BaseApp.appContext,BaseApp.appContext.resources.getString(R.string.err_enter_user_name))
+            CustomProgressDialog.hideProgressDialog()
         }else if( etEmail.value!!.trim().isEmpty()){
             Const.constToast(BaseApp.appContext,BaseApp.appContext.resources.getString(R.string.err_enter_your_email))
+            CustomProgressDialog.hideProgressDialog()
         }else if(etPassword.value!!.trim().isEmpty()){
             Const.constToast(BaseApp.appContext,BaseApp.appContext.resources.getString(R.string.err_enter_your_password))
+            CustomProgressDialog.hideProgressDialog()
         }else if(etPassword.value!!.length < 6){
             Const.constToast(BaseApp.appContext,BaseApp.appContext.resources.getString(R.string.err_msg_the_password_not_less_than))
+            CustomProgressDialog.hideProgressDialog()
         }else if (etConfirmPassword.value!!.trim().isEmpty() ) {
             Const.constToast(BaseApp.appContext,BaseApp.appContext.resources.getString(R.string.err_enter_your_password))
+            CustomProgressDialog.hideProgressDialog()
         }else if(etPassword.value!! != etConfirmPassword.value!!){
             Const.constToast(BaseApp.appContext,BaseApp.appContext.resources.getString(R.string.err_enter_mismatch_password))
+            CustomProgressDialog.hideProgressDialog()
         }else{
             // operation for firebase Authentication.
             firebaseAuth.createUserWithEmailAndPassword(etEmail.value!! , etPassword.value!!).addOnCompleteListener {
@@ -59,6 +67,8 @@ class SignUpViewModel() : ViewModel() {
                     userReference.child(firebaseAuth.currentUser?.uid.toString()).setValue(userModel)
                     state.value = true
                     CustomProgressDialog.hideProgressDialog()
+
+                    followingReference.child(uid).child(Const.CHILD_FOLLOWING).child(uid).setValue(true)
                 }else{
                     state.value = false
                     Const.constToast(BaseApp.appContext, it.exception!!.message.toString())

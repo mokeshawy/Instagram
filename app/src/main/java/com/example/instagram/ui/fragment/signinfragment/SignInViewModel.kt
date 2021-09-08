@@ -39,10 +39,13 @@ constructor( private val dataStoreRepository: DataStoreRepository ) : ViewModel(
     fun login(){
         if(etEmail.value!!.trim().isEmpty()){
             Const.constToast(BaseApp.appContext,BaseApp.appContext.resources.getString(R.string.err_enter_your_email))
+            CustomProgressDialog.hideProgressDialog()
         }else if(etPassword.value!!.trim().isEmpty()){
             Const.constToast(BaseApp.appContext,BaseApp.appContext.resources.getString(R.string.err_enter_your_password))
+            CustomProgressDialog.hideProgressDialog()
         }else if(etPassword.value!!.length < 6){
             Const.constToast(BaseApp.appContext,BaseApp.appContext.resources.getString(R.string.err_msg_the_password_not_less_than))
+            CustomProgressDialog.hideProgressDialog()
         }else{
             firebaseAuth.signInWithEmailAndPassword(etEmail.value!! , etPassword.value!!).addOnCompleteListener {
                 if(it.isSuccessful){
@@ -58,8 +61,13 @@ constructor( private val dataStoreRepository: DataStoreRepository ) : ViewModel(
 
                             insertUserInfoInLocale(userName, fullName, bio, image)
 
-                            insertEmailAndPassword(etEmail.value!! , etPassword.value!!)
-                            CustomProgressDialog.hideProgressDialog()
+                            try {
+                                insertEmailAndPassword(etEmail.value!! , etPassword.value!!)
+                                CustomProgressDialog.hideProgressDialog()
+                            }catch (e:Exception){
+
+                            }
+
                         }
                         override fun onCancelled(error: DatabaseError) {
                             Const.constToast(BaseApp.appContext,error.message)
@@ -67,6 +75,7 @@ constructor( private val dataStoreRepository: DataStoreRepository ) : ViewModel(
                         }
                     })
                 }else{
+                    Const.constToast(BaseApp.appContext,it.exception!!.message.toString())
                     CustomProgressDialog.hideProgressDialog()
                 }
             }

@@ -64,9 +64,16 @@ class AccountSettingFragment : Fragment() {
             findNavController().navigate(R.id.action_accountSettingFragment_to_signInFragment)
         }
 
+        // delete account.
         binding.btnDeleteAccount.setOnClickListener {
-            FirebaseAuth.getInstance().currentUser!!.delete()
+            FirebaseAuth.getInstance().currentUser!!.delete().addOnCompleteListener {
+                if(it.isSuccessful){
+                    findNavController().navigate(R.id.action_accountSettingFragment_to_signInFragment)
+                    signInViewModel.clearCashEmailAndPassword()
+                }
+            }
             FirebaseDatabase.getInstance().getReference(Const.USER_REFERENCE).child(FirebaseAuth.getInstance().currentUser?.uid.toString()).removeValue()
+
         }
 
         // btn for select image.
