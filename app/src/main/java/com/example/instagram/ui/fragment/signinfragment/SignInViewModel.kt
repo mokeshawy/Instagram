@@ -47,7 +47,7 @@ constructor( private val dataStoreRepository: DataStoreRepository ) : ViewModel(
             Const.constToast(BaseApp.appContext,BaseApp.appContext.resources.getString(R.string.err_msg_the_password_not_less_than))
             CustomProgressDialog.hideProgressDialog()
         }else{
-            firebaseAuth.signInWithEmailAndPassword(etEmail.value!! , etPassword.value!!).addOnCompleteListener {
+            firebaseAuth.signInWithEmailAndPassword(etEmail.value!!.toLowerCase() , etPassword.value!!).addOnCompleteListener {
                 if(it.isSuccessful){
                     state.value = firebaseAuth.currentUser!!.isEmailVerified
 
@@ -59,11 +59,14 @@ constructor( private val dataStoreRepository: DataStoreRepository ) : ViewModel(
                             val bio         = snapshot.child(Const.CHILD_BIO).value.toString()
                             val image       = snapshot.child(Const.CHILD_IMAGE).value.toString()
 
-                            insertUserInfoInLocale(userName, fullName, bio, image)
+
 
                             try {
+                                insertUserInfoInLocale(userName, fullName, bio, image)
+
                                 insertEmailAndPassword(etEmail.value!! , etPassword.value!!)
                                 CustomProgressDialog.hideProgressDialog()
+
                             }catch (e:Exception){
 
                             }

@@ -25,6 +25,9 @@ import com.example.instagram.ui.fragment.signinfragment.SignInViewModel
 import com.example.instagram.utils.Const
 import com.example.instagram.utils.CustomProgressDialog
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.ChildEventListener
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.CoroutineScope
@@ -34,10 +37,11 @@ import kotlinx.coroutines.launch
 
 class AccountSettingFragment : Fragment() {
 
-    lateinit var binding : FragmentAccountSettingBinding
-    lateinit var profileUri : Uri
+    lateinit var binding                : FragmentAccountSettingBinding
+    lateinit var profileUri             : Uri
     private val accountSettingViewModel : AccountSettingViewModel by viewModels()
-    private val signInViewModel : SignInViewModel by activityViewModels()
+    private val signInViewModel         : SignInViewModel by activityViewModels()
+
     override fun onCreateView( inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
         // Inflate the layout for this fragment
         binding = FragmentAccountSettingBinding.inflate(inflater)
@@ -70,9 +74,33 @@ class AccountSettingFragment : Fragment() {
                 if(it.isSuccessful){
                     findNavController().navigate(R.id.action_accountSettingFragment_to_signInFragment)
                     signInViewModel.clearCashEmailAndPassword()
+                    activity?.recreate()
                 }
             }
-            FirebaseDatabase.getInstance().getReference(Const.USER_REFERENCE).child(FirebaseAuth.getInstance().currentUser?.uid.toString()).removeValue()
+//            FirebaseDatabase.getInstance().getReference(Const.USER_REFERENCE).child(FirebaseAuth.getInstance().currentUser?.uid.toString()).removeValue()
+//            FirebaseDatabase.getInstance().getReference(Const.FOLLOW_REFERENCE).child(FirebaseAuth.getInstance().currentUser?.uid.toString()).removeValue()
+            FirebaseDatabase.getInstance().reference.child(Const.ADD_POST_REFERENCE).orderByChild(Const.CHILD_PUBLISHRE_ADD_POST).orderByChild(FirebaseAuth.getInstance().currentUser?.uid.toString()).addChildEventListener(object : ChildEventListener{
+                override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+                    TODO("Not yet implemented")
+                }
+
+                override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
+                    TODO("Not yet implemented")
+                }
+
+                override fun onChildRemoved(snapshot: DataSnapshot) {
+
+                }
+
+                override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
+                    TODO("Not yet implemented")
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    TODO("Not yet implemented")
+                }
+
+            })
 
         }
 

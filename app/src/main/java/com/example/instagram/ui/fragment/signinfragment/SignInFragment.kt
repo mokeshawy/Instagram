@@ -69,7 +69,7 @@ class SignInFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         try{
-            if(FirebaseAuth.getInstance().currentUser!!.uid != null){
+            if(FirebaseAuth.getInstance().currentUser != null){
                 if(FirebaseAuth.getInstance().currentUser!!.isEmailVerified){
                     findNavController().navigate(R.id.action_signInFragment_to_homeFragment)
                 }else{

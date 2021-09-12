@@ -77,13 +77,12 @@ class ProfileViewModel(application: Application) : AndroidViewModel(application)
                     tvTotalFollowers.value = snapshot.childrenCount.toString()
                 }
             }
-
             override fun onCancelled(error: DatabaseError) {
                 Const.constToast(context,error.message)
             }
-
         })
     }
+
     // fun get followings.
     fun getFollowings(uid : String){
         followingReference.child(uid)
@@ -94,7 +93,6 @@ class ProfileViewModel(application: Application) : AndroidViewModel(application)
                     tvTotalFollowing.value = snapshot.childrenCount.toString()
                 }
             }
-
             override fun onCancelled(error: DatabaseError) {
                Const.constToast(context,error.message)
             }

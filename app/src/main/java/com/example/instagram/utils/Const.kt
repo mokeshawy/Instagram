@@ -30,6 +30,10 @@ object Const {
     // add post reference.
     const val ADD_POST_REFERENCE = "addPost"
 
+    // like reference.
+    const val LIKES_REFERENCE = "likes"
+
+
     // child add post.
     const val CHILD_PUBLISHRE_ADD_POST      = "publishre"
     const val CHILD_DESCRIPTION_ADD_POST    = "description"

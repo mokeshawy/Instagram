@@ -69,12 +69,13 @@
                         android:id="@+id/iv_post_image_like_btn"
                         android:layout_width="25dp"
                         android:layout_height="25dp"
+                        android:layout_marginLeft="4dp"
                         android:src="@drawable/heart_not_clicked" />
 
                     <ImageView
                         android:id="@+id/iv_post_image_comment_btn"
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
+                        android:layout_width="23dp"
+                        android:layout_height="23dp"
                         android:layout_marginStart="6dp"
                         android:layout_toEndOf="@+id/iv_post_image_like_btn"
                         android:src="@drawable/ic_vector_comment" />
@@ -85,7 +86,7 @@
                         android:layout_height="30dp"
                         android:layout_alignParentEnd="true"
                         android:layout_marginTop="0dp"
-                        android:layout_marginRight="3dp"
+                        android:layout_marginRight="7dp"
                         android:src="@drawable/ic_vector_save" />
 
                 </RelativeLayout>

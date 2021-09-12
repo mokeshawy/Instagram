@@ -16,7 +16,7 @@ import com.google.firebase.database.ValueEventListener
 
 class HomeViewModel : ViewModel() {
 
-    var postAdapterLiveData     = MutableLiveData<List<PostModel>>()
+    var postAdapterLiveData     = MutableLiveData<ArrayList<PostModel>>()
     var postList                : MutableList<PostModel>? = null
     var followingList           : MutableList<PostModel>? = null
 
@@ -71,7 +71,6 @@ class HomeViewModel : ViewModel() {
                 Const.constToast(BaseApp.appContext,error.message)
                 CustomProgressDialog.hideProgressDialog()
             }
-
         })
     }
 }
