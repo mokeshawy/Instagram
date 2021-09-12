@@ -59,7 +59,7 @@ class HomeFragment : Fragment() {
         if(Const.isNetworkAvailable(requireActivity())){
             homeViewModel.postAdapterLiveData.observe(viewLifecycleOwner, Observer {
                 CustomProgressDialog.show(requireActivity(),resources.getString(R.string.msg_please_waite))
-                binding.recyclerViewHome.adapter = PostAdapter(it,homeViewModel)
+                binding.recyclerViewHome.adapter = PostAdapter(it,homeViewModel,this)
                 CustomProgressDialog.hideProgressDialog()
             })
         }else{

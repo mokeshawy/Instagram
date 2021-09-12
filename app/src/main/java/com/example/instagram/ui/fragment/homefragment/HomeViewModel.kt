@@ -30,6 +30,7 @@ class HomeViewModel : ViewModel() {
     var postReference       = firebaseDatabase.getReference(Const.ADD_POST_REFERENCE)
     var followingReference  = firebaseDatabase.getReference(Const.FOLLOW_REFERENCE)
     var likeReference       = firebaseDatabase.getReference(Const.LIKES_REFERENCE)
+    var commentReference    = firebaseDatabase.getReference(Const.COMMENT_REFERENCE)
 
 
     // get time line for follow user only.
@@ -108,9 +109,23 @@ class HomeViewModel : ViewModel() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
+                Const.constToast(BaseApp.appContext,error.message)
             }
+        })
+    }
 
+    // fun for get comment number from database.
+    fun numberOfComment(tv_comment : TextView , postId : String){
+        commentReference.child(postId).addValueEventListener(object : ValueEventListener{
+            @SuppressLint("SetTextI18n")
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if(snapshot.exists()){
+                    tv_comment.text = "view all ${snapshot.childrenCount} comments"
+                }
+            }
+            override fun onCancelled(error: DatabaseError) {
+                Const.constToast(BaseApp.appContext,error.message)
+            }
         })
     }
 }

@@ -3,13 +3,14 @@ package com.example.instagram.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
+import androidx.core.os.bundleOf
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.instagram.R
-import com.example.instagram.baseapp.BaseApp
 import com.example.instagram.databinding.PostItemLayoutBinding
 import com.example.instagram.model.PostModel
 import com.example.instagram.model.UserModel
+import com.example.instagram.ui.fragment.homefragment.HomeFragment
 import com.example.instagram.ui.fragment.homefragment.HomeViewModel
 import com.example.instagram.utils.Const
 import com.google.firebase.database.DataSnapshot
@@ -18,7 +19,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.squareup.picasso.Picasso
 
-class PostAdapter(private var dataSet: List<PostModel> , var homeViewModel: HomeViewModel) : RecyclerView.Adapter<PostAdapter.ViewHolder>() {
+class PostAdapter(private var dataSet: List<PostModel> , var homeViewModel: HomeViewModel , var homeFragment: HomeFragment) : RecyclerView.Adapter<PostAdapter.ViewHolder>() {
 
     class ViewHolder(var binding : PostItemLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
 
@@ -39,7 +40,13 @@ class PostAdapter(private var dataSet: List<PostModel> , var homeViewModel: Home
 
         // contents of the view with that element
         Picasso.get().load(post.postImage).into(viewHolder.binding.ivPostImageHome)
-        viewHolder.binding.tvDescription!!.text = post.description
+        if( post.description == ""){
+            viewHolder.binding.tvDescription!!.visibility = View.GONE
+        }else{
+            viewHolder.binding.tvDescription!!.visibility = View.VISIBLE
+            viewHolder.binding.tvDescription!!.text = post.description
+        }
+
 
 
         // retrieve data from user reference.
@@ -51,6 +58,25 @@ class PostAdapter(private var dataSet: List<PostModel> , var homeViewModel: Home
                     Picasso.get().load(user.image).into(viewHolder.binding.ivUserProfileImageSearch)
                     viewHolder.binding.tvUserNameSearch.text   = user.userName
                     viewHolder.binding.tvPublisher.text   = user.fullName
+
+                    // comment button.
+                    viewHolder.binding.ivPostImageCommentBtn.setOnClickListener {
+
+                        // send photo for post and profile image for user to comment fragment by bundle.
+                        val bundle = bundleOf(Const.BUNDLE_IMAGE_POST to post.postImage ,
+                                                    Const.BUNDLE_POST_ID  to post.postId ,
+                                                    Const.BUNDLE_IMAGE_PROFILE to user.image ,
+                                                    Const.BUNDLE_USER_NAME to user.userName ,
+                                                    Const.BUNDLE_IMAGE_USER_POST_COMMENT to user.image)
+
+                        homeFragment.findNavController().navigate(R.id.action_homeFragment_to_commentFragment,bundle)
+                    }
+
+                    viewHolder.binding.tvComments.setOnClickListener {
+                        // send photo for post and profile image for user to comment fragment by bundle.
+                        val bundle = bundleOf(Const.BUNDLE_IMAGE_POST to post.postImage , Const.BUNDLE_POST_ID  to post.postId , Const.BUNDLE_IMAGE_PROFILE to user.image )
+                        homeFragment.findNavController().navigate(R.id.action_homeFragment_to_commentFragment,bundle)
+                    }
                 }
             }
             override fun onCancelled(error: DatabaseError) {
@@ -63,7 +89,9 @@ class PostAdapter(private var dataSet: List<PostModel> , var homeViewModel: Home
 
         // call function for get likes number.
         homeViewModel.numberOfLikes(viewHolder.binding.tvLikes,post.postId)
-        
+
+        // call function for get comment number from home viewModel.
+        homeViewModel.numberOfComment(viewHolder.binding.tvComments,post.postId)
         // like button.
         viewHolder.binding.ivPostImageLikeBtn.setOnClickListener {
             if( viewHolder.binding.ivPostImageLikeBtn.tag == "Like"){
@@ -74,8 +102,6 @@ class PostAdapter(private var dataSet: List<PostModel> , var homeViewModel: Home
                     .child(post.postId).child(Const.getCurrentUser()).removeValue()
             }
         }
-
-
     }
     // Return the size of your dataset (invoked by the layout manager)
     override fun getItemCount() = dataSet.size

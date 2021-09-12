@@ -33,19 +33,33 @@ object Const {
     // like reference.
     const val LIKES_REFERENCE = "likes"
 
+    // comment reference.
+    const val COMMENT_REFERENCE             = "addComment"
+    const val CHILD_COMMENT                 = "comment"
+    const val CHILD_PUBLISHRE_COMMENT       = "publishre"
+    const val CHILD_USER_NAME_COMMENT       = "userName"
+    const val CHILD_IMAGE_USER_POST_COMMENT = "image"
+
 
     // child add post.
-    const val CHILD_PUBLISHRE_ADD_POST      = "publishre"
-    const val CHILD_DESCRIPTION_ADD_POST    = "description"
-    const val CHILD_POST_ID_ADD_POST        = "postId"
-    const val CHILD_POST_IMAGE              = "postImage"
+    const val CHILD_PUBLISHRE_ADD_POST          = "publishre"
+    const val CHILD_DESCRIPTION_ADD_POST        = "description"
+    const val CHILD_POST_ID_ADD_POST            = "postId"
+    const val CHILD_POST_IMAGE                  = "postImage"
+    const val BUNDLE_IMAGE_USER_POST_COMMENT    = "image"
 
     // follow btn
     const val BTN_FOLLOW = "Follow"
     const val BTN_FOLLOWING = "Following"
 
     // bundle key
-    const val BUNDLE_USER_MODEL = "userModelKey"
+    const val BUNDLE_USER_MODEL     = "userModelKey"
+    const val BUNDLE_POST_MODEL     = "postKey"
+    const val BUNDLE_IMAGE_POST     = "imagePost"
+    const val BUNDLE_IMAGE_PROFILE  = "imageProfile"
+    const val BUNDLE_POST_ID        = "postId"
+    const val BUNDLE_USER_NAME      = "userName"
+
     // default image profile
     const val DEFAULT_IMAGE_PROFILE     = "https://firebasestorage.googleapis.com/v0/b/instagram-1bd4b.appspot.com/o/Photo%2Fic_profile_image.png?alt=media&token=a33b0a81-c0a7-40e6-a1c8-9c5b5e2c555b"
     const val DEFAULT_IMAGE_ADD_POST    = "https://firebasestorage.googleapis.com/v0/b/instagram-1bd4b.appspot.com/o/Photo%2Fdefault_image_add_post.png?alt=media&token=7f253d31-c304-4a07-a94d-0c31537e9f5e"
@@ -61,6 +75,7 @@ object Const {
     const val DATA_STORE_CASH_NAME  = "cashPref"
     const val EMAIL_KEY             = "email"
     const val PASSWORD_KEY          = "password"
+
 
     // constance toast.
     fun constToast( context: Context , str : String){
