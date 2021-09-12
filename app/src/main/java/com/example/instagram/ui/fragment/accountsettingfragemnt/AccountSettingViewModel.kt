@@ -18,6 +18,7 @@ class AccountSettingViewModel : ViewModel(){
     var etFullName = MutableLiveData<String>("")
     var etBio      = MutableLiveData<String>("")
 
+    var stateAfterEditProfile = MutableLiveData<Boolean>()
 
     // get firebase instance.
     var firebaseDatabase    = FirebaseDatabase.getInstance()
@@ -35,7 +36,7 @@ class AccountSettingViewModel : ViewModel(){
         }else if(etBio.value!!.trim().isEmpty()){
             Const.constToast(BaseApp.appContext,BaseApp.appContext.resources.getString(R.string.err_message_for_bio))
         }else{
-            var profileStorage : StorageReference = firebaseStorage.child("Photo/"+System.currentTimeMillis())
+            val profileStorage : StorageReference = firebaseStorage.child("Photo/"+System.currentTimeMillis())
             profileStorage.putFile(imageUrl).addOnCompleteListener { imageUri ->
                 if(imageUri.isSuccessful){
                     profileStorage.downloadUrl.addOnSuccessListener { uri ->
@@ -48,6 +49,8 @@ class AccountSettingViewModel : ViewModel(){
 
                         userReference.child(Const.getCurrentUser()).updateChildren(map)
                         CustomProgressDialog.hideProgressDialog()
+
+                        stateAfterEditProfile.value = true
                     }
                 }else{
                     Const.constToast(BaseApp.appContext,imageUri.exception!!.message.toString())

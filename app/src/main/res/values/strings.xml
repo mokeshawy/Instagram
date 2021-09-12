@@ -33,4 +33,6 @@
     <string name="et_description_post">say something about your post...</string>
 
     <string name="msg_please_waite">Please waite...</string>
+
+    <string name="msg_for_internet_connection">No Internet connection</string>
 </resources>

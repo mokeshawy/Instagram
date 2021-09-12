@@ -10,6 +10,8 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toUri
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import com.example.instagram.R
 import com.example.instagram.databinding.FragmentAddPostBinding
 import com.example.instagram.utils.Const
@@ -46,6 +48,7 @@ class AddPostFragment : Fragment() {
             // show progress bar.
             CustomProgressDialog.show(requireActivity(),resources.getString(R.string.msg_please_waite))
             addPostViewModel.addPost(imageUri)
+            observer()
         }
     }
 
@@ -65,5 +68,17 @@ class AddPostFragment : Fragment() {
             imageUri = data?.data!!
             binding.ivAddPost.setImageURI(imageUri)
         }
+    }
+
+    // fun observer.
+    private fun observer(){
+        // when add post will go to home page.
+        addPostViewModel.stateAfterAddPost.observe(viewLifecycleOwner, Observer { afterAddPost ->
+            when(afterAddPost){
+                true ->{
+                    findNavController().navigate(R.id.action_addPostFragment_to_homeFragment)
+                }
+            }
+        })
     }
 }

@@ -25,10 +25,7 @@ import com.example.instagram.ui.fragment.signinfragment.SignInViewModel
 import com.example.instagram.utils.Const
 import com.example.instagram.utils.CustomProgressDialog
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.ChildEventListener
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.*
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -77,31 +74,24 @@ class AccountSettingFragment : Fragment() {
                     activity?.recreate()
                 }
             }
-//            FirebaseDatabase.getInstance().getReference(Const.USER_REFERENCE).child(FirebaseAuth.getInstance().currentUser?.uid.toString()).removeValue()
-//            FirebaseDatabase.getInstance().getReference(Const.FOLLOW_REFERENCE).child(FirebaseAuth.getInstance().currentUser?.uid.toString()).removeValue()
-            FirebaseDatabase.getInstance().reference.child(Const.ADD_POST_REFERENCE).orderByChild(Const.CHILD_PUBLISHRE_ADD_POST).orderByChild(FirebaseAuth.getInstance().currentUser?.uid.toString()).addChildEventListener(object : ChildEventListener{
-                override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
-                    TODO("Not yet implemented")
+            // when delete account will delete info for user from real time database
+            FirebaseDatabase.getInstance().getReference(Const.USER_REFERENCE).child(FirebaseAuth.getInstance().currentUser?.uid.toString()).removeValue()
+
+            // when delete account will delete all following from real time database
+            FirebaseDatabase.getInstance().getReference(Const.FOLLOW_REFERENCE).child(FirebaseAuth.getInstance().currentUser?.uid.toString()).removeValue()
+
+            // when delete account will delete all post from real time database
+            val postQuery = FirebaseDatabase.getInstance().getReference(Const.ADD_POST_REFERENCE).orderByChild(Const.CHILD_PUBLISHRE_ADD_POST).equalTo(Const.getCurrentUser())
+            postQuery.addValueEventListener(object : ValueEventListener{
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    for (ds in snapshot.children){
+                        ds.ref.removeValue()
+                    }
                 }
-
-                override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
-                    TODO("Not yet implemented")
-                }
-
-                override fun onChildRemoved(snapshot: DataSnapshot) {
-
-                }
-
-                override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
-                    TODO("Not yet implemented")
-                }
-
                 override fun onCancelled(error: DatabaseError) {
-                    TODO("Not yet implemented")
+                   Const.constToast(requireActivity(),error.message)
                 }
-
             })
-
         }
 
         // btn for select image.
@@ -113,6 +103,9 @@ class AccountSettingFragment : Fragment() {
         binding.ivBtnSaveInfoProfile.setOnClickListener {
             CustomProgressDialog.show(requireActivity(),resources.getString(R.string.msg_please_waite))
             accountSettingViewModel.updateProfile(profileUri)
+
+            // call observe function.
+            observer()
         }
     }
 
@@ -163,5 +156,17 @@ class AccountSettingFragment : Fragment() {
                 Picasso.get().load(it).into(binding.ivProfile)
             }
         }
+    }
+
+    // observe fun.
+    private fun observer(){
+        // after edit profile will back to profile page.
+        accountSettingViewModel.stateAfterEditProfile.observe(viewLifecycleOwner, Observer { afterEditAccount ->
+            when(afterEditAccount){
+                true ->{
+                    findNavController().navigate(R.id.action_accountSettingFragment_to_profileFragment)
+                }
+            }
+        })
     }
 }

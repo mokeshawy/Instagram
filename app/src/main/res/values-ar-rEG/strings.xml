@@ -35,4 +35,10 @@
 
     <string name="tv_change_image">اختر الصورة</string>
 
+    <string name="et_description_post">قل شيئا عن منشورك ...</string>
+
+    <string name="msg_please_waite">جارى التحميل...</string>
+
+    <string name="msg_for_internet_connection">لا يوجد اتصال بالانترنت</string>
+
 </resources>

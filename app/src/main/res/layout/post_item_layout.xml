@@ -97,7 +97,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:text="likes 23"
+                    android:text="0 likes"
                     android:textColor="@color/black"
                     android:textSize="15dp"
                     android:textStyle="bold" />

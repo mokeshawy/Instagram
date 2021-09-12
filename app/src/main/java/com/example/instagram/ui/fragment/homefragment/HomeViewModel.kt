@@ -1,8 +1,11 @@
 package com.example.instagram.ui.fragment.homefragment
 
 import android.annotation.SuppressLint
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.instagram.R
 import com.example.instagram.adapter.PostAdapter
 import com.example.instagram.baseapp.BaseApp
 import com.example.instagram.model.PostModel
@@ -26,6 +29,7 @@ class HomeViewModel : ViewModel() {
     var firebaseDatabase    = FirebaseDatabase.getInstance()
     var postReference       = firebaseDatabase.getReference(Const.ADD_POST_REFERENCE)
     var followingReference  = firebaseDatabase.getReference(Const.FOLLOW_REFERENCE)
+    var likeReference       = firebaseDatabase.getReference(Const.LIKES_REFERENCE)
 
 
     // get time line for follow user only.
@@ -71,6 +75,42 @@ class HomeViewModel : ViewModel() {
                 Const.constToast(BaseApp.appContext,error.message)
                 CustomProgressDialog.hideProgressDialog()
             }
+        })
+    }
+
+    // fun for like and unlike for post .
+     fun isLikes(postId: String, ivPostImageLikeBtn: ImageView) {
+        likeReference.child(postId).addValueEventListener(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if(snapshot.child(Const.getCurrentUser()).exists()){
+                    ivPostImageLikeBtn.setImageResource(R.drawable.heart_clicked)
+                    ivPostImageLikeBtn.tag = "Liked"
+                }else{
+                    ivPostImageLikeBtn.setImageResource(R.drawable.heart_not_clicked)
+                    ivPostImageLikeBtn.tag = "Like"
+                }
+            }
+            override fun onCancelled(error: DatabaseError) {
+                Const.constToast(BaseApp.appContext,error.message)
+            }
+        })
+    }
+
+    // fun for get likes number from database.
+    fun numberOfLikes(tv_likes : TextView , postId : String){
+
+        likeReference.child(postId).addValueEventListener(object : ValueEventListener{
+            @SuppressLint("SetTextI18n")
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if(snapshot.exists()){
+                    tv_likes.text = "${snapshot.childrenCount} likes"
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+
         })
     }
 }
