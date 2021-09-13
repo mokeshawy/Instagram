@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.instagram.R
 import com.example.instagram.databinding.UserItemLayoutBinding
 import com.example.instagram.model.UserModel
+import com.example.instagram.onclickinterface.UserOnClickListener
 import com.example.instagram.ui.fragment.searchfragment.SearchFragment
 import com.example.instagram.ui.fragment.searchfragment.SearchViewModel
 import com.example.instagram.utils.Const
@@ -16,14 +17,14 @@ import com.google.firebase.auth.FirebaseAuth
 import com.squareup.picasso.Picasso
 
 
-class UserAdapter( var mUsers: ArrayList<UserModel> ,
-                   var isFragment : Boolean = false ,
-                   var searchViewModel: SearchViewModel ,
-                   var searchFragment: SearchFragment) : RecyclerView.Adapter<UserAdapter.ViewHolder>() {
+class UserAdapter( var mUsers: ArrayList<UserModel> , var userOnClickListener: UserOnClickListener , var isFragment : Boolean = false ) : RecyclerView.Adapter<UserAdapter.ViewHolder>() {
 
 
     class ViewHolder(var binding : UserItemLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
 
+        fun initialize( viewHolder: ViewHolder , userModel: UserModel , action : UserOnClickListener){
+            action.onClick(viewHolder,userModel,adapterPosition)
+        }
     }
     // Create new views (invoked by the layout manager)
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
@@ -41,26 +42,7 @@ class UserAdapter( var mUsers: ArrayList<UserModel> ,
         viewHolder.binding.userFullNameSearch.text  = users.fullName
         Picasso.get().load(users.image).into(viewHolder.binding.userProfileImageSearch)
 
-        // all operation form search viewModel.
-        if(FirebaseAuth.getInstance().currentUser!!.uid == users.uid){
-                viewHolder.binding.followBtnSearch.visibility = View.GONE
-            }else{
-                viewHolder.binding.followBtnSearch.visibility = View.VISIBLE
-        }
-        // call fun for check following status.
-        searchViewModel.checkFollowingStatus(users.uid,viewHolder.binding.followBtnSearch)
-
-        // click follow and unFollow.
-        viewHolder.binding.followBtnSearch.setOnClickListener {
-            // call fun follow and unFollow
-            searchViewModel.followAndUnFollow(viewHolder.binding.followBtnSearch,users)
-        }
-
-        viewHolder.itemView.setOnClickListener {
-            val bundle = Bundle()
-            bundle.putSerializable(Const.BUNDLE_USER_MODEL , users)
-            searchFragment.findNavController().navigate(R.id.action_searchFragment_to_profileFragment,bundle)
-        }
+        viewHolder.initialize(viewHolder,users,userOnClickListener)
     }
 
 

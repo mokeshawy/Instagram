@@ -9,12 +9,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
+import com.example.instagram.R
 import com.example.instagram.adapter.UserAdapter
 import com.example.instagram.databinding.FragmentSearchBinding
+import com.example.instagram.model.UserModel
+import com.example.instagram.onclickinterface.UserOnClickListener
 import com.example.instagram.utils.Const
+import com.google.firebase.auth.FirebaseAuth
 
 
-class SearchFragment : Fragment() {
+class SearchFragment : Fragment() , UserOnClickListener{
 
     lateinit var binding : FragmentSearchBinding
     private val searchViewModel : SearchViewModel by viewModels()
@@ -35,7 +40,7 @@ class SearchFragment : Fragment() {
 
 
         searchViewModel.mUser.observe(viewLifecycleOwner, Observer {
-            binding.recyclerViewSearch.adapter = UserAdapter(it,true, searchViewModel,this)
+            binding.recyclerViewSearch.adapter = UserAdapter(it,this,true)
         })
 
         binding.searchEditText.addTextChangedListener(object : TextWatcher{
@@ -56,27 +61,28 @@ class SearchFragment : Fragment() {
         })
     }
 
-    // implement for fun from interface onClick on item userAdapter.
-//    override fun onClick(viewHolder: UserAdapter.ViewHolder, userModel: UserModel, position: Int) {
-//
-//        if(FirebaseAuth.getInstance().currentUser!!.uid == userModel.uid){
-//            viewHolder.binding.followBtnSearch.visibility = View.GONE
-//        }else{
-//            viewHolder.binding.followBtnSearch.visibility = View.VISIBLE
-//        }
-//        // call fun for check following status.
-//        searchViewModel.checkFollowingStatus(userModel.uid,viewHolder.binding.followBtnSearch)
-//
-//        // click follow and unFollow.
-//        viewHolder.binding.followBtnSearch.setOnClickListener {
-//            // call fun follow and unFollow
-//            searchViewModel.followAndUnFollow(viewHolder.binding.followBtnSearch,userModel)
-//        }
-//
-//        viewHolder.itemView.setOnClickListener {
-//            val bundle = Bundle()
-//            bundle.putSerializable(Const.BUNDLE_USER_MODEL , userModel)
-//            findNavController().navigate(R.id.action_searchFragment_to_profileFragment,bundle)
-//        }
-//    }
+    // onClick for user adapter.
+    override fun onClick(viewHolder: UserAdapter.ViewHolder, userModel: UserModel, position: Int) {
+
+        // all operation form search viewModel.
+        if(FirebaseAuth.getInstance().currentUser!!.uid == userModel.uid){
+            viewHolder.binding.followBtnSearch.visibility = View.GONE
+        }else{
+            viewHolder.binding.followBtnSearch.visibility = View.VISIBLE
+        }
+        // call fun for check following status.
+        searchViewModel.checkFollowingStatus(userModel.uid,viewHolder.binding.followBtnSearch)
+
+        // click follow and unFollow.
+        viewHolder.binding.followBtnSearch.setOnClickListener {
+            // call fun follow and unFollow
+            searchViewModel.followAndUnFollow(viewHolder.binding.followBtnSearch,userModel)
+        }
+
+        viewHolder.itemView.setOnClickListener {
+            val bundle = Bundle()
+            bundle.putSerializable(Const.BUNDLE_USER_MODEL , userModel)
+            findNavController().navigate(R.id.action_searchFragment_to_profileFragment,bundle)
+        }
+    }
 }

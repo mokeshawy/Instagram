@@ -7,14 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import com.example.instagram.R
+import com.example.instagram.onclickinterface.CommentOnClickListener
 import com.example.instagram.adapter.CommentAdapter
 import com.example.instagram.databinding.FragmentCommentBinding
-import com.example.instagram.model.PostModel
+import com.example.instagram.model.CommentModel
 import com.example.instagram.utils.Const
 import com.squareup.picasso.Picasso
 
-class CommentFragment : Fragment() {
+class CommentFragment : Fragment() , CommentOnClickListener {
 
     lateinit var binding : FragmentCommentBinding
     private val commentViewModel : CommentViewModel by viewModels()
@@ -56,7 +56,12 @@ class CommentFragment : Fragment() {
 
         commentViewModel.readComment(postId.toString())
         commentViewModel.commentLiveData.observe(viewLifecycleOwner, Observer {
-            binding.rvComment.adapter = CommentAdapter(it)
+            binding.rvComment.adapter = CommentAdapter(it,this)
         })
+    }
+
+    // onClick for comment adapter.
+    override fun onClick(viewHolder: CommentAdapter.ViewHolder, comment: CommentModel, position: Int) {
+        Const.constToast(requireActivity(),comment.userName)
     }
 }
