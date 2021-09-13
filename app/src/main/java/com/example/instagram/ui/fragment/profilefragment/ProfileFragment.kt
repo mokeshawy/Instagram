@@ -105,6 +105,8 @@ class ProfileFragment : Fragment() , MyPhotoOnClickLisrener{
         profileViewModel.postListLiveData.observe(viewLifecycleOwner, Observer {
             binding.rvShowImagePost.adapter = MyPhotoAdapter(it,this)
         })
+
+        profileViewModel.getTotalNumberOfPost()
     }
 
     // fun show user info from dataStore.
@@ -146,5 +148,4 @@ class ProfileFragment : Fragment() , MyPhotoOnClickLisrener{
             findNavController().navigate(R.id.action_profileFragment_to_homeFragment,bundle)
         }
     }
-
 }

@@ -108,10 +108,10 @@
                                     android:id="@+id/tv_total_posts"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="0"
+                                    android:text="@={profileFragment.tvTotalOfPost}"
+                                    android:textColor="@color/black"
                                     android:textSize="14sp"
-                                    android:textStyle="bold"
-                                    android:textColor="@color/black"/>
+                                    android:textStyle="bold" />
 
                                 <TextView
                                     android:layout_width="wrap_content"

@@ -26,6 +26,7 @@ class ProfileViewModel(application: Application) : AndroidViewModel(application)
     var tvShowBio           = MutableLiveData<String>("")
     var tvTotalFollowing    = MutableLiveData<String>("0")
     var tvTotalFollowers    = MutableLiveData<String>("0")
+    var tvTotalOfPost       = MutableLiveData<String>("0")
 
     var postListLiveData = MutableLiveData<ArrayList<PostModel>>()
     var postList = ArrayList<PostModel>()
@@ -95,7 +96,7 @@ class ProfileViewModel(application: Application) : AndroidViewModel(application)
             .addValueEventListener( object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 if(snapshot.exists()){
-                    tvTotalFollowing.value = snapshot.childrenCount.toString()
+                    tvTotalFollowing.value = "${snapshot.childrenCount-1}"
                 }
             }
             override fun onCancelled(error: DatabaseError) {
@@ -119,6 +120,27 @@ class ProfileViewModel(application: Application) : AndroidViewModel(application)
                     }
                     postListLiveData.value = postList
                 }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+
+        })
+    }
+
+    // function for get all number of post.
+    fun getTotalNumberOfPost(){
+        postReference.addValueEventListener( object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                var postCount = 0
+               for ( ds in snapshot.children){
+                   val post = ds.getValue(PostModel::class.java)!!
+                   if(post.publishre == Const.getCurrentUser()){
+                       postCount++
+                   }
+               }
+                tvTotalOfPost.value = postCount.toString()
             }
 
             override fun onCancelled(error: DatabaseError) {
