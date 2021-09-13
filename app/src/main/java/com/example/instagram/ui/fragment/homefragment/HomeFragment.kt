@@ -33,6 +33,7 @@ class HomeFragment : Fragment() , PostOnClickListener{
 
     lateinit var binding        : FragmentHomeBinding
     private val homeViewModel   : HomeViewModel by viewModels()
+    var postModel : PostModel? = null
     override fun onCreateView( inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
         // Inflate the layout for this fragment
         binding = FragmentHomeBinding.inflate(inflater)
@@ -76,6 +77,15 @@ class HomeFragment : Fragment() , PostOnClickListener{
             binding.tvNoInternet.visibility = View.VISIBLE
         }
 
+        // when user come from profile page will show details for post when entry any post.
+        if( arguments?.containsKey(Const.BUNDLE_POST_MODEL) == true){
+            postModel = arguments?.getSerializable(Const.BUNDLE_POST_MODEL) as PostModel
+
+            homeViewModel.retrievePostsDetails(postModel!!.postId)
+            homeViewModel.postAdapterLiveData.observe(viewLifecycleOwner, Observer {
+                binding.recyclerViewHome.adapter = PostAdapter(it,this)
+            })
+        }
     }
 
     // on click for post adapter.

@@ -9,6 +9,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.instagram.R
+import com.example.instagram.model.PostModel
 import com.example.instagram.model.UserModel
 import com.example.instagram.utils.Const
 import com.google.firebase.database.DataSnapshot
@@ -26,8 +27,12 @@ class ProfileViewModel(application: Application) : AndroidViewModel(application)
     var tvTotalFollowing    = MutableLiveData<String>("0")
     var tvTotalFollowers    = MutableLiveData<String>("0")
 
+    var postListLiveData = MutableLiveData<ArrayList<PostModel>>()
+    var postList = ArrayList<PostModel>()
+
     var firebaseDatabase        = FirebaseDatabase.getInstance()
     var followingReference      = firebaseDatabase.getReference(Const.FOLLOW_REFERENCE)
+    var postReference           = firebaseDatabase.getReference(Const.ADD_POST_REFERENCE)
 
     // get context
     val context = application.applicationContext as Application
@@ -96,6 +101,30 @@ class ProfileViewModel(application: Application) : AndroidViewModel(application)
             override fun onCancelled(error: DatabaseError) {
                Const.constToast(context,error.message)
             }
+        })
+    }
+
+    // fun get image from post in profile page.
+    fun myPhoto(){
+        postList = ArrayList()
+        postReference.addValueEventListener(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if(snapshot.exists()){
+                    postList.clear()
+                    for (ds in snapshot.children){
+                        val post = ds.getValue(PostModel::class.java)!!
+                        if( post.publishre == Const.getCurrentUser()){
+                            postList.add(post)
+                        }
+                    }
+                    postListLiveData.value = postList
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+
         })
     }
 }

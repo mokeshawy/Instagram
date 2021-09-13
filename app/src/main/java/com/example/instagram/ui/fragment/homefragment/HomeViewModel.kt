@@ -128,4 +128,27 @@ class HomeViewModel : ViewModel() {
             }
         })
     }
+
+    // function for show details for post from profile page.
+    fun retrievePostsDetails(postId : String) {
+        postList = ArrayList()
+        postReference.child(postId).addValueEventListener(object : ValueEventListener {
+            @SuppressLint("NotifyDataSetChanged")
+            override fun onDataChange(snapshot: DataSnapshot) {
+
+                postList!!.clear()
+
+                val post = snapshot.getValue(PostModel::class.java)!!
+                postList!!.add(post)
+
+                postAdapter?.notifyDataSetChanged()
+                postAdapterLiveData.value = postList as ArrayList<PostModel>
+
+            }
+            override fun onCancelled(error: DatabaseError) {
+                Const.constToast(BaseApp.appContext,error.message)
+                CustomProgressDialog.hideProgressDialog()
+            }
+        })
+    }
 }

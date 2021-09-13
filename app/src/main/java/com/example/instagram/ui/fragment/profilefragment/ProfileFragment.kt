@@ -7,17 +7,21 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.instagram.R
 import com.example.instagram.databinding.FragmentProfileBinding
+import com.example.instagram.model.PostModel
 import com.example.instagram.model.UserModel
+import com.example.instagram.onclickinterface.MyPhotoOnClickLisrener
+import com.example.instagram.ui.adapter.MyPhotoAdapter
 import com.example.instagram.ui.fragment.signinfragment.SignInViewModel
 import com.example.instagram.utils.Const
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.flow.collect
 
-class ProfileFragment : Fragment() {
+class ProfileFragment : Fragment() , MyPhotoOnClickLisrener{
 
     lateinit var binding            : FragmentProfileBinding
     private val profileViewModel    : ProfileViewModel by viewModels()
@@ -96,6 +100,11 @@ class ProfileFragment : Fragment() {
                 }
             }
         }
+
+        profileViewModel.myPhoto()
+        profileViewModel.postListLiveData.observe(viewLifecycleOwner, Observer {
+            binding.rvShowImagePost.adapter = MyPhotoAdapter(it,this)
+        })
     }
 
     // fun show user info from dataStore.
@@ -124,6 +133,17 @@ class ProfileFragment : Fragment() {
             signInViewModel.image.collect {
                 Picasso.get().load(it).into(binding.ivUserProfile)
             }
+        }
+    }
+
+    // on click for my photo adapter
+    override fun onClick( viewHolder: MyPhotoAdapter.ViewHolder, postModel: PostModel, position: Int) {
+
+        // when you need show details for your post from profile page.
+        viewHolder.itemView.setOnClickListener {
+            val bundle = Bundle()
+            bundle.putSerializable(Const.BUNDLE_POST_MODEL,postModel)
+            findNavController().navigate(R.id.action_profileFragment_to_homeFragment,bundle)
         }
     }
 

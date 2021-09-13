@@ -1,19 +1,11 @@
 package com.example.instagram.ui.adapter
 
-import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.example.instagram.R
 import com.example.instagram.databinding.UserItemLayoutBinding
 import com.example.instagram.model.UserModel
 import com.example.instagram.onclickinterface.UserOnClickListener
-import com.example.instagram.ui.fragment.searchfragment.SearchFragment
-import com.example.instagram.ui.fragment.searchfragment.SearchViewModel
-import com.example.instagram.utils.Const
-import com.google.firebase.auth.FirebaseAuth
 import com.squareup.picasso.Picasso
 
 

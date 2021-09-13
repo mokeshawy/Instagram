@@ -22,7 +22,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.squareup.picasso.Picasso
 
-class PostAdapter(private var dataSet: List<PostModel> , var postOnClickListener: PostOnClickListener) : RecyclerView.Adapter<PostAdapter.ViewHolder>() {
+class PostAdapter(private var post : List<PostModel> , var postOnClickListener: PostOnClickListener) : RecyclerView.Adapter<PostAdapter.ViewHolder>() {
 
     class ViewHolder(var binding : PostItemLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
 
@@ -40,7 +40,7 @@ class PostAdapter(private var dataSet: List<PostModel> , var postOnClickListener
     // Replace the contents of a view (invoked by the layout manager)
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
 
-        val post = dataSet[position]
+        val post = post[position]
 
         // show data on ui.
         Picasso.get().load(post.postImage).into(viewHolder.binding.ivPostImageHome)
@@ -56,6 +56,6 @@ class PostAdapter(private var dataSet: List<PostModel> , var postOnClickListener
 
     }
     // Return the size of your dataset (invoked by the layout manager)
-    override fun getItemCount() = dataSet.size
+    override fun getItemCount() = post.size
 
 }

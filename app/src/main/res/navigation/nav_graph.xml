@@ -54,6 +54,11 @@
             app:destination="@id/accountSettingFragment"
             app:enterAnim="@android:anim/fade_in"
             app:popUpTo="@id/profileFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:popUpTo="@id/profileFragment" />
     </fragment>
     <fragment
         android:id="@+id/accountSettingFragment"
