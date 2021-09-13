@@ -9,7 +9,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.instagram.R
-import com.example.instagram.adapter.UserAdapter
+import com.example.instagram.ui.adapter.UserAdapter
 import com.example.instagram.baseapp.BaseApp
 import com.example.instagram.model.UserModel
 import com.example.instagram.utils.Const

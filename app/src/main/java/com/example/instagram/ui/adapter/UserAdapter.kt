@@ -1,4 +1,4 @@
-package com.example.instagram.adapter
+package com.example.instagram.ui.adapter
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -17,12 +17,14 @@ import com.google.firebase.auth.FirebaseAuth
 import com.squareup.picasso.Picasso
 
 
-class UserAdapter( var mUsers: ArrayList<UserModel> , var userOnClickListener: UserOnClickListener , var isFragment : Boolean = false ) : RecyclerView.Adapter<UserAdapter.ViewHolder>() {
+class UserAdapter( var mUsers: ArrayList<UserModel> ,
+                   var userOnClickListener: UserOnClickListener ,
+                   var isFragment : Boolean = false ) : RecyclerView.Adapter<UserAdapter.ViewHolder>() {
 
 
     class ViewHolder(var binding : UserItemLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun initialize( viewHolder: ViewHolder , userModel: UserModel , action : UserOnClickListener){
+        fun initialize(viewHolder: ViewHolder, userModel: UserModel, action : UserOnClickListener){
             action.onClick(viewHolder,userModel,adapterPosition)
         }
     }
@@ -38,10 +40,12 @@ class UserAdapter( var mUsers: ArrayList<UserModel> , var userOnClickListener: U
 
         val users = mUsers[position]
 
+        // show data for user on ui.
         viewHolder.binding.userNameSearch.text      = users.userName
         viewHolder.binding.userFullNameSearch.text  = users.fullName
         Picasso.get().load(users.image).into(viewHolder.binding.userProfileImageSearch)
 
+        // call function for initialize.
         viewHolder.initialize(viewHolder,users,userOnClickListener)
     }
 

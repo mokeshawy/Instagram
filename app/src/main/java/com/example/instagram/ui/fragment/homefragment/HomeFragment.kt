@@ -12,8 +12,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.example.instagram.R
-import com.example.instagram.adapter.PostAdapter
-import com.example.instagram.baseapp.BaseApp
+import com.example.instagram.ui.adapter.PostAdapter
 import com.example.instagram.databinding.FragmentHomeBinding
 import com.example.instagram.model.PostModel
 import com.example.instagram.model.UserModel
@@ -85,14 +84,6 @@ class HomeFragment : Fragment() , PostOnClickListener{
         // firebase instance.
         val firebaseDatabase = FirebaseDatabase.getInstance()
 
-        // contents of the view with that element
-        Picasso.get().load(postModel.postImage).into(viewHolder.binding.ivPostImageHome)
-        if( postModel.description == ""){
-            viewHolder.binding.tvDescription!!.visibility = View.GONE
-        }else{
-            viewHolder.binding.tvDescription!!.visibility = View.VISIBLE
-            viewHolder.binding.tvDescription!!.text = postModel.description
-        }
 
         // retrieve data from user reference.
         firebaseDatabase.getReference(Const.USER_REFERENCE).child(postModel.publishre).addValueEventListener( object :
@@ -147,5 +138,6 @@ class HomeFragment : Fragment() , PostOnClickListener{
                     .child(postModel.postId).child(Const.getCurrentUser()).removeValue()
             }
         }
+
     }
 }

@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.example.instagram.onclickinterface.CommentOnClickListener
-import com.example.instagram.adapter.CommentAdapter
+import com.example.instagram.ui.adapter.CommentAdapter
 import com.example.instagram.databinding.FragmentCommentBinding
 import com.example.instagram.model.CommentModel
 import com.example.instagram.utils.Const
@@ -47,6 +47,7 @@ class CommentFragment : Fragment() , CommentOnClickListener {
         // get userName from post adapter by bundle.
         val userName = arguments?.getString(Const.BUNDLE_USER_NAME)
 
+        // get user image profile from post adapter by bundle.
         val image = arguments?.getString(Const.BUNDLE_IMAGE_USER_POST_COMMENT)
 
         // btn add comment on post.
@@ -62,6 +63,6 @@ class CommentFragment : Fragment() , CommentOnClickListener {
 
     // onClick for comment adapter.
     override fun onClick(viewHolder: CommentAdapter.ViewHolder, comment: CommentModel, position: Int) {
-        Const.constToast(requireActivity(),comment.userName)
+
     }
 }

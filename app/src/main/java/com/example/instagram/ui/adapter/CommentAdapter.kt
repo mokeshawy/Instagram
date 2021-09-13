@@ -1,4 +1,4 @@
-package com.example.instagram.adapter
+package com.example.instagram.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -14,7 +14,7 @@ class CommentAdapter( var comment   : ArrayList<CommentModel> , var itemListOnCl
     class ViewHolder(var binding : CommentItemLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
 
         // initialize onClickUsersAdapter from interface
-        fun initialize(viewHolder: CommentAdapter.ViewHolder, comment: CommentModel, action : CommentOnClickListener){
+        fun initialize(viewHolder: ViewHolder, comment: CommentModel, action : CommentOnClickListener){
             action.onClick(viewHolder , comment , adapterPosition )
         }
 

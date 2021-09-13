@@ -1,4 +1,4 @@
-package com.example.instagram.adapter
+package com.example.instagram.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -27,7 +27,7 @@ class PostAdapter(private var dataSet: List<PostModel> , var postOnClickListener
     class ViewHolder(var binding : PostItemLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
 
         // initialize onClickUsersAdapter from interface
-        fun initialize(viewHolder: PostAdapter.ViewHolder, postModel: PostModel , action : PostOnClickListener){
+        fun initialize(viewHolder: ViewHolder, postModel: PostModel, action : PostOnClickListener){
             action.onClick(viewHolder , postModel , adapterPosition )
         }
     }
@@ -41,6 +41,15 @@ class PostAdapter(private var dataSet: List<PostModel> , var postOnClickListener
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
 
         val post = dataSet[position]
+
+        // show data on ui.
+        Picasso.get().load(post.postImage).into(viewHolder.binding.ivPostImageHome)
+        if( post.description == ""){
+            viewHolder.binding.tvDescription!!.visibility = View.GONE
+        }else{
+            viewHolder.binding.tvDescription!!.visibility = View.VISIBLE
+            viewHolder.binding.tvDescription!!.text = post.description
+        }
 
         // call fun initialize.
         viewHolder.initialize(viewHolder,post,postOnClickListener)

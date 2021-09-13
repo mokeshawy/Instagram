@@ -6,7 +6,7 @@ import android.widget.TextView
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.instagram.R
-import com.example.instagram.adapter.PostAdapter
+import com.example.instagram.ui.adapter.PostAdapter
 import com.example.instagram.baseapp.BaseApp
 import com.example.instagram.model.PostModel
 import com.example.instagram.utils.Const

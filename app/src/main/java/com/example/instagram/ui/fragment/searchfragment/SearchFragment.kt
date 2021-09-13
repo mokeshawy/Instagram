@@ -11,7 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.example.instagram.R
-import com.example.instagram.adapter.UserAdapter
+import com.example.instagram.ui.adapter.UserAdapter
 import com.example.instagram.databinding.FragmentSearchBinding
 import com.example.instagram.model.UserModel
 import com.example.instagram.onclickinterface.UserOnClickListener
@@ -39,10 +39,12 @@ class SearchFragment : Fragment() , UserOnClickListener{
 
 
 
+        // show data fro user when start search.
         searchViewModel.mUser.observe(viewLifecycleOwner, Observer {
             binding.recyclerViewSearch.adapter = UserAdapter(it,this,true)
         })
 
+        // handle search edit text.
         binding.searchEditText.addTextChangedListener(object : TextWatcher{
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
             }
