@@ -81,13 +81,13 @@
                         android:src="@drawable/ic_vector_comment" />
 
                     <ImageView
-                        android:id="@+id/iv_post_save_comment_btn"
+                        android:id="@+id/iv_btn_save_post"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_alignParentEnd="true"
                         android:layout_marginTop="0dp"
                         android:layout_marginRight="7dp"
-                        android:src="@drawable/ic_vector_save" />
+                        android:src="@drawable/ic_vector_un_save" />
 
                 </RelativeLayout>
 

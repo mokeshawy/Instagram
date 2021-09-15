@@ -41,4 +41,8 @@
 
     <string name="msg_for_internet_connection">لا يوجد اتصال بالانترنت</string>
 
+    <string name="title_followers">المتابعون</string>
+    <string name="title_following">متابعة</string>
+    <string name="title_likes">المعجبون</string>
+
 </resources>

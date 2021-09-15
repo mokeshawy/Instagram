@@ -14,11 +14,6 @@
         android:layout_height="match_parent"
         tools:context=".ui.fragment.searchfragment.SearchFragment">
 
-        <com.google.android.material.appbar.AppBarLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/app_bar_layout_search"
-            android:background="@android:color/white">
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/search_toolbar"
@@ -27,17 +22,19 @@
                 android:layout_marginTop="4dp"
                 android:layout_marginLeft="6dp"
                 android:layout_marginRight="6dp"
-                android:background="@drawable/borders_background">
+                android:background="?android:attr/windowBackground">
 
                 <RelativeLayout
+                    android:id="@+id/relative_tool_bar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
                     <ImageView
-                        android:id="@+id/search_fragment_icon"
+                        android:id="@+id/iv_search_icon"
                         android:layout_width="30dp"
                         android:layout_height="40dp"
-                        android:src="@drawable/ic_vector_search"/>
+                        android:src="@drawable/ic_vector_search" />
+
 
                     <EditText
                         android:id="@+id/search_edit_text"
@@ -48,19 +45,19 @@
                         android:textColor="@android:color/darker_gray"
                         android:hint="Search..."
                         android:text="@={searchFragment.etSearchText}"
-                        android:layout_toEndOf="@+id/search_fragment_icon" />
+                        android:layout_toEndOf="@+id/iv_search_icon" />
 
                 </RelativeLayout>
 
             </androidx.appcompat.widget.Toolbar>
 
-        </com.google.android.material.appbar.AppBarLayout>
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view_search"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/app_bar_layout_search"
+            android:layout_below="@+id/search_toolbar"
             android:visibility="gone"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 

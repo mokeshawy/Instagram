@@ -31,6 +31,7 @@ class HomeViewModel : ViewModel() {
     var followingReference  = firebaseDatabase.getReference(Const.FOLLOW_REFERENCE)
     var likeReference       = firebaseDatabase.getReference(Const.LIKES_REFERENCE)
     var commentReference    = firebaseDatabase.getReference(Const.COMMENT_REFERENCE)
+    var saveReference       = firebaseDatabase.getReference(Const.SAVE_REFERENCE)
 
 
     // get time line for follow user only.
@@ -148,6 +149,34 @@ class HomeViewModel : ViewModel() {
             override fun onCancelled(error: DatabaseError) {
                 Const.constToast(BaseApp.appContext,error.message)
                 CustomProgressDialog.hideProgressDialog()
+            }
+        })
+    }
+
+    // function for save post..
+    fun savePost(postId : String){
+        saveReference.child(Const.getCurrentUser()).child(postId).setValue(true)
+    }
+
+    // function for un save post..
+    fun unSavePost(postId : String){
+        saveReference.child(Const.getCurrentUser()).child(postId).removeValue()
+    }
+
+    // function for chek statue of save button.
+    fun checkSaveStatue(postId : String , ivSavePost : ImageView){
+        saveReference.child(Const.getCurrentUser()).addValueEventListener(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if(snapshot.child(postId).exists()){
+                    ivSavePost.setImageResource(R.drawable.ic_vector_save_clicked)
+                    ivSavePost.tag = "saved"
+                }else{
+                    ivSavePost.setImageResource(R.drawable.ic_vector_un_save)
+                    ivSavePost.tag = "save"
+                }
+            }
+            override fun onCancelled(error: DatabaseError) {
+                Const.constToast(BaseApp.appContext,error.message)
             }
         })
     }

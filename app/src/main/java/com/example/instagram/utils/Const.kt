@@ -4,6 +4,7 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
+import android.os.Bundle
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import com.google.firebase.auth.FirebaseAuth
@@ -29,6 +30,12 @@ object Const {
 
     // add post reference.
     const val ADD_POST_REFERENCE = "addPost"
+    // child add post.
+    const val CHILD_PUBLISHRE_ADD_POST          = "publishre"
+    const val CHILD_DESCRIPTION_ADD_POST        = "description"
+    const val CHILD_POST_ID_ADD_POST            = "postId"
+    const val CHILD_POST_IMAGE                  = "postImage"
+
 
     // like reference.
     const val LIKES_REFERENCE = "likes"
@@ -41,12 +48,8 @@ object Const {
     const val CHILD_IMAGE_USER_POST_COMMENT = "image"
 
 
-    // child add post.
-    const val CHILD_PUBLISHRE_ADD_POST          = "publishre"
-    const val CHILD_DESCRIPTION_ADD_POST        = "description"
-    const val CHILD_POST_ID_ADD_POST            = "postId"
-    const val CHILD_POST_IMAGE                  = "postImage"
-    const val BUNDLE_IMAGE_USER_POST_COMMENT    = "image"
+    // save reference.
+    const val SAVE_REFERENCE = "save"
 
     // follow btn
     const val BTN_FOLLOW = "Follow"
@@ -59,6 +62,9 @@ object Const {
     const val BUNDLE_IMAGE_PROFILE  = "imageProfile"
     const val BUNDLE_POST_ID        = "postId"
     const val BUNDLE_USER_NAME      = "userName"
+    const val BUNDLE_IMAGE_USER_POST_COMMENT    = "image"
+    const val BUNDLE_ID             = "id"
+    const val BUNDLE_TITLE          = "title"
 
     // default image profile
     const val DEFAULT_IMAGE_PROFILE     = "https://firebasestorage.googleapis.com/v0/b/instagram-1bd4b.appspot.com/o/Photo%2Fic_profile_image.png?alt=media&token=a33b0a81-c0a7-40e6-a1c8-9c5b5e2c555b"

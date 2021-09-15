@@ -15,7 +15,9 @@
         <entry key="app/src/main/res/drawable/ic_vector_hom.xml" value="0.16018518518518518" />
         <entry key="app/src/main/res/drawable/ic_vector_person.xml" value="0.16018518518518518" />
         <entry key="app/src/main/res/drawable/ic_vector_save.xml" value="0.3717948717948718" />
+        <entry key="app/src/main/res/drawable/ic_vector_save_clicked.xml" value="0.3748717948717949" />
         <entry key="app/src/main/res/drawable/ic_vector_search.xml" value="0.16018518518518518" />
+        <entry key="app/src/main/res/drawable/ic_vector_un_save.xml" value="0.3748717948717949" />
         <entry key="app/src/main/res/drawable/inputs_background.xml" value="0.16018518518518518" />
         <entry key="app/src/main/res/layout/019 post-item-layout.xml" value="0.20416666666666666" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.3645833333333333" />
@@ -29,6 +31,7 @@
         <entry key="app/src/main/res/layout/fragment_notifications.xml" value="0.3645833333333333" />
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.3645833333333333" />
         <entry key="app/src/main/res/layout/fragment_search.xml" value="0.3645833333333333" />
+        <entry key="app/src/main/res/layout/fragment_show_user.xml" value="0.19083969465648856" />
         <entry key="app/src/main/res/layout/fragment_sign_up.xml" value="0.3645833333333333" />
         <entry key="app/src/main/res/layout/fragment_splash_screen.xml" value="0.3645833333333333" />
         <entry key="app/src/main/res/layout/image_item_layout.xml" value="0.23020833333333332" />

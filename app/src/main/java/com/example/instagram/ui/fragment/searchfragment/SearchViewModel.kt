@@ -21,18 +21,26 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 
 class SearchViewModel : ViewModel() {
 
+    // for user search page..
     var mUser = MutableLiveData<ArrayList<UserModel>>()
     var user  = ArrayList<UserModel>()
     var etSearchText = MutableLiveData<String>("")
     val userAdapter : UserAdapter? = null
 
+    // for get likes and following and followers page ..
+    var userLIstLiveData = MutableLiveData<ArrayList<UserModel>>()
+    var userList    : List<UserModel>?  = null
+    var idList      : List<String>?     = null
+
     // firebase instance.
-    private var firebaseDatabase    = FirebaseDatabase.getInstance()
-    private var userReference       = firebaseDatabase.getReference(Const.USER_REFERENCE)
-    private var followingReference  = firebaseDatabase.getReference(Const.FOLLOW_REFERENCE)
+    var firebaseDatabase    = FirebaseDatabase.getInstance()
+    var userReference       = firebaseDatabase.getReference(Const.USER_REFERENCE)
+    var followingReference  = firebaseDatabase.getReference(Const.FOLLOW_REFERENCE)
+    var likeReference       = firebaseDatabase.getReference(Const.LIKES_REFERENCE)
 
 
 
+                                /* operation of search page */
     // fun for search user.
     fun searchUser(input : String ){
         userReference.orderByChild("fullName").startAt(input).endAt(input+"\uf8ff")
@@ -87,12 +95,13 @@ class SearchViewModel : ViewModel() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
+                Const.constToast(BaseApp.appContext,error.message)
             }
 
         })
     }
 
+    // fun follow and unFollow...
     fun followAndUnFollow(followButton : Button , userModel : UserModel){
 
         if( followButton.text.toString() == Const.BTN_FOLLOW){
@@ -108,5 +117,96 @@ class SearchViewModel : ViewModel() {
                     }
                 }
         }
+    }
+
+
+                        /* operation of get likes and followers and following page..........*/
+
+    // get number of user click likes on post in time line...
+    fun getLikes( id : String){
+        idList = ArrayList()
+        likeReference.child(id).addValueEventListener(object : ValueEventListener {
+            @SuppressLint("SetTextI18n")
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if(snapshot.exists()){
+                    ( idList as ArrayList<String> ).clear()
+                    for ( ds in snapshot.children){
+                        ( idList as ArrayList<String> ).add(ds.key!!)
+                    }
+                    // call function of show user..
+                    showUsers()
+                }
+            }
+            override fun onCancelled(error: DatabaseError) {
+                Const.constToast(BaseApp.appContext,error.message)
+            }
+        })
+
+    }
+
+    // get number of user following...
+    fun getFollowing(id : String){
+        idList = ArrayList()
+        followingReference.child(id)
+            .child(Const.CHILD_FOLLOWING)
+            .addValueEventListener( object : ValueEventListener{
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    ( idList as ArrayList<String> ).clear()
+                    for ( ds in snapshot.children){
+                        if(ds.key != Const.getCurrentUser()){
+                            ( idList as ArrayList<String> ).add(ds.key!!)
+                        }
+                    }
+                    // call function of show user..
+                    showUsers()
+                }
+                override fun onCancelled(error: DatabaseError) {
+                    Const.constToast(BaseApp.appContext,error.message)
+                }
+            })
+    }
+
+    // get number of user followers...
+    fun getFollowers(id : String){
+        idList = ArrayList()
+        followingReference.child(id)
+            .child(Const.CHILD_FOLLOWERS)
+            .addValueEventListener(object : ValueEventListener{
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    ( idList as ArrayList<String> ).clear()
+                    for ( ds in snapshot.children){
+                        ( idList as ArrayList<String> ).add(ds.key!!)
+                    }
+                    // call function of show user..
+                    showUsers()
+                }
+                override fun onCancelled(error: DatabaseError) {
+                    Const.constToast(BaseApp.appContext,error.message)
+                }
+            })
+    }
+
+    // get user from database
+    private fun showUsers() {
+        userList = ArrayList()
+        userReference.addValueEventListener( object : ValueEventListener{
+            @SuppressLint("NotifyDataSetChanged")
+            override fun onDataChange(snapshot: DataSnapshot) {
+                (userList as ArrayList<UserModel>).clear()
+                for (ds in snapshot.children){
+                    val mUserModel = ds.getValue(UserModel::class.java)!!
+                    for ( id in idList!!){
+                        if( mUserModel.uid == id){
+                            (userList as ArrayList<UserModel>).add(mUserModel)
+                        }
+                    }
+                }
+                userLIstLiveData.value = userList as ArrayList<UserModel>
+                userAdapter?.notifyDataSetChanged()
+            }
+            override fun onCancelled(error: DatabaseError) {
+                Toast.makeText(BaseApp.appContext, error.message , Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 }

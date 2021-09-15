@@ -35,4 +35,8 @@
     <string name="msg_please_waite">Please waite...</string>
 
     <string name="msg_for_internet_connection">No Internet connection</string>
+
+    <string name="title_followers">Followers</string>
+    <string name="title_following">Following</string>
+    <string name="title_likes">Likes</string>
 </resources>

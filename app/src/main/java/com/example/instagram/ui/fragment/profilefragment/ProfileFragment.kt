@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -101,12 +102,44 @@ class ProfileFragment : Fragment() , MyPhotoOnClickLisrener{
             }
         }
 
+        // btn for show photo of post..
+        binding.ivBtnViewPic.setOnClickListener {
+            binding.rvShowImagePost.visibility = View.VISIBLE
+            binding.rvShowImageSave.visibility = View.GONE
+        }
+
+        // btn for show save photo of post..
+        binding.ivBtnSaveImage.setOnClickListener {
+            binding.rvShowImageSave.visibility = View.VISIBLE
+            binding.rvShowImagePost.visibility = View.GONE
+        }
+
+        // show photo post..
         profileViewModel.myPhoto()
         profileViewModel.postListLiveData.observe(viewLifecycleOwner, Observer {
             binding.rvShowImagePost.adapter = MyPhotoAdapter(it,this)
         })
 
+        // show data of saved post..
+        profileViewModel.postListSaved()
+        profileViewModel.postSavedLiveData.observe(viewLifecycleOwner, Observer {
+            binding.rvShowImageSave.adapter = MyPhotoAdapter(it,this)
+        })
+
+        // call function for get number of post.
         profileViewModel.getTotalNumberOfPost()
+
+        // get all following list...
+        binding.tvTotalFollowing.setOnClickListener {
+            val bundle = bundleOf(Const.BUNDLE_TITLE to resources.getString(R.string.title_following), Const.BUNDLE_ID to Const.getCurrentUser())
+            findNavController().navigate(R.id.action_profileFragment_to_searchFragment,bundle)
+        }
+
+        // get all followers list ...
+        binding.tvTotalFollowers.setOnClickListener {
+            val bundle = bundleOf(Const.BUNDLE_TITLE to resources.getString(R.string.title_followers), Const.BUNDLE_ID to Const.getCurrentUser())
+            findNavController().navigate(R.id.action_profileFragment_to_searchFragment,bundle)
+        }
     }
 
     // fun show user info from dataStore.

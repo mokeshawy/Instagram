@@ -1,5 +1,6 @@
 package com.example.instagram.ui.fragment.profilefragment
 
+import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
 import android.widget.ImageView
@@ -9,8 +10,10 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.instagram.R
+import com.example.instagram.baseapp.BaseApp
 import com.example.instagram.model.PostModel
 import com.example.instagram.model.UserModel
+import com.example.instagram.ui.adapter.MyPhotoAdapter
 import com.example.instagram.utils.Const
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -18,7 +21,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.squareup.picasso.Picasso
 
-class ProfileViewModel(application: Application) : AndroidViewModel(application) {
+class ProfileViewModel : ViewModel() {
 
     var tvAccountSetting    = MutableLiveData<String>("")
     var tvShowUserName      = MutableLiveData<String>("")
@@ -28,28 +31,35 @@ class ProfileViewModel(application: Application) : AndroidViewModel(application)
     var tvTotalFollowers    = MutableLiveData<String>("0")
     var tvTotalOfPost       = MutableLiveData<String>("0")
 
+    // get all post for user in profile
     var postListLiveData = MutableLiveData<ArrayList<PostModel>>()
     var postList = ArrayList<PostModel>()
+
+    // get post saved in profile page
+    var postSavedLiveData   = MutableLiveData<ArrayList<PostModel>>()
+    var postSaved           : List<String>?     = null
+    var postSavedList       : List<PostModel>?  = null
+    var myPhotoAdapter      : MyPhotoAdapter?   = null
+
 
     var firebaseDatabase        = FirebaseDatabase.getInstance()
     var followingReference      = firebaseDatabase.getReference(Const.FOLLOW_REFERENCE)
     var postReference           = firebaseDatabase.getReference(Const.ADD_POST_REFERENCE)
+    var savedReference          = firebaseDatabase.getReference(Const.SAVE_REFERENCE)
 
-    // get context
-    val context = application.applicationContext as Application
 
     fun checkFollowAndFollowingButtonsStatus(userModel: UserModel ){
         if( followingReference != null){
             followingReference.child(Const.getCurrentUser()).child(Const.CHILD_FOLLOWING).addValueEventListener(object : ValueEventListener{
                 override fun onDataChange(snapshot: DataSnapshot) {
                     if(snapshot.child(userModel.uid).exists()){
-                        tvAccountSetting.value = context.resources.getString(R.string.text_remove)
+                        tvAccountSetting.value = BaseApp.appContext.resources.getString(R.string.text_remove)
                     }else{
-                        tvAccountSetting.value = context.resources.getString(R.string.text_follow)
+                        tvAccountSetting.value = BaseApp.appContext.resources.getString(R.string.text_follow)
                     }
                 }
                 override fun onCancelled(error: DatabaseError) {
-                    Const.constToast(context,error.message)
+                    Const.constToast(BaseApp.appContext,error.message)
                 }
             })
         }
@@ -84,7 +94,7 @@ class ProfileViewModel(application: Application) : AndroidViewModel(application)
                 }
             }
             override fun onCancelled(error: DatabaseError) {
-                Const.constToast(context,error.message)
+                Const.constToast(BaseApp.appContext,error.message)
             }
         })
     }
@@ -100,7 +110,7 @@ class ProfileViewModel(application: Application) : AndroidViewModel(application)
                 }
             }
             override fun onCancelled(error: DatabaseError) {
-               Const.constToast(context,error.message)
+               Const.constToast(BaseApp.appContext,error.message)
             }
         })
     }
@@ -121,11 +131,9 @@ class ProfileViewModel(application: Application) : AndroidViewModel(application)
                     postListLiveData.value = postList
                 }
             }
-
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
+                Const.constToast(BaseApp.appContext,error.message)
             }
-
         })
     }
 
@@ -144,9 +152,53 @@ class ProfileViewModel(application: Application) : AndroidViewModel(application)
             }
 
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
+                Const.constToast(BaseApp.appContext,error.message)
+            }
+        })
+    }
+
+    // get post saved..
+    fun postListSaved(){
+        postSaved = ArrayList()
+        savedReference.child(Const.getCurrentUser()).addValueEventListener( object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if(snapshot.exists()){
+                    for(ds in snapshot.children){
+                        (postSaved as ArrayList<String>).add(ds.key!!)
+                    }
+                    readSaveData()
+                }
+            }
+            override fun onCancelled(error: DatabaseError) {
+                Const.constToast(BaseApp.appContext,error.message)
+            }
+        })
+    }
+
+    // read save data..
+    private fun readSaveData() {
+        postSavedList = ArrayList()
+        postReference.addValueEventListener(object : ValueEventListener{
+            @SuppressLint("NotifyDataSetChanged")
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if( snapshot.exists()){
+                    ( postSavedList as ArrayList<PostModel>).clear()
+                    for ( ds in snapshot.children){
+                        val post = ds.getValue(PostModel::class.java)!!
+                        for(key in postSaved!!){
+                            if( post.postId == key){
+                                ( postSavedList as ArrayList<PostModel>).add(post)
+                            }
+                        }
+                        postSavedLiveData.value = ( postSavedList as ArrayList<PostModel>)
+
+                    }
+                }
             }
 
+            override fun onCancelled(error: DatabaseError) {
+                Const.constToast(BaseApp.appContext,error.message)
+            }
         })
     }
 }

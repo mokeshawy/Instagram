@@ -120,7 +120,9 @@ class HomeFragment : Fragment() , PostOnClickListener{
 
                     viewHolder.binding.tvComments.setOnClickListener {
                         // send photo for post and profile image for user to comment fragment by bundle.
-                        val bundle = bundleOf(Const.BUNDLE_IMAGE_POST to postModel.postImage , Const.BUNDLE_POST_ID  to postModel.postId , Const.BUNDLE_IMAGE_PROFILE to user.image )
+                        val bundle = bundleOf(Const.BUNDLE_IMAGE_POST to postModel.postImage ,
+                            Const.BUNDLE_POST_ID  to postModel.postId ,
+                            Const.BUNDLE_IMAGE_PROFILE to user.image )
                         findNavController().navigate(R.id.action_homeFragment_to_commentFragment,bundle)
                     }
                 }
@@ -149,5 +151,22 @@ class HomeFragment : Fragment() , PostOnClickListener{
             }
         }
 
+        // save button.
+        viewHolder.binding.ivBtnSavePost.setOnClickListener {
+            if(viewHolder.binding.ivBtnSavePost.tag == "save"){
+                homeViewModel.savePost(postModel.postId)
+            }else{
+                homeViewModel.unSavePost(postModel.postId)
+            }
+        }
+
+        // call function for check save statue
+        homeViewModel.checkSaveStatue(postModel.postId,viewHolder.binding.ivBtnSavePost)
+
+        // get all user make like in post..
+        viewHolder.binding.tvLikes.setOnClickListener {
+            val bundle = bundleOf(Const.BUNDLE_TITLE to resources.getString(R.string.title_likes) , Const.BUNDLE_ID to postModel.postId)
+            findNavController().navigate(R.id.action_homeFragment_to_searchFragment,bundle)
+        }
     }
 }
