@@ -68,6 +68,18 @@ class ProfileFragment : Fragment() , MyPhotoOnClickLisrener{
             profileViewModel.tvShowBio.value        = mUserModel!!.bio
             Picasso.get().load(mUserModel!!.image).into(binding.ivUserProfile)
 
+            // show photo post..
+            profileViewModel.myPhoto(mUserModel!!.uid)
+            profileViewModel.postListLiveData.observe(viewLifecycleOwner, Observer {
+                binding.rvShowImagePost.adapter = MyPhotoAdapter(it,this)
+            })
+
+            // show data of saved post..
+            profileViewModel.postListSaved(mUserModel!!.uid)
+            profileViewModel.postSavedLiveData.observe(viewLifecycleOwner, Observer {
+                binding.rvShowImageSave.adapter = MyPhotoAdapter(it,this)
+            })
+
         }else{ // when user entry from profile page.
 
             // call function show user info in profile page.
@@ -86,6 +98,18 @@ class ProfileFragment : Fragment() , MyPhotoOnClickLisrener{
 
             // call function getFollowers.
             profileViewModel.getFollowers(Const.getCurrentUser())
+
+            // show photo post..
+            profileViewModel.myPhoto(Const.getCurrentUser())
+            profileViewModel.postListLiveData.observe(viewLifecycleOwner, Observer {
+                binding.rvShowImagePost.adapter = MyPhotoAdapter(it,this)
+            })
+
+            // show data of saved post..
+            profileViewModel.postListSaved(Const.getCurrentUser())
+            profileViewModel.postSavedLiveData.observe(viewLifecycleOwner, Observer {
+                binding.rvShowImageSave.adapter = MyPhotoAdapter(it,this)
+            })
         }
 
         binding.tvAccountSetting.setOnClickListener {
@@ -114,17 +138,6 @@ class ProfileFragment : Fragment() , MyPhotoOnClickLisrener{
             binding.rvShowImagePost.visibility = View.GONE
         }
 
-        // show photo post..
-        profileViewModel.myPhoto()
-        profileViewModel.postListLiveData.observe(viewLifecycleOwner, Observer {
-            binding.rvShowImagePost.adapter = MyPhotoAdapter(it,this)
-        })
-
-        // show data of saved post..
-        profileViewModel.postListSaved()
-        profileViewModel.postSavedLiveData.observe(viewLifecycleOwner, Observer {
-            binding.rvShowImageSave.adapter = MyPhotoAdapter(it,this)
-        })
 
         // call function for get number of post.
         profileViewModel.getTotalNumberOfPost()

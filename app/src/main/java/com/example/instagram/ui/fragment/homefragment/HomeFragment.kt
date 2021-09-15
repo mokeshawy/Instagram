@@ -2,6 +2,7 @@ package com.example.instagram.ui.fragment.homefragment
 
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -33,7 +34,7 @@ class HomeFragment : Fragment() , PostOnClickListener{
 
     lateinit var binding        : FragmentHomeBinding
     private val homeViewModel   : HomeViewModel by viewModels()
-    var postModel : PostModel? = null
+    var postModel               : PostModel? = null
     override fun onCreateView( inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
         // Inflate the layout for this fragment
         binding = FragmentHomeBinding.inflate(inflater)
@@ -79,12 +80,18 @@ class HomeFragment : Fragment() , PostOnClickListener{
 
         // when user come from profile page will show details for post when entry any post.
         if( arguments?.containsKey(Const.BUNDLE_POST_MODEL) == true){
+
             postModel = arguments?.getSerializable(Const.BUNDLE_POST_MODEL) as PostModel
 
+            Log.d("postID" ,"${postModel!!.postId}")
+            // call function for retrieve post details...
             homeViewModel.retrievePostsDetails(postModel!!.postId)
-            homeViewModel.postAdapterLiveData.observe(viewLifecycleOwner, Observer {
-                binding.recyclerViewHome.adapter = PostAdapter(it,this)
+            homeViewModel.postAdapterDetailsLiveData.observe(viewLifecycleOwner, Observer {
+                binding.recyclerViewHome.visibility = View.GONE
+                binding.recyclerViewDetailsPost.visibility = View.VISIBLE
+                binding.recyclerViewDetailsPost.adapter = PostAdapter(it,this)
             })
+
         }
     }
 

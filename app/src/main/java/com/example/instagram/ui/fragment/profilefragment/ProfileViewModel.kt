@@ -116,7 +116,7 @@ class ProfileViewModel : ViewModel() {
     }
 
     // fun get image from post in profile page.
-    fun myPhoto(){
+    fun myPhoto( uid : String){
         postList = ArrayList()
         postReference.addValueEventListener(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -124,7 +124,7 @@ class ProfileViewModel : ViewModel() {
                     postList.clear()
                     for (ds in snapshot.children){
                         val post = ds.getValue(PostModel::class.java)!!
-                        if( post.publishre == Const.getCurrentUser()){
+                        if( post.publishre == uid){
                             postList.add(post)
                         }
                     }
@@ -158,9 +158,9 @@ class ProfileViewModel : ViewModel() {
     }
 
     // get post saved..
-    fun postListSaved(){
+    fun postListSaved( uid : String){
         postSaved = ArrayList()
-        savedReference.child(Const.getCurrentUser()).addValueEventListener( object : ValueEventListener{
+        savedReference.child(uid).addValueEventListener( object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 if(snapshot.exists()){
                     for(ds in snapshot.children){

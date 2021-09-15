@@ -61,7 +61,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/swap_layout"
-            android:layout_marginBottom="30dp">
+            android:layout_marginBottom="50dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -72,6 +72,15 @@
                     android:id="@+id/recycler_view_home"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    app:stackFromEnd="true"
+                    app:reverseLayout="true"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_view_details_post"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
                     app:stackFromEnd="true"
                     app:reverseLayout="true"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>

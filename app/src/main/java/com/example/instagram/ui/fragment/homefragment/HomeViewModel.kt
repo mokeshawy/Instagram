@@ -1,6 +1,7 @@
 package com.example.instagram.ui.fragment.homefragment
 
 import android.annotation.SuppressLint
+import android.util.Log
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.lifecycle.MutableLiveData
@@ -22,6 +23,9 @@ class HomeViewModel : ViewModel() {
     var postAdapterLiveData     = MutableLiveData<ArrayList<PostModel>>()
     var postList                : MutableList<PostModel>? = null
     var followingList           : MutableList<PostModel>? = null
+
+    var postAdapterDetailsLiveData = MutableLiveData<ArrayList<PostModel>>()
+    var postDetailsList                : MutableList<PostModel>? = null
 
     var postAdapter : PostAdapter? = null
 
@@ -132,18 +136,19 @@ class HomeViewModel : ViewModel() {
 
     // function for show details for post from profile page.
     fun retrievePostsDetails(postId : String) {
-        postList = ArrayList()
+        postDetailsList = ArrayList()
         postReference.child(postId).addValueEventListener(object : ValueEventListener {
             @SuppressLint("NotifyDataSetChanged")
             override fun onDataChange(snapshot: DataSnapshot) {
-
-                postList!!.clear()
-
-                val post = snapshot.getValue(PostModel::class.java)!!
-                postList!!.add(post)
-
+                postDetailsList!!.clear()
+                if(snapshot.exists()){
+                    val post = snapshot.getValue(PostModel::class.java)!!
+                    if(post.postId == postId){
+                        postDetailsList!!.add(post)
+                    }
+                }
                 postAdapter?.notifyDataSetChanged()
-                postAdapterLiveData.value = postList as ArrayList<PostModel>
+                postAdapterDetailsLiveData.value = postDetailsList as ArrayList<PostModel>
 
             }
             override fun onCancelled(error: DatabaseError) {
