@@ -1,6 +1,6 @@
 package com.example.instagram.model
 
-class CommentModel (
+data class CommentModel (
 
     var comment : String = "",
     var publishre : String = "",

@@ -37,7 +37,7 @@ class SearchViewModel : ViewModel() {
     var userReference       = firebaseDatabase.getReference(Const.USER_REFERENCE)
     var followingReference  = firebaseDatabase.getReference(Const.FOLLOW_REFERENCE)
     var likeReference       = firebaseDatabase.getReference(Const.LIKES_REFERENCE)
-
+    var notificationRef     = firebaseDatabase.getReference(Const.NOTIFICATION_REFERENCE)
 
 
                                 /* operation of search page */
@@ -110,6 +110,9 @@ class SearchViewModel : ViewModel() {
                         followingReference.child(userModel.uid).child(Const.CHILD_FOLLOWERS).child(Const.getCurrentUser()).setValue(true)
                     }
                 }
+
+            // call function for add notification when any user started follow any another user.
+            addNotification(userModel.uid)
         }else{
             followingReference.child(Const.getCurrentUser()).child(Const.CHILD_FOLLOWING).child(userModel.uid).removeValue().addOnCompleteListener { task ->
                     if (task.isSuccessful) {
@@ -208,5 +211,19 @@ class SearchViewModel : ViewModel() {
                 Toast.makeText(BaseApp.appContext, error.message , Toast.LENGTH_SHORT).show()
             }
         })
+    }
+
+
+    private fun addNotification(userId : String ){
+
+        val notificationMap = HashMap<String , Any>()
+
+        notificationMap[Const.CHILD_USERID_NOTIFICATION]    = Const.getCurrentUser()
+        notificationMap[Const.CHILD_TEXT_NOTIFICATION]      = "started following you"
+        notificationMap[Const.CHILD_POST_ID_NOTIFICATION]   = ""
+        notificationMap[Const.CHILD_IS_POST_NOTIFICATION]   = false
+
+        notificationRef.child(userId).push().setValue(notificationMap)
+
     }
 }

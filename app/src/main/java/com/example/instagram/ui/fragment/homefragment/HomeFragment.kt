@@ -93,6 +93,21 @@ class HomeFragment : Fragment() , PostOnClickListener{
             })
 
         }
+
+        // when user come from notification page will show details for post when entry any post liked or commented.
+        if( arguments?.containsKey(Const.BUNDLE_POST_ID) == true){
+
+            val postId = arguments?.getString(Const.BUNDLE_POST_ID)
+
+            // call function for retrieve post details...
+            homeViewModel.retrievePostsDetails(postId.toString())
+            homeViewModel.postAdapterDetailsLiveData.observe(viewLifecycleOwner, Observer {
+                binding.recyclerViewHome.visibility = View.GONE
+                binding.recyclerViewDetailsPost.visibility = View.VISIBLE
+                binding.recyclerViewDetailsPost.adapter = PostAdapter(it,this)
+            })
+
+        }
     }
 
     // on click for post adapter.
@@ -120,7 +135,7 @@ class HomeFragment : Fragment() , PostOnClickListener{
                             Const.BUNDLE_POST_ID  to postModel.postId ,
                             Const.BUNDLE_IMAGE_PROFILE to user.image ,
                             Const.BUNDLE_USER_NAME to user.userName ,
-                            Const.BUNDLE_IMAGE_USER_POST_COMMENT to user.image)
+                            Const.BUNDLE_IMAGE_USER_POST_COMMENT to user.image , "publisherId" to postModel.publishre)
 
                        findNavController().navigate(R.id.action_homeFragment_to_commentFragment,bundle)
                     }
@@ -147,11 +162,15 @@ class HomeFragment : Fragment() , PostOnClickListener{
 
         // call function for get comment number from home viewModel.
         homeViewModel.numberOfComment(viewHolder.binding.tvComments,postModel.postId)
+
         // like button.
         viewHolder.binding.ivPostImageLikeBtn.setOnClickListener {
             if( viewHolder.binding.ivPostImageLikeBtn.tag == "Like"){
                 firebaseDatabase.getReference(Const.LIKES_REFERENCE)
                     .child(postModel.postId).child(Const.getCurrentUser()).setValue(true)
+
+                // call fun for like notification..
+                homeViewModel.addNotification(postModel.publishre,postModel.postId)
             }else{
                 firebaseDatabase.getReference(Const.LIKES_REFERENCE)
                     .child(postModel.postId).child(Const.getCurrentUser()).removeValue()

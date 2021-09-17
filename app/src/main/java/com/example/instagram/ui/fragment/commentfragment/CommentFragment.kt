@@ -50,9 +50,11 @@ class CommentFragment : Fragment() , CommentOnClickListener {
         // get user image profile from post adapter by bundle.
         val image = arguments?.getString(Const.BUNDLE_IMAGE_USER_POST_COMMENT)
 
+        val publisherId = arguments?.getString("publisherId")
+
         // btn add comment on post.
         binding.tvPostComment.setOnClickListener {
-            commentViewModel.addComment(postId.toString(),userName.toString(),image.toString())
+            commentViewModel.addComment(publisherId.toString(),postId.toString(),userName.toString(),image.toString())
         }
 
         commentViewModel.readComment(postId.toString())

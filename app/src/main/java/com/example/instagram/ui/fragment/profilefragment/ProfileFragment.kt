@@ -56,6 +56,7 @@ class ProfileFragment : Fragment() , MyPhotoOnClickLisrener{
             }else if(mUserModel!!.uid != Const.getCurrentUser()){
                 profileViewModel.checkFollowAndFollowingButtonsStatus(mUserModel!!)
             }
+
             // call function getFollowing.
             profileViewModel.getFollowings(mUserModel!!.uid)
 

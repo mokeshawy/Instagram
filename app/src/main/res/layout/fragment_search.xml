@@ -27,7 +27,8 @@
                 <RelativeLayout
                     android:id="@+id/relative_tool_bar"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/borders_background">
 
                     <ImageView
                         android:id="@+id/iv_search_icon"

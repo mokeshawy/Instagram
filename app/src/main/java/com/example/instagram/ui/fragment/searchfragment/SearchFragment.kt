@@ -75,7 +75,7 @@ class SearchFragment : Fragment() , UserOnClickListener{
 
             binding.relativeToolBar.visibility = View.GONE
 
-                    title   = arguments?.getString(Const.BUNDLE_TITLE).toString()
+            title   = arguments?.getString(Const.BUNDLE_TITLE).toString()
             id      = arguments?.getString(Const.BUNDLE_ID).toString()
 
 

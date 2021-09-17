@@ -51,6 +51,14 @@ object Const {
     // save reference.
     const val SAVE_REFERENCE = "save"
 
+    // notification reference..
+    const val NOTIFICATION_REFERENCE        = "notificationReference"
+    const val CHILD_USERID_NOTIFICATION     = "userid"
+    const val CHILD_TEXT_NOTIFICATION       = "text"
+    const val CHILD_POST_ID_NOTIFICATION    = "postId"
+    const val CHILD_IS_POST_NOTIFICATION    = "post"
+
+
     // follow btn
     const val BTN_FOLLOW = "Follow"
     const val BTN_FOLLOWING = "Following"

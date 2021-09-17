@@ -21,11 +21,12 @@ class CommentViewModel : ViewModel() {
 
     var commentAdapter : CommentAdapter? = null
 
-    var firebaseDatabase = FirebaseDatabase.getInstance()
-    var commentReference = firebaseDatabase.getReference(Const.COMMENT_REFERENCE)
+    var firebaseDatabase    = FirebaseDatabase.getInstance()
+    var commentReference    = firebaseDatabase.getReference(Const.COMMENT_REFERENCE)
+    var notificationRef     = firebaseDatabase.getReference(Const.NOTIFICATION_REFERENCE)
 
 
-    fun addComment( postId : String , userName : String , image : String){
+    fun addComment( publisherId: String , postId : String , userName : String , image : String){
 
         val map = HashMap<String , Any>()
         map[Const.CHILD_COMMENT]                    = etComment.value!!
@@ -34,6 +35,9 @@ class CommentViewModel : ViewModel() {
         map[Const.CHILD_IMAGE_USER_POST_COMMENT]    = image
 
         commentReference.child(postId).push().setValue(map)
+
+        // call fun for comment notification..
+        addNotification(publisherId , postId)
 
         etComment.value = ""
     }
@@ -60,5 +64,19 @@ class CommentViewModel : ViewModel() {
         })
     }
 
+    // add notification when commented post...
+    private fun addNotification(publisherId : String, postId: String){
 
+
+
+        val notificationMap = HashMap<String , Any>()
+
+        notificationMap[Const.CHILD_USERID_NOTIFICATION]    = Const.getCurrentUser()
+        notificationMap[Const.CHILD_TEXT_NOTIFICATION]      = "commented:" + etComment.value
+        notificationMap[Const.CHILD_POST_ID_NOTIFICATION]   = postId
+        notificationMap[Const.CHILD_IS_POST_NOTIFICATION]   = true
+
+        notificationRef.child(publisherId).push().setValue(notificationMap)
+
+    }
 }

@@ -46,6 +46,7 @@ class ProfileViewModel : ViewModel() {
     var followingReference      = firebaseDatabase.getReference(Const.FOLLOW_REFERENCE)
     var postReference           = firebaseDatabase.getReference(Const.ADD_POST_REFERENCE)
     var savedReference          = firebaseDatabase.getReference(Const.SAVE_REFERENCE)
+    var notificationRef         = firebaseDatabase.getReference(Const.NOTIFICATION_REFERENCE)
 
 
     fun checkFollowAndFollowingButtonsStatus(userModel: UserModel ){
@@ -70,6 +71,8 @@ class ProfileViewModel : ViewModel() {
         followingReference.child(Const.getCurrentUser()).child(Const.CHILD_FOLLOWING).child(userModel.uid).setValue(true).addOnCompleteListener { task ->
             if(task.isSuccessful){
                 followingReference.child(userModel.uid).child(Const.CHILD_FOLLOWERS).child(Const.getCurrentUser()).setValue(true)
+                // call function add notification when any user started follow from profile page..
+                addNotification(userModel.uid)
             }
         }
     }
@@ -200,5 +203,19 @@ class ProfileViewModel : ViewModel() {
                 Const.constToast(BaseApp.appContext,error.message)
             }
         })
+    }
+
+    // add notification when started following..
+    private fun addNotification( userId : String){
+
+        val notificationMap = HashMap<String , Any>()
+
+        notificationMap[Const.CHILD_USERID_NOTIFICATION]    = Const.getCurrentUser()
+        notificationMap[Const.CHILD_TEXT_NOTIFICATION]      = "started following you"
+        notificationMap[Const.CHILD_POST_ID_NOTIFICATION]   = ""
+        notificationMap[Const.CHILD_IS_POST_NOTIFICATION]   = true
+
+        notificationRef.child(userId).push().setValue(notificationMap)
+
     }
 }

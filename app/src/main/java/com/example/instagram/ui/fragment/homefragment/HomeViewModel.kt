@@ -36,6 +36,7 @@ class HomeViewModel : ViewModel() {
     var likeReference       = firebaseDatabase.getReference(Const.LIKES_REFERENCE)
     var commentReference    = firebaseDatabase.getReference(Const.COMMENT_REFERENCE)
     var saveReference       = firebaseDatabase.getReference(Const.SAVE_REFERENCE)
+    var notificationRef     = firebaseDatabase.getReference(Const.NOTIFICATION_REFERENCE)
 
 
     // get time line for follow user only.
@@ -184,5 +185,19 @@ class HomeViewModel : ViewModel() {
                 Const.constToast(BaseApp.appContext,error.message)
             }
         })
+    }
+
+    // add notification when liked post..
+    fun addNotification( userId : String , postId: String){
+
+        val notificationMap = HashMap<String , Any>()
+
+        notificationMap[Const.CHILD_USERID_NOTIFICATION]    = Const.getCurrentUser()
+        notificationMap[Const.CHILD_TEXT_NOTIFICATION]      = "liked your post"
+        notificationMap[Const.CHILD_POST_ID_NOTIFICATION]   = postId
+        notificationMap[Const.CHILD_IS_POST_NOTIFICATION]   = true
+
+        notificationRef.child(userId).push().setValue(notificationMap)
+
     }
 }

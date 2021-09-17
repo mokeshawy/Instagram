@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="6dp">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/iv_notification_profile_image"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/ic_profile_image" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_margin="5dp"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@id/iv_notification_profile_image"
+            android:layout_toStartOf="@id/iv_notification_post_image">
+
+            <TextView
+                android:id="@+id/tv_notification_user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mohamed Keshawy"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_notification"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="hi i'm here..." />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/iv_notification_post_image"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/default_image_add_post"
+            android:visibility="gone"
+            android:layout_alignParentEnd="true" />
+    </RelativeLayout>
+</layout>
